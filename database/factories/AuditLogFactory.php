@@ -19,7 +19,7 @@ class AuditLogFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'action' => fake()->stateAbbr(),
+            'action' => fake()->lexify(),
             'doc_number' => fake()->buildingNumber()
         ];
     }
