@@ -162,7 +162,7 @@ return [
     'starts_with' => 'يجب أن يبدأ حقل :attribute بأحد ما يلي: :values.',
     'string' => 'يجب أن يكون حقل :attribute نصًا.',
     'timezone' => 'يجب أن يكون حقل :attribute منطقة زمنية صالحة.',
-    'unique' => 'تم استخدام :attribute بالفعل.',
+    'unique' => 'موجود بالفعل.',
     'uploaded' => 'فشل رفع :attribute.',
     'uppercase' => 'يجب أن يكون حقل :attribute بأحرف كبيرة.',
     'url' => 'يجب أن يكون حقل :attribute رابطًا صالحًا.',
