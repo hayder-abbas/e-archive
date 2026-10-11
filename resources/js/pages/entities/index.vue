@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import Button from "@/components/ui/button/Button.vue";
+import AddEntity from "@/components/entity/AddEntity.vue";
+import DeleteEntity from "@/components/entity/DeleteEntity.vue";
+import EditEntity from "@/components/entity/EditEntity.vue";
 import Input from "@/components/ui/input/Input.vue";
 import entities from "@/routes/entities";
 import { Entity } from "@/types/entity";
 import { Head } from "@inertiajs/vue3";
-import { Edit, Plus, Trash } from "@lucide/vue";
 
 defineOptions({
   layout: {
@@ -28,8 +29,8 @@ const props = defineProps<{ entities: Entity[] }>();
       <!-- Search -->
       <Input :placeholder="$t('global.search_by_name')" />
 
-      <!-- New Entity Button -->
-      <Button><Plus />{{ $t("entity.new_entity") }}</Button>
+      <!-- Add Entity Dialog -->
+      <AddEntity />
     </div>
 
     <div
@@ -41,11 +42,10 @@ const props = defineProps<{ entities: Entity[] }>();
           <thead class="border-b">
             <tr class="grid grid-cols-12 pb-2">
               <th class="col-span-1">#</th>
-              <th class="col-span-7">{{ $t("entity.entity_name") }}</th>
+              <th class="col-span-7">{{ $t("entity.name") }}</th>
               <th class="col-span-4">{{ $t("entity.actions") }}</th>
             </tr>
           </thead>
-
           <tbody class="block pb-4">
             <tr
               v-for="(entity, index) in props.entities"
@@ -54,15 +54,12 @@ const props = defineProps<{ entities: Entity[] }>();
             >
               <td class="col-span-1 text-center">{{ index + 1 }}</td>
               <td class="col-span-7">{{ entity.name }}</td>
-              <td class="col-span-4 text-center space-x-2">
-                <Button variant="outline" size="sm">
-                  <Edit />
-                  {{ $t("global.edit_btn") }}
-                </Button>
-                <Button variant="destructive" size="sm">
-                  <Trash />
-                  {{ $t("global.delete_btn") }}
-                </Button>
+              <td class="col-span-4 flex gap-2 justify-center items-center">
+                <!-- Edit Entity Dialog -->
+                <EditEntity :entity="entity" />
+
+                <!-- Delete Entity Dialog -->
+                <DeleteEntity :entity="entity" />
               </td>
             </tr>
           </tbody>

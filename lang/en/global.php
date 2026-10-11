@@ -12,5 +12,7 @@ return [
     'open_btn' => 'Open',
     'edit_btn' => 'Edit',
     'delete_btn' => 'Delete',
-    '' => '',
+    'cancle_btn' => 'Cancle',
+    'add_btn' => 'Add',
+    'save_btn' => 'Save',
 ];

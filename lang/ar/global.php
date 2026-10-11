@@ -12,5 +12,7 @@ return [
     'open_btn' => 'فتح',
     'edit_btn' => 'تعديل',
     'delete_btn' => 'حذف',
-    '' => '',
+    'cancle_btn' => 'الغاء',
+    'add_btn' => 'اضافة',
+    'save_btn' => 'حفظ',
 ];
