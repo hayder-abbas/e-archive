@@ -6,6 +6,7 @@ import CardTitle from "../ui/card/CardTitle.vue";
 import CardContent from "../ui/card/CardContent.vue";
 import CardFooter from "../ui/card/CardFooter.vue";
 import Button from "../ui/button/Button.vue";
+import boxes from "@/routes/boxes/index.js";
 
 const props = defineProps<{ box: Box }>();
 </script>
@@ -19,14 +20,16 @@ const props = defineProps<{ box: Box }>();
 
     <!-- Box content -->
     <div class="flex flex-col items-center gap-4">
-      <CardContent class="text-sm font-semibold">{{ box.name }}</CardContent>
-      <CardContent class="text-sm font-semibold">{{ box.number }}</CardContent>
-      <CardContent class="text-sm font-semibold">{{ box.date }}</CardContent>
+      <CardContent class="text-sm font-semibold">{{ box.boxName }}</CardContent>
+      <CardContent class="text-sm font-semibold">
+        {{ box.boxNumber }}
+      </CardContent>
+      <CardContent class="text-sm font-semibold">{{ box.boxDate }}</CardContent>
     </div>
 
     <CardFooter class="w-full">
       <Button size="sm" variant="outline" class="w-full">
-        <Link href="#">{{ $t("global.open_btn") }}</Link>
+        <Link :href="boxes.show(box)">{{ $t("global.open_btn") }}</Link>
       </Button>
     </CardFooter>
   </Card>
