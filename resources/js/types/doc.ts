@@ -9,6 +9,6 @@ export type Doc = {
     type: string;
     security: string;
     description: string;
-    box: Box;
-    entity: Entity;
+    box?: Box;
+    entity?: Entity;
 };

@@ -79,7 +79,12 @@ const props = defineProps<{
     <div
       class="relative min-h-screen grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-2 p-4 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border overflow-hidden"
     >
-      <DocumentCard v-for="doc in props.docs.data" :key="doc.id" :doc="doc" />
+      <DocumentCard
+        v-for="doc in props.docs.data"
+        :key="doc.id"
+        :doc="doc"
+        :box="box"
+      />
     </div>
   </div>
 </template>

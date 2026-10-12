@@ -43,7 +43,7 @@ const props = defineProps<{ boxes: { data: Box[] } }>();
 
     <!-- Boxes -->
     <div
-      class="relative min-h-screen grid md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-4 p-4 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border overflow-hidden"
+      class="relative min-h-screen grid md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 gap-4 p-4 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border overflow-hidden"
     >
       <BoxCard v-for="box in props.boxes.data" :key="box.id" :box="box" />
     </div>

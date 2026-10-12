@@ -6,8 +6,6 @@ use App\Http\Requests\StoreBoxRequest;
 use App\Http\Requests\UpdateBoxRequest;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Box;
-use App\Models\Doc;
-use Inertia\Inertia;
 
 class BoxController extends Controller
 {
@@ -15,8 +13,8 @@ class BoxController extends Controller
     {
         return inertia('boxes/index', [
             'boxes' => Box::query()
-                ->latest('box_date')
-                ->paginate(30)
+                ->latest('id')
+                ->paginate(25)
                 ->toResourceCollection()
         ]);
     }
@@ -34,11 +32,9 @@ class BoxController extends Controller
     {
         Gate::authorize('view', $box);
         return inertia('boxes/Show', [
-            'docs' => Doc::query()
-                ->with('box')
-                ->where('box_id', $box->id)
-                ->latest('date')
-                ->paginate(30)
+            'docs' => $box->docs()
+                ->latest('id')
+                ->paginate(25)
                 ->toResourceCollection(),
             'box' => $box->toResource()
         ]);
@@ -58,6 +54,6 @@ class BoxController extends Controller
     {
         Gate::authorize('delete', $box);
         $box->delete();
-        return redirect(route('boxes.index'));
+        return to_route('boxes.index');
     }
 }
