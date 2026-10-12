@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link } from "@inertiajs/vue3";
-import { Doc } from "@/types/index.js";
+import { Box, Doc } from "@/types/index.js";
+import { ref } from "vue";
 import Card from "../ui/card/Card.vue";
 import CardHeader from "../ui/card/CardHeader.vue";
 import CardTitle from "../ui/card/CardTitle.vue";
@@ -8,7 +9,14 @@ import CardContent from "../ui/card/CardContent.vue";
 import CardFooter from "../ui/card/CardFooter.vue";
 import Button from "../ui/button/Button.vue";
 
-const props = defineProps<{ doc: Doc }>();
+const props = defineProps<{
+  doc: Doc;
+  box?: Box;
+}>();
+
+const boxNumber = props.box
+  ? ref(props.box.boxNumber)
+  : ref(props.doc.box?.boxNumber);
 </script>
 
 <template>
@@ -30,7 +38,7 @@ const props = defineProps<{ doc: Doc }>();
 
       <div class="flex justify-between items-center text-amber-600">
         <div>{{ $t("docs.box_no") }}:</div>
-        <div>{{ doc.box.boxNumber }}</div>
+        <div>{{ boxNumber }}</div>
       </div>
     </CardContent>
 
