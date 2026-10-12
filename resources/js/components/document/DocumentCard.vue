@@ -30,7 +30,7 @@ const props = defineProps<{ doc: Doc }>();
 
       <div class="flex justify-between items-center text-amber-600">
         <div>{{ $t("docs.box_no") }}:</div>
-        <div>{{ doc.box.number }}</div>
+        <div>{{ doc.box.boxNumber }}</div>
       </div>
     </CardContent>
 

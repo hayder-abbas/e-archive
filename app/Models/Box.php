@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
- * @property string $name
- * @property string $number
- * @property Carbon|null $date
+ * @property string $box_name
+ * @property string $box_number
+ * @property Carbon|null $box_date
  */
 
-#[Fillable('name', 'number', 'date')]
+#[Fillable('box_name', 'box_number', 'box_date')]
 class Box extends Model
 {
     /** @use HasFactory<\Database\Factories\BoxFactory> */

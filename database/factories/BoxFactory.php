@@ -18,9 +18,9 @@ class BoxFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->unique()->firstName(),
-            'number' => fake()->unique()->buildingNumber(),
-            'date' => fake()->date(),
+            'box_name' => fake()->unique()->firstName(),
+            'box_number' => fake()->unique()->buildingNumber(),
+            'box_date' => fake()->date(),
         ];
     }
 }

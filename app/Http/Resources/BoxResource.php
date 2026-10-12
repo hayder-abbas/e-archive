@@ -16,9 +16,9 @@ class BoxResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'number' => $this->number,
-            'date' => $this->date,
+            'boxName' => $this->box_name,
+            'boxNumber' => $this->box_number,
+            'boxDate' => $this->box_date,
         ];
     }
 }

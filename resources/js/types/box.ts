@@ -1,6 +1,6 @@
 export type Box = {
     id: number;
-    name: string;
-    number: string;
-    date: string;
+    boxName: string;
+    boxNumber: string;
+    boxDate: string;
 };

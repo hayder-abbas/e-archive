@@ -10,9 +10,9 @@ return new class extends Migration
     {
         Schema::create('boxes', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255)->unique();
-            $table->string('number', 10)->unique();
-            $table->date('date');
+            $table->string('box_name', 255);
+            $table->string('box_number', 10)->unique();
+            $table->date('box_date');
             $table->timestamps();
         });
     }

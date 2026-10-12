@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import BoxCard from "@/components/boxes/BoxCard.vue";
+import AddBox from "@/components/box/AddBox.vue";
+import BoxCard from "@/components/box/BoxCard.vue";
 import SearchByDate from "@/components/global/SearchByDate.vue";
-import Button from "@/components/ui/button/Button.vue";
 import Input from "@/components/ui/input/Input.vue";
 import boxes from "@/routes/boxes";
 import { Box } from "@/types/box";
-import { Head, Link } from "@inertiajs/vue3";
-import { Plus } from "@lucide/vue";
+import { Head } from "@inertiajs/vue3";
 
 defineOptions({
   layout: {
@@ -37,11 +36,8 @@ const props = defineProps<{ boxes: { data: Box[] } }>();
         <!-- Search by box number -->
         <Input :placeholder="$t('global.search_by_number')" />
 
-        <!-- Add new box button -->
-        <Button class="flex items-center">
-          <Plus />
-          <Link href="#">{{ $t("box.new_box_btn") }}</Link>
-        </Button>
+        <!-- Add box button -->
+        <AddBox />
       </div>
     </div>
 
