@@ -1,11 +1,23 @@
 <?php
 
 return [
-    'name' => 'الاسم',
+    'user_id' => 'المعرف',
+    'username' => 'الاسم',
     'action' => 'العملية',
-    'document' => 'الكتاب',
-    'date' => 'التاريخ',
-    'clear_btn' => 'حذف الكل',
+    'target_type' => 'النوع',
+    'target_number' => 'العدد',
+    'date' => 'الوقت',
     'confirm_title' => 'ستقوم بمسح جميع سجلات التدقيق!',
+    // Actions
+    'add' => 'اضافة',
+    'edit' => 'تعديل',
+    'delete' => 'حذف',
+    // Types
+    'entity' => 'الجهة',
+    'box' => 'الاضبارة',
+    'borrow' => 'الاستعارة',
+    'document' => 'الكتاب',
+
+    'clear_btn' => 'حذف الكل',
     '' => '',
 ];

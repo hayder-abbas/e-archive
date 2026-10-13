@@ -45,12 +45,20 @@ const props = defineProps<{ auditLogs: { data: AuditLogs[] } }>();
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead class="text-start">#</TableHead>
             <TableHead class="text-start">
-              {{ $t("audit_logs.name") }}
+              {{ $t("audit_logs.user_id") }}
+            </TableHead>
+            <TableHead class="text-start">
+              {{ $t("audit_logs.username") }}
             </TableHead>
             <TableHead class="text-start">
               {{ $t("audit_logs.action") }}
+            </TableHead>
+            <TableHead class="text-start">
+              {{ $t("audit_logs.target_type") }}
+            </TableHead>
+            <TableHead class="text-start">
+              {{ $t("audit_logs.target_number") }}
             </TableHead>
             <TableHead class="text-start">
               {{ $t("audit_logs.date") }}
@@ -59,9 +67,11 @@ const props = defineProps<{ auditLogs: { data: AuditLogs[] } }>();
         </TableHeader>
         <TableBody>
           <TableRow v-for="audit in props.auditLogs.data" :key="audit.id">
-            <TableCell>{{ audit.id }}</TableCell>
-            <TableCell>{{ audit.name }}</TableCell>
-            <TableCell>{{ audit.action }}</TableCell>
+            <TableCell>{{ audit.userId }}</TableCell>
+            <TableCell>{{ audit.username }}</TableCell>
+            <TableCell>{{ $t(`audit_logs.${audit.action}`) }}</TableCell>
+            <TableCell>{{ $t(`audit_logs.${audit.targetType}`) }}</TableCell>
+            <TableCell>{{ audit.targetNumber }}</TableCell>
             <TableCell>
               {{ new Date(audit.createdAt).toLocaleString() }}
             </TableCell>

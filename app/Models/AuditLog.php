@@ -8,11 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $name
+ * @property int $user_id
+ * @property string $username
  * @property string $action
+ * @property string $target_type
+ * @property string $target_number
  */
 
-#[Fillable('name', 'action')]
+#[Fillable('user_id', 'username', 'action', 'target_type', 'target_number')]
 class AuditLog extends Model
 {
     /** @use HasFactory<\Database\Factories\AuditLogFactory> */

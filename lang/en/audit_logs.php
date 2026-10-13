@@ -1,11 +1,23 @@
 <?php
 
 return [
-    'name' => 'Name',
+    'user_id' => 'User ID',
+    'username' => 'Username',
     'action' => 'Action',
-    'document' => 'Document',
+    'target_type' => 'Type',
+    'target_number' => 'Number',
     'date' => 'Date',
-    'clear_btn' => 'Clear',
     'confirm_title' => 'You will clear all audit logs!',
+    // Actions
+    'add' => 'add',
+    'edit' => 'edit',
+    'delete' => 'delete',
+    // Types
+    'entity' => 'entity',
+    'box' => 'box',
+    'borrow' => 'borrow',
+    'document' => 'document',
+
+    'clear_btn' => 'Clear',
     '' => '',
 ];
