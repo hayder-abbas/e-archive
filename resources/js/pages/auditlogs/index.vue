@@ -53,9 +53,6 @@ const props = defineProps<{ auditLogs: { data: AuditLogs[] } }>();
               {{ $t("audit_logs.action") }}
             </TableHead>
             <TableHead class="text-start">
-              {{ $t("audit_logs.document") }}
-            </TableHead>
-            <TableHead class="text-start">
               {{ $t("audit_logs.date") }}
             </TableHead>
           </TableRow>
@@ -65,7 +62,6 @@ const props = defineProps<{ auditLogs: { data: AuditLogs[] } }>();
             <TableCell>{{ audit.id }}</TableCell>
             <TableCell>{{ audit.name }}</TableCell>
             <TableCell>{{ audit.action }}</TableCell>
-            <TableCell>{{ audit.docNumber }}</TableCell>
             <TableCell>{{ audit.createdAt }}</TableCell>
           </TableRow>
         </TableBody>

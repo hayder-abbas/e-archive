@@ -11,8 +11,7 @@ return new class extends Migration
         Schema::create('audit_logs', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
-            $table->string('action', 10);
-            $table->string('doc_number', 10);
+            $table->string('action', 255);
             $table->timestamps();
         });
     }

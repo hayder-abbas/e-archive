@@ -23,7 +23,8 @@ class StoreAuditLogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['reqired', 'string', 'min:1', 'max:255'],
+            'action' => ['reqired', 'string', 'min:1', 'max:255'],
         ];
     }
 }

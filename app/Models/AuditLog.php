@@ -10,10 +10,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $name
  * @property string $action
- * @property string $doc_number
  */
 
-#[Fillable('name', 'action', 'doc_number')]
+#[Fillable('name', 'action')]
 class AuditLog extends Model
 {
     /** @use HasFactory<\Database\Factories\AuditLogFactory> */
