@@ -12,7 +12,7 @@ class UpdateBorrowRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,10 @@ class UpdateBorrowRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'lender' => ['required', 'string', 'min:2', 'max:255'],
+            'borrower' => ['required', 'string', 'min:2', 'max:255'],
+            'doc_number' => ['required', 'string', 'min:1', 'max:10'],
+            'date' => ['required', 'date'],
         ];
     }
 }

@@ -1,13 +1,19 @@
 <script setup lang="ts">
-import BorrowCard from "@/components/borrow/BorrowCard.vue";
+import AddBorrow from "@/components/borrow/AddBorrow.vue";
+import DeleteBorrow from "@/components/borrow/DeleteBorrow.vue";
+import EditBorrow from "@/components/borrow/EditBorrow.vue";
 import FilterByType from "@/components/global/FilterByType.vue";
 import SearchByDate from "@/components/global/SearchByDate.vue";
-import Button from "@/components/ui/button/Button.vue";
 import Input from "@/components/ui/input/Input.vue";
+import Table from "@/components/ui/table/Table.vue";
+import TableBody from "@/components/ui/table/TableBody.vue";
+import TableCell from "@/components/ui/table/TableCell.vue";
+import TableHead from "@/components/ui/table/TableHead.vue";
+import TableHeader from "@/components/ui/table/TableHeader.vue";
+import TableRow from "@/components/ui/table/TableRow.vue";
 import borrows from "@/routes/borrows";
 import { Borrow } from "@/types/borrow";
-import { Head, Link } from "@inertiajs/vue3";
-import { Plus } from "@lucide/vue";
+import { Head } from "@inertiajs/vue3";
 
 defineOptions({
   layout: {
@@ -29,13 +35,9 @@ const props = defineProps<{ borrows: { data: Borrow[] } }>();
   <div class="flex h-full flex-col gap-4 overflow-x-auto rounded-xl p-4">
     <!-- Add new borrow button -->
     <div class="flex justify-end items-center">
-      <Button>
-        <Plus />
-        <Link href="#">{{ $t("borrow.new_borrow_btn") }}</Link>
-      </Button>
+      <AddBorrow />
     </div>
 
-    <!-- Document Search -->
     <div
       class="flex flex-wrap justify-between gap-4 flex-col lg:flex-row lg:items-center"
     >
@@ -53,13 +55,39 @@ const props = defineProps<{ borrows: { data: Borrow[] } }>();
 
     <!-- Documents -->
     <div
-      class="relative min-h-screen grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-4 p-4 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border overflow-hidden"
+      class="relative min-h-screen p-4 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border overflow-hidden"
     >
-      <BorrowCard
-        v-for="borrow in props.borrows.data"
-        :key="borrow.id"
-        :borrow="borrow"
-      />
+      <Table class="w-full">
+        <TableHeader>
+          <TableRow class="text-start">
+            <TableHead class="text-start">#</TableHead>
+            <TableHead class="text-start">{{ $t("borrow.lender") }}</TableHead>
+            <TableHead class="text-start">
+              {{ $t("borrow.borrower") }}
+            </TableHead>
+            <TableHead class="text-start">
+              {{ $t("borrow.document") }}
+            </TableHead>
+            <TableHead class="text-start">{{ $t("borrow.date") }}</TableHead>
+            <TableHead class="text-start">{{ $t("borrow.actions") }}</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow v-for="(b, index) in props.borrows.data" :key="b.id">
+            <TableCell>{{ index + 1 }}</TableCell>
+            <TableCell>{{ b.lender }}</TableCell>
+            <TableCell>{{ b.borrower }}</TableCell>
+            <TableCell>{{ b.docNumber }}</TableCell>
+            <TableCell>{{ b.date }}</TableCell>
+            <TableCell class="space-x-2">
+              <!-- Edit Borrow -->
+              <EditBorrow :borrow="b" />
+              <!-- Delete Borrow -->
+              <DeleteBorrow :borrow="b" />
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   </div>
 </template>
