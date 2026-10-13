@@ -18,7 +18,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('docs', DocController::class);
     Route::resource('attachments', AttachmentController::class);
     Route::resource('borrows', BorrowController::class);
-    Route::resource('audit-logs', AuditLogController::class);
+
+    Route::controller(AuditLogController::class)->group(function () {
+        Route::get('/audit-logs', 'index')->name('audit-logs.index');
+        Route::post('/audit-logs', 'store')->name('audit-logs.store');
+        Route::delete('/audit-logs', 'destroy')->name('audit-logs.destroy');
+    });
 });
 
 Route::put('/settings/locale', SetLocaleContruller::class)->name('settings.local');

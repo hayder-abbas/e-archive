@@ -1,6 +1,12 @@
 <script setup lang="ts">
-import Button from "@/components/ui/button/Button.vue";
+import ClearLogs from "@/components/auditLogs/ClearLogs.vue";
 import Input from "@/components/ui/input/Input.vue";
+import Table from "@/components/ui/table/Table.vue";
+import TableBody from "@/components/ui/table/TableBody.vue";
+import TableCell from "@/components/ui/table/TableCell.vue";
+import TableHead from "@/components/ui/table/TableHead.vue";
+import TableHeader from "@/components/ui/table/TableHeader.vue";
+import TableRow from "@/components/ui/table/TableRow.vue";
 import auditLogs from "@/routes/audit-logs";
 import { AuditLogs } from "@/types/auditlog";
 import { Head } from "@inertiajs/vue3";
@@ -29,40 +35,41 @@ const props = defineProps<{ auditLogs: { data: AuditLogs[] } }>();
       <Input :placeholder="$t('global.search_by_number')" />
 
       <!-- Clear Logs -->
-      <Button variant="destructive">{{ $t("audit_logs.clear_btn") }}</Button>
+      <ClearLogs />
     </div>
 
     <div
       class="relative min-h-screen p-4 flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border"
     >
-      <!-- Logs Table -->
-      <div>
-        <table class="w-full">
-          <thead class="border-b">
-            <tr class="grid grid-cols-12 pb-2">
-              <th class="col-span-1">#</th>
-              <th class="col-span-4">{{ $t("audit_logs.name") }}</th>
-              <th class="col-span-2">{{ $t("audit_logs.action") }}</th>
-              <th class="col-span-2">{{ $t("audit_logs.document") }}</th>
-              <th class="col-span-3">{{ $t("audit_logs.date") }}</th>
-            </tr>
-          </thead>
-
-          <tbody class="block pb-4 text-sm">
-            <tr
-              v-for="(audit, index) in props.auditLogs.data"
-              :key="audit.id"
-              class="grid grid-cols-12 py-2 border-b leading-7"
-            >
-              <td class="col-span-1 text-center">{{ index + 1 }}</td>
-              <td class="col-span-4 text-center">{{ audit.name }}</td>
-              <td class="col-span-2 text-center">{{ audit.action }}</td>
-              <td class="col-span-2 text-center">{{ audit.docNumber }}</td>
-              <td class="col-span-3 text-center">{{ audit.createdAt }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <!-- Audit Logs Table -->
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead class="text-start">#</TableHead>
+            <TableHead class="text-start">
+              {{ $t("audit_logs.name") }}
+            </TableHead>
+            <TableHead class="text-start">
+              {{ $t("audit_logs.action") }}
+            </TableHead>
+            <TableHead class="text-start">
+              {{ $t("audit_logs.document") }}
+            </TableHead>
+            <TableHead class="text-start">
+              {{ $t("audit_logs.date") }}
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow v-for="audit in props.auditLogs.data" :key="audit.id">
+            <TableCell>{{ audit.id }}</TableCell>
+            <TableCell>{{ audit.name }}</TableCell>
+            <TableCell>{{ audit.action }}</TableCell>
+            <TableCell>{{ audit.docNumber }}</TableCell>
+            <TableCell>{{ audit.createdAt }}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   </div>
 </template>

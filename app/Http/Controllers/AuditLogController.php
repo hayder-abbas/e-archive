@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAuditLogRequest;
-use App\Http\Requests\UpdateAuditLogRequest;
 use App\Models\AuditLog;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class AuditLogController extends Controller
 {
@@ -12,57 +13,25 @@ class AuditLogController extends Controller
     {
         return inertia('auditlogs/index', [
             'auditLogs' => AuditLog::query()
-                ->latest('updated_at')
+                ->latest('id')
                 ->paginate(50)
                 ->toResourceCollection()
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreAuditLogRequest $request)
     {
-        //
+        Gate::authorize('create', AuditLog::class);
+        AuditLog::create($request->validated());
+        return response('ok', 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(AuditLog $auditLog)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(AuditLog $auditLog)
+    public function destroy()
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateAuditLogRequest $request, AuditLog $auditLog)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(AuditLog $auditLog)
-    {
-        //
+        Gate::authorize('delete', AuditLog::class);
+        DB::delete('truncate table audit_logs');
+        return back();
     }
 }
