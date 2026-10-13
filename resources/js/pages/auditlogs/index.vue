@@ -62,7 +62,9 @@ const props = defineProps<{ auditLogs: { data: AuditLogs[] } }>();
             <TableCell>{{ audit.id }}</TableCell>
             <TableCell>{{ audit.name }}</TableCell>
             <TableCell>{{ audit.action }}</TableCell>
-            <TableCell>{{ audit.createdAt }}</TableCell>
+            <TableCell>
+              {{ new Date(audit.createdAt).toLocaleString() }}
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>

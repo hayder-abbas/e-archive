@@ -18,8 +18,8 @@ class AuditLogResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'action' => $this->action,
-            'createdAt' => $this->created_at?->format('Y-m-d H:m'),
-            'updatedAt' => $this->updated_at?->format('Y-m-d H:m'),
+            'createdAt' => $this->created_at,
+            'updatedAt' => $this->updated_at,
         ];
     }
 }
