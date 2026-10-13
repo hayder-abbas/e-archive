@@ -16,9 +16,8 @@ const props = defineProps<{ entity: Entity }>();
 <template>
   <Dialog>
     <DialogTrigger as-child>
-      <Button variant="destructive" size="sm" data-test="delete-entity-button">
+      <Button variant="destructive" size="icon-sm">
         <Trash />
-        {{ $t("global.delete_btn") }}
       </Button>
     </DialogTrigger>
 
