@@ -7,12 +7,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreBorrowRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +20,10 @@ class StoreBorrowRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'lender' => ['required', 'string', 'min:2', 'max:255'],
+            'borrower' => ['required', 'string', 'min:2', 'max:255'],
+            'doc_number' => ['required', 'string', 'min:1', 'max:10'],
+            'date' => ['required', 'date'],
         ];
     }
 }

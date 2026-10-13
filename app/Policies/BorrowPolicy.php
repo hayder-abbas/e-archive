@@ -24,33 +24,25 @@ class BorrowPolicy
         return false;
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
+
     public function create(User $user): bool
     {
-        return false;
+        return $user->isAdmin();
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
+
     public function update(User $user, Borrow $borrow): bool
     {
-        return false;
+        return $user->isAdmin();
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
+
     public function delete(User $user, Borrow $borrow): bool
     {
-        return false;
+        return $user->isAdmin();
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
+
     public function restore(User $user, Borrow $borrow): bool
     {
         return false;

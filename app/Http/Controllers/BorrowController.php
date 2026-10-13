@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBorrowRequest;
 use App\Http\Requests\UpdateBorrowRequest;
 use App\Models\Borrow;
+use Illuminate\Support\Facades\Gate;
 
 class BorrowController extends Controller
 {
@@ -12,57 +13,34 @@ class BorrowController extends Controller
     {
         return inertia('borrows/index', [
             'borrows' => Borrow::query()
-                ->latest('date')
-                ->paginate(30)
+                ->latest('id')
+                ->paginate(25)
                 ->toResourceCollection()
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreBorrowRequest $request)
     {
-        //
+        Gate::authorize('create', Borrow::class);
+        Borrow::create($request->validated());
+        return back();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Borrow $borrow)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Borrow $borrow)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateBorrowRequest $request, Borrow $borrow)
     {
-        //
+        Gate::authorize('update', $borrow);
+        $borrow->fill($request->validated());
+        $borrow->save();
+        return back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Borrow $borrow)
     {
-        //
+        Gate::authorize('delete', $borrow);
+        $borrow->delete();
+        return back();
     }
 }
