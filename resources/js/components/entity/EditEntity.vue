@@ -20,13 +20,8 @@ const props = defineProps<{ entity: Entity }>();
 <template>
   <Dialog>
     <DialogTrigger>
-      <Button
-        variant="outline"
-        class="cursor-pointer"
-        data-test="edit-entity-button"
-      >
+      <Button variant="outline" size="icon-sm" class="cursor-pointer">
         <Edit />
-        {{ $t("entity.edit") }}
       </Button>
     </DialogTrigger>
 

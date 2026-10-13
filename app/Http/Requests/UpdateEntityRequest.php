@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateEntityRequest extends FormRequest
 {
@@ -20,7 +21,14 @@ class UpdateEntityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ['required', 'string', 'min:4', 'max:255', 'unique:entities']
+            "name" => [
+                'required',
+                'string',
+                'min:4',
+                'max:255',
+                Rule::unique('entities', 'name')
+                    ->ignore($this->route('entity'))
+            ]
         ];
     }
 }

@@ -3,6 +3,12 @@ import AddEntity from "@/components/entity/AddEntity.vue";
 import DeleteEntity from "@/components/entity/DeleteEntity.vue";
 import EditEntity from "@/components/entity/EditEntity.vue";
 import Input from "@/components/ui/input/Input.vue";
+import Table from "@/components/ui/table/Table.vue";
+import TableBody from "@/components/ui/table/TableBody.vue";
+import TableCell from "@/components/ui/table/TableCell.vue";
+import TableHead from "@/components/ui/table/TableHead.vue";
+import TableHeader from "@/components/ui/table/TableHeader.vue";
+import TableRow from "@/components/ui/table/TableRow.vue";
 import entities from "@/routes/entities";
 import { Entity } from "@/types/entity";
 import { Head } from "@inertiajs/vue3";
@@ -37,34 +43,29 @@ const props = defineProps<{ entities: Entity[] }>();
       class="relative min-h-screen p-4 flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border"
     >
       <!-- Entities Table -->
-      <div>
-        <table class="w-full">
-          <thead class="border-b">
-            <tr class="grid grid-cols-12 pb-2">
-              <th class="col-span-1">#</th>
-              <th class="col-span-7">{{ $t("entity.name") }}</th>
-              <th class="col-span-4">{{ $t("entity.actions") }}</th>
-            </tr>
-          </thead>
-          <tbody class="block pb-4">
-            <tr
-              v-for="(entity, index) in props.entities"
-              :key="entity.id"
-              class="grid grid-cols-12 py-2 border-b leading-7"
-            >
-              <td class="col-span-1 text-center">{{ index + 1 }}</td>
-              <td class="col-span-7">{{ entity.name }}</td>
-              <td class="col-span-4 flex gap-2 justify-center items-center">
-                <!-- Edit Entity Dialog -->
-                <EditEntity :entity="entity" />
-
-                <!-- Delete Entity Dialog -->
-                <DeleteEntity :entity="entity" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <Table class="w-full">
+        <TableHeader>
+          <TableRow class="text-start">
+            <TableHead class="text-start">#</TableHead>
+            <TableHead class="text-start">{{ $t("entity.name") }}</TableHead>
+            <TableHead class="text-center">
+              {{ $t("entity.actions") }}
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow v-for="entity in props.entities" :key="entity.id">
+            <TableCell>{{ entity.id }}</TableCell>
+            <TableCell>{{ entity.name }}</TableCell>
+            <TableCell class="flex justify-center items-center gap-2">
+              <!-- Edit Borrow -->
+              <EditEntity :entity="entity" />
+              <!-- Delete Borrow -->
+              <DeleteEntity :entity="entity" />
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   </div>
 </template>
