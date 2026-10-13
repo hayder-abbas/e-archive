@@ -23,7 +23,11 @@ class StoreAuditLogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id' => ['nullable', 'exists:users'],
+            'username' => ['reqired', 'string', 'min:1', 'max:50'],
+            'action' => ['reqired', 'string', 'min:1', 'max:20'],
+            'target_type' => ['reqired', 'string', 'min:1', 'max:20'],
+            'target_number' => ['reqired', 'string', 'min:1', 'max:20'],
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\AuditLog;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,9 +19,11 @@ class AuditLogFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'action' => fake()->lexify(),
-            'doc_number' => fake()->buildingNumber()
+            'user_id' => User::factory(),
+            'username' => fake()->name(),
+            'action' => fake()->word(),
+            'target_type' => fake()->word(),
+            'target_number' => fake()->word(),
         ];
     }
 }

@@ -16,11 +16,13 @@ class AuditLogResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'userId' => $this->user_id,
+            'username' => $this->username,
             'action' => $this->action,
-            'docNumber' => $this->doc_number,
-            'createdAt' => $this->created_at?->format('Y-m-d H:m'),
-            'updatedAt' => $this->updated_at?->format('Y-m-d H:m'),
+            'targetType' => $this->target_type,
+            'targetNumber' => $this->target_number,
+            'createdAt' => $this->created_at,
+            'updatedAt' => $this->updated_at,
         ];
     }
 }

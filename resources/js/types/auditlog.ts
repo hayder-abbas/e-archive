@@ -1,8 +1,10 @@
 export type AuditLogs = {
     id: number;
-    name: string;
+    userId: number;
+    username: string;
     action: string;
-    docNumber: string;
+    targetType: string;
+    targetNumber: string;
     createdAt: string;
     updatedAt: string;
 };

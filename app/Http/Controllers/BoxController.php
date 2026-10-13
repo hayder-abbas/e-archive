@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\AuditAction;
+use App\Enums\AuditTarget;
 use App\Http\Requests\StoreBoxRequest;
 use App\Http\Requests\UpdateBoxRequest;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Box;
+use App\Services\AuditLogger;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BoxController extends Controller
 {
@@ -23,7 +28,17 @@ class BoxController extends Controller
     public function store(StoreBoxRequest $request)
     {
         Gate::authorize('create', Box::class);
-        Box::create($request->validated());
+
+        DB::transaction(function () use ($request) {
+            $newBox = Box::create($request->validated());
+            AuditLogger::record(
+                Auth::user(),
+                AuditAction::Add,
+                AuditTarget::Box,
+                $newBox->box_number
+            );
+        });
+
         return back();
     }
 
@@ -44,8 +59,18 @@ class BoxController extends Controller
     public function update(UpdateBoxRequest $request, Box $box)
     {
         Gate::authorize('update', $box);
-        $box->fill($request->validated());
-        $box->save();
+
+        DB::transaction(function () use ($request, $box) {
+            $box->fill($request->validated());
+            $box->save();
+            AuditLogger::record(
+                Auth::user(),
+                AuditAction::Edit,
+                AuditTarget::Box,
+                $box->box_number
+            );
+        });
+
         return back();
     }
 
@@ -53,7 +78,17 @@ class BoxController extends Controller
     public function destroy(Box $box)
     {
         Gate::authorize('delete', $box);
-        $box->delete();
+
+        DB::transaction(function () use ($box) {
+            $box->delete();
+            AuditLogger::record(
+                Auth::user(),
+                AuditAction::Delete,
+                AuditTarget::Box,
+                $box->box_number
+            );
+        });
+
         return to_route('boxes.index');
     }
 }

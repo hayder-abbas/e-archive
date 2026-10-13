@@ -31,7 +31,8 @@ class EntityController extends Controller
     public function update(UpdateEntityRequest $request, Entity $entity)
     {
         Gate::authorize('update', $entity);
-        $entity->update($request->validated());
+        $entity->fill($request->validated());
+        $entity->save();
         return back();
     }
 
