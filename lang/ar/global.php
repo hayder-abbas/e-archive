@@ -15,4 +15,9 @@ return [
     'cancle_btn' => 'الغاء',
     'add_btn' => 'اضافة',
     'save_btn' => 'حفظ',
+
+    // Paginate
+    'page :current' => 'صفحة :current',
+    'of :last' => 'من :last',
+    '(:total) total_items' => '(:total) اجمالي الصفوف',
 ];

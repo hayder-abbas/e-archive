@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Trash } from "@lucide/vue";
 import { Form } from "@inertiajs/vue3";
-import { Entity } from "@/types/entity.js";
+import { Entity } from "@/types";
 import Button from "../ui/button/Button.vue";
 import Dialog from "../ui/dialog/Dialog.vue";
 import DialogTrigger from "../ui/dialog/DialogTrigger.vue";

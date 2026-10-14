@@ -14,7 +14,7 @@ class DocController extends Controller
             'docs' => Doc::query()
                 ->with(['box'])
                 ->latest('date')
-                ->paginate(20)
+                ->paginate(30)
                 ->toResourceCollection()
         ]);
     }

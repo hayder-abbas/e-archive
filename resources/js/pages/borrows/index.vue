@@ -3,6 +3,7 @@ import AddBorrow from "@/components/borrow/AddBorrow.vue";
 import DeleteBorrow from "@/components/borrow/DeleteBorrow.vue";
 import EditBorrow from "@/components/borrow/EditBorrow.vue";
 import FilterByType from "@/components/global/FilterByType.vue";
+import Paginate from "@/components/global/Paginate.vue";
 import SearchByDate from "@/components/global/SearchByDate.vue";
 import Input from "@/components/ui/input/Input.vue";
 import Table from "@/components/ui/table/Table.vue";
@@ -12,7 +13,7 @@ import TableHead from "@/components/ui/table/TableHead.vue";
 import TableHeader from "@/components/ui/table/TableHeader.vue";
 import TableRow from "@/components/ui/table/TableRow.vue";
 import borrows from "@/routes/borrows";
-import { Borrow } from "@/types/borrow";
+import { Borrows } from "@/types";
 import { Head } from "@inertiajs/vue3";
 
 defineOptions({
@@ -26,7 +27,7 @@ defineOptions({
   },
 });
 
-const props = defineProps<{ borrows: { data: Borrow[] } }>();
+const props = defineProps<{ borrows: Borrows }>();
 </script>
 
 <template>
@@ -73,8 +74,8 @@ const props = defineProps<{ borrows: { data: Borrow[] } }>();
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow v-for="(b, index) in props.borrows.data" :key="b.id">
-            <TableCell>{{ index + 1 }}</TableCell>
+          <TableRow v-for="b in props.borrows.data" :key="b.id">
+            <TableCell>{{ b.id }}</TableCell>
             <TableCell>{{ b.lender }}</TableCell>
             <TableCell>{{ b.borrower }}</TableCell>
             <TableCell>{{ b.docNumber }}</TableCell>
@@ -88,6 +89,9 @@ const props = defineProps<{ borrows: { data: Borrow[] } }>();
           </TableRow>
         </TableBody>
       </Table>
+
+      <!-- Paginate -->
+      <Paginate :meta="props.borrows.meta" />
     </div>
   </div>
 </template>

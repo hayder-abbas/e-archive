@@ -1,4 +1,6 @@
-export type AuditLogs = {
+import { Links, Meta } from "./paginate";
+
+export type AuditLog = {
     id: number;
     userId: number;
     username: string;
@@ -7,4 +9,10 @@ export type AuditLogs = {
     targetNumber: string;
     createdAt: string;
     updatedAt: string;
+};
+
+export type AuditLogs = {
+    data: AuditLog[];
+    links: Links;
+    meta: Meta;
 };

@@ -15,4 +15,9 @@ return [
     'cancle_btn' => 'Cancle',
     'add_btn' => 'Add',
     'save_btn' => 'Save',
+
+    // Paginate
+    'page :current' => 'Page :current',
+    'of :last' => 'of :last',
+    '(:total) total_items' => '(:total) total items',
 ];
