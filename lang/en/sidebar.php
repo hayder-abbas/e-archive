@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'app_name' => 'ARCHIVE',
+    'E-Archive' => 'E-Archive',
     'settings' => 'Settings',
     'logout' => 'Log out',
     'admin' => 'admin',

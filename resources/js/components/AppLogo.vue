@@ -13,7 +13,7 @@ const name = usePage().props.name;
   </div>
   <div class="ml-1 grid flex-1 text-start text-sm">
     <span class="mb-0.5 truncate leading-tight font-bold">
-      {{ $t("sidebar.app_name") }}
+      {{ $t(`sidebar.${name}`) }}
     </span>
   </div>
 </template>
