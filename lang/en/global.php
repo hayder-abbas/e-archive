@@ -15,6 +15,7 @@ return [
     'cancle_btn' => 'Cancle',
     'add_btn' => 'Add',
     'save_btn' => 'Save',
+    'view_btn' => 'View',
 
     // Paginate
     'page :current' => 'Page :current',
