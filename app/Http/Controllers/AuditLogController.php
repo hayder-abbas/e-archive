@@ -12,9 +12,8 @@ class AuditLogController extends Controller
     public function index()
     {
         return inertia('auditlogs/index', [
-            'auditLogs' => AuditLog::query()
-                ->latest('id')
-                ->paginate(50)
+            'auditLogs' => AuditLog::latest('id')
+                ->paginate(20)
                 ->toResourceCollection()
         ]);
     }

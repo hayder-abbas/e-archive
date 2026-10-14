@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import AddBox from "@/components/box/AddBox.vue";
 import BoxCard from "@/components/box/BoxCard.vue";
+import Paginate from "@/components/global/Paginate.vue";
 import SearchByDate from "@/components/global/SearchByDate.vue";
 import Input from "@/components/ui/input/Input.vue";
 import boxes from "@/routes/boxes";
-import { Box } from "@/types/box";
+import { Boxes } from "@/types";
 import { Head } from "@inertiajs/vue3";
 
 defineOptions({
@@ -18,7 +19,7 @@ defineOptions({
   },
 });
 
-const props = defineProps<{ boxes: { data: Box[] } }>();
+const props = defineProps<{ boxes: Boxes }>();
 </script>
 
 <template>
@@ -43,9 +44,14 @@ const props = defineProps<{ boxes: { data: Box[] } }>();
 
     <!-- Boxes -->
     <div
-      class="relative min-h-screen grid md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 gap-4 p-4 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border overflow-hidden"
+      class="relative min-h-screen p-4 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border overflow-hidden"
     >
-      <BoxCard v-for="box in props.boxes.data" :key="box.id" :box="box" />
+      <div class="grid gap-4 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6">
+        <BoxCard v-for="box in props.boxes.data" :key="box.id" :box="box" />
+      </div>
+
+      <!-- Paginate -->
+      <Paginate :meta="props.boxes.meta" />
     </div>
   </div>
 </template>

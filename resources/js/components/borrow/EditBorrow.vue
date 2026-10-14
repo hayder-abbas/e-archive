@@ -2,7 +2,7 @@
 import { Edit, Save } from "@lucide/vue";
 import { Form } from "@inertiajs/vue3";
 import { update } from "@/actions/App/Http/Controllers/BorrowController.js";
-import { Borrow } from "@/types/borrow.js";
+import { Borrow } from "@/types";
 import Button from "../ui/button/Button.vue";
 import Dialog from "../ui/dialog/Dialog.vue";
 import DialogTrigger from "../ui/dialog/DialogTrigger.vue";

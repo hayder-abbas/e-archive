@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Trash } from "@lucide/vue";
 import { Form } from "@inertiajs/vue3";
-import { Borrow } from "@/types/borrow.js";
+import { Borrow } from "@/types";
 import { destroy } from "@/actions/App/Http/Controllers/BorrowController.js";
 import Button from "../ui/button/Button.vue";
 import Dialog from "../ui/dialog/Dialog.vue";

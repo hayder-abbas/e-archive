@@ -2,6 +2,7 @@
 import AddEntity from "@/components/entity/AddEntity.vue";
 import DeleteEntity from "@/components/entity/DeleteEntity.vue";
 import EditEntity from "@/components/entity/EditEntity.vue";
+import Paginate from "@/components/global/Paginate.vue";
 import Input from "@/components/ui/input/Input.vue";
 import Table from "@/components/ui/table/Table.vue";
 import TableBody from "@/components/ui/table/TableBody.vue";
@@ -10,7 +11,7 @@ import TableHead from "@/components/ui/table/TableHead.vue";
 import TableHeader from "@/components/ui/table/TableHeader.vue";
 import TableRow from "@/components/ui/table/TableRow.vue";
 import entities from "@/routes/entities";
-import { Entity } from "@/types/entity";
+import { Entities } from "@/types";
 import { Head } from "@inertiajs/vue3";
 
 defineOptions({
@@ -24,7 +25,7 @@ defineOptions({
   },
 });
 
-const props = defineProps<{ entities: Entity[] }>();
+const props = defineProps<{ entities: Entities }>();
 </script>
 
 <template>
@@ -54,7 +55,7 @@ const props = defineProps<{ entities: Entity[] }>();
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow v-for="entity in props.entities" :key="entity.id">
+          <TableRow v-for="entity in props.entities.data" :key="entity.id">
             <TableCell>{{ entity.id }}</TableCell>
             <TableCell>{{ entity.name }}</TableCell>
             <TableCell class="flex justify-center items-center gap-2">
@@ -66,6 +67,9 @@ const props = defineProps<{ entities: Entity[] }>();
           </TableRow>
         </TableBody>
       </Table>
+
+      <!-- Paginate -->
+      <Paginate :meta="props.entities.meta" />
     </div>
   </div>
 </template>

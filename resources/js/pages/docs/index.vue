@@ -5,8 +5,9 @@ import docs from "@/routes/docs";
 import FilterByType from "@/components/global/FilterByType.vue";
 import SearchByDate from "@/components/global/SearchByDate.vue";
 import Input from "@/components/ui/input/Input.vue";
+import Paginate from "@/components/global/Paginate.vue";
 import { Plus } from "@lucide/vue";
-import { Doc } from "@/types/index.js";
+import { Documents } from "@/types";
 import { Head, Link } from "@inertiajs/vue3";
 
 defineOptions({
@@ -20,7 +21,7 @@ defineOptions({
   },
 });
 
-const props = defineProps<{ docs: { data: Doc[] } }>();
+const props = defineProps<{ docs: Documents }>();
 </script>
 
 <template>
@@ -53,9 +54,16 @@ const props = defineProps<{ docs: { data: Doc[] } }>();
 
     <!-- Documents -->
     <div
-      class="relative min-h-screen grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-2 p-4 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border overflow-hidden"
+      class="relative min-h-screen p-4 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border overflow-hidden"
     >
-      <DocumentCard v-for="doc in props.docs.data" :key="doc.id" :doc="doc" />
+      <div
+        class="grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2"
+      >
+        <DocumentCard v-for="doc in props.docs.data" :key="doc.id" :doc="doc" />
+      </div>
+
+      <!-- Paginate -->
+      <Paginate :meta="props.docs.meta" />
     </div>
   </div>
 </template>

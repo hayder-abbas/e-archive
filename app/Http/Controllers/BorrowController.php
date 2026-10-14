@@ -17,9 +17,8 @@ class BorrowController extends Controller
     public function index()
     {
         return inertia('borrows/index', [
-            'borrows' => Borrow::query()
-                ->latest('id')
-                ->paginate(25)
+            'borrows' => Borrow::latest('id')
+                ->paginate(20)
                 ->toResourceCollection()
         ]);
     }

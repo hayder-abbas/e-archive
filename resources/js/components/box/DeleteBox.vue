@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Trash } from "@lucide/vue";
 import { Form } from "@inertiajs/vue3";
-import { Box } from "@/types/box.js";
+import { Box } from "@/types";
 import { destroy } from "@/actions/App/Http/Controllers/BoxController.js";
 import Button from "../ui/button/Button.vue";
 import Dialog from "../ui/dialog/Dialog.vue";

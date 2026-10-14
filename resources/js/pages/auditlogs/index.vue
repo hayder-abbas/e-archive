@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ClearLogs from "@/components/auditLogs/ClearLogs.vue";
+import Paginate from "@/components/global/Paginate.vue";
 import Input from "@/components/ui/input/Input.vue";
 import Table from "@/components/ui/table/Table.vue";
 import TableBody from "@/components/ui/table/TableBody.vue";
@@ -8,7 +9,7 @@ import TableHead from "@/components/ui/table/TableHead.vue";
 import TableHeader from "@/components/ui/table/TableHeader.vue";
 import TableRow from "@/components/ui/table/TableRow.vue";
 import auditLogs from "@/routes/audit-logs";
-import { AuditLogs } from "@/types/auditlog";
+import { AuditLogs } from "@/types";
 import { Head } from "@inertiajs/vue3";
 
 defineOptions({
@@ -22,7 +23,7 @@ defineOptions({
   },
 });
 
-const props = defineProps<{ auditLogs: { data: AuditLogs[] } }>();
+const props = defineProps<{ auditLogs: AuditLogs }>();
 </script>
 
 <template>
@@ -78,6 +79,9 @@ const props = defineProps<{ auditLogs: { data: AuditLogs[] } }>();
           </TableRow>
         </TableBody>
       </Table>
+
+      <!-- Pagination -->
+      <Paginate :meta="props.auditLogs.meta" />
     </div>
   </div>
 </template>
