@@ -10,6 +10,7 @@ import Input from "@/components/ui/input/Input.vue";
 import boxes from "@/routes/boxes";
 import EditBox from "@/components/box/EditBox.vue";
 import DeleteBox from "@/components/box/DeleteBox.vue";
+import Paginate from "@/components/global/Paginate.vue";
 
 defineOptions({
   layout: {
@@ -77,14 +78,21 @@ const props = defineProps<{
 
     <!-- Documents -->
     <div
-      class="relative min-h-screen grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-2 p-4 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border overflow-hidden"
+      class="relative min-h-screen p-4 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border overflow-hidden"
     >
-      <DocumentCard
-        v-for="doc in props.documents.data"
-        :key="doc.id"
-        :doc="doc"
-        :box="box"
-      />
+      <div
+        class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-2"
+      >
+        <DocumentCard
+          v-for="doc in props.documents.data"
+          :key="doc.id"
+          :doc="doc"
+          :box="box"
+        />
+      </div>
+
+      <!-- Paginate -->
+      <Paginate :meta="documents.meta" />
     </div>
   </div>
 </template>
