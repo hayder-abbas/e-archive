@@ -26,10 +26,10 @@ import { dashboard } from "@/routes";
 import type { NavItem } from "@/types";
 import boxes from "@/routes/boxes";
 import entities from "@/routes/entities";
-import docs from "@/routes/docs";
 import borrows from "@/routes/borrows";
 import auditLogs from "@/routes/audit-logs";
 import { computed } from "vue";
+import documents from "@/routes/documents";
 
 const locale = computed(() => usePage().props.locale);
 
@@ -41,7 +41,7 @@ const mainNavItems: NavItem[] = [
   },
   {
     title: "sidebar.documents",
-    href: docs.index(),
+    href: documents.index(),
     icon: Files,
   },
   {

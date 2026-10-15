@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<Doc>
  */
-class DocFactory extends Factory
+class DocumentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,9 +20,10 @@ class DocFactory extends Factory
     public function definition(): array
     {
         return [
-            'number' => fake()->unique()->buildingNumber(),
-            'subject' => fake()->unique()->word(),
+            'number' => fake()->buildingNumber(),
+            'subject' => fake()->word(),
             'date' => fake()->date(),
+            'file' => fake()->filePath(),
             'type' => fake()->randomElement(['Incoming', 'Outgoing']),
             'security' => fake()->randomElement(['Normal', 'Secure']),
             'description' => fake()->paragraph(2),

@@ -8,11 +8,12 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('docs', function (Blueprint $table) {
+        Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->string('number', 255)->unique();
-            $table->string('subject', 255)->unique();
+            $table->string('number', 50);
+            $table->string('subject');
             $table->date('date');
+            $table->string('file')->nullable();
             $table->enum('type', ['Incoming', 'Outgoing']);
             $table->enum('security', ['Normal', 'Secure']);
             $table->text('description')->nullable();

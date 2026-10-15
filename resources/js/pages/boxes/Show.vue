@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Plus } from "@lucide/vue";
-import { Box, Doc } from "@/types/index.js";
+import { Box, Documents } from "@/types";
 import { Head, Link } from "@inertiajs/vue3";
 import DocumentCard from "@/components/document/DocumentCard.vue";
 import Button from "@/components/ui/button/Button.vue";
@@ -26,7 +26,7 @@ defineOptions({
 });
 
 const props = defineProps<{
-  docs: { data: Doc[] };
+  documents: Documents;
   box: Box;
 }>();
 </script>
@@ -80,7 +80,7 @@ const props = defineProps<{
       class="relative min-h-screen grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-2 p-4 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border overflow-hidden"
     >
       <DocumentCard
-        v-for="doc in props.docs.data"
+        v-for="doc in props.documents.data"
         :key="doc.id"
         :doc="doc"
         :box="box"

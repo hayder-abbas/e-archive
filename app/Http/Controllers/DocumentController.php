@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreDocRequest;
-use App\Http\Requests\UpdateDocRequest;
-use App\Models\Doc;
+use App\Http\Requests\StoreDocumentRequest;
+use App\Http\Requests\UpdateDocumentRequest;
+use App\Models\Document;
 
-class DocController extends Controller
+class DocumentController extends Controller
 {
     public function index()
     {
-        return inertia('docs/index', [
-            'docs' => Doc::query()
+        return inertia('documents/index', [
+            'documents' => Document::query()
                 ->with(['box'])
                 ->latest('date')
                 ->paginate(30)
@@ -30,7 +30,7 @@ class DocController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDocRequest $request)
+    public function store(StoreDocumentRequest $request)
     {
         //
     }
@@ -38,7 +38,7 @@ class DocController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Doc $doc)
+    public function show(Document $document)
     {
         //
     }
@@ -46,7 +46,7 @@ class DocController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Doc $doc)
+    public function edit(Document $document)
     {
         //
     }
@@ -54,7 +54,7 @@ class DocController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDocRequest $request, Doc $doc)
+    public function update(UpdateDocumentRequest $request, Document $document)
     {
         //
     }
@@ -62,7 +62,7 @@ class DocController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Doc $doc)
+    public function destroy(Document $document)
     {
         //
     }
