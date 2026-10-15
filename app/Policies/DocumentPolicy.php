@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Doc;
+use App\Models\Document;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class DocPolicy
+class DocumentPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,7 +19,7 @@ class DocPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Doc $doc): bool
+    public function view(User $user, Document $document): bool
     {
         return false;
     }
@@ -35,7 +35,7 @@ class DocPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Doc $doc): bool
+    public function update(User $user, Document $document): bool
     {
         return false;
     }
@@ -43,7 +43,7 @@ class DocPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Doc $doc): bool
+    public function delete(User $user, Document $document): bool
     {
         return false;
     }
@@ -51,7 +51,7 @@ class DocPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Doc $doc): bool
+    public function restore(User $user, Document $document): bool
     {
         return false;
     }
@@ -59,7 +59,7 @@ class DocPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Doc $doc): bool
+    public function forceDelete(User $user, Document $document): bool
     {
         return false;
     }

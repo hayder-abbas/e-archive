@@ -46,9 +46,9 @@ class BoxController extends Controller
     {
         Gate::authorize('view', $box);
         return inertia('boxes/Show', [
-            'docs' => $box->docs()
+            'documents' => $box->documents()
                 ->latest('id')
-                ->paginate(25)
+                ->paginate(20)
                 ->toResourceCollection(),
             'box' => $box->toResource()
         ]);

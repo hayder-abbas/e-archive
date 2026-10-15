@@ -21,8 +21,8 @@ class Box extends Model
     /** @use HasFactory<\Database\Factories\BoxFactory> */
     use HasFactory;
 
-    public function docs(): HasMany
+    public function documents(): HasMany
     {
-        return $this->hasMany(Doc::class);
+        return $this->hasMany(Document::class);
     }
 }

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -14,6 +13,7 @@ use Illuminate\Support\Carbon;
  * @property string $number
  * @property string $subject
  * @property Carbon|null $date
+ * @property string $file
  * @property string $type
  * @property string $security
  * @property string $description
@@ -21,10 +21,10 @@ use Illuminate\Support\Carbon;
  * @property int $entity_id
  */
 
-#[Fillable('number', 'subject', 'date', 'type', 'security', 'description', 'box_id', 'entity_id')]
-class Doc extends Model
+#[Fillable('number', 'subject', 'date', 'file', 'type', 'security', 'description', 'box_id', 'entity_id')]
+class Document extends Model
 {
-    /** @use HasFactory<\Database\Factories\DocFactory> */
+    /** @use HasFactory<\Database\Factories\DocumentFactory> */
     use HasFactory;
 
     public function box(): BelongsTo
@@ -35,10 +35,5 @@ class Doc extends Model
     public function entity(): BelongsTo
     {
         return $this->belongsTo(Entity::class);
-    }
-
-    public function attachments(): HasMany
-    {
-        return $this->hasMany(Attachment::class);
     }
 }

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import DocumentCard from "@/components/document/DocumentCard.vue";
 import Button from "@/components/ui/button/Button.vue";
-import docs from "@/routes/docs";
 import FilterByType from "@/components/global/FilterByType.vue";
 import SearchByDate from "@/components/global/SearchByDate.vue";
 import Input from "@/components/ui/input/Input.vue";
 import Paginate from "@/components/global/Paginate.vue";
+import documents from "@/routes/documents";
 import { Plus } from "@lucide/vue";
 import { Documents } from "@/types";
 import { Head, Link } from "@inertiajs/vue3";
@@ -15,13 +15,13 @@ defineOptions({
     breadcrumbs: [
       {
         title: "sidebar.documents",
-        href: docs.index(),
+        href: documents.index(),
       },
     ],
   },
 });
 
-const props = defineProps<{ docs: Documents }>();
+const props = defineProps<{ documents: Documents }>();
 </script>
 
 <template>
@@ -59,11 +59,15 @@ const props = defineProps<{ docs: Documents }>();
       <div
         class="grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2"
       >
-        <DocumentCard v-for="doc in props.docs.data" :key="doc.id" :doc="doc" />
+        <DocumentCard
+          v-for="doc in props.documents.data"
+          :key="doc.id"
+          :doc="doc"
+        />
       </div>
 
       <!-- Paginate -->
-      <Paginate :meta="props.docs.meta" />
+      <Paginate :meta="props.documents.meta" />
     </div>
   </div>
 </template>

@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DocResource extends JsonResource
+class DocumentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,6 +19,7 @@ class DocResource extends JsonResource
             'number' => $this->number,
             'subject' => $this->subject,
             'date' => $this->date,
+            'file' => $this->file,
             'type' => $this->type,
             'security' => $this->security,
             'description' =>  $this->description,

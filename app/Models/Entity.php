@@ -18,8 +18,8 @@ class Entity extends Model
     /** @use HasFactory<\Database\Factories\EntityFactory> */
     use HasFactory;
 
-    public function docs(): HasMany
+    public function documents(): HasMany
     {
-        return $this->hasMany(Doc::class);
+        return $this->hasMany(Document::class);
     }
 }

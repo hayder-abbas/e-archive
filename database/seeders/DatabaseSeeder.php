@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        User::factory()->create([
+        User::factory()->hasAuditLogs(50)->create([
             'name' => 'Admin',
             'email' => 'admin@mail.com',
             'role' => 'admin'
@@ -21,8 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             BoxSeeder::class,
             EntitySeeder::class,
-            DocSeeder::class,
-            AttachmentSeeder::class,
+            DocumentSeeder::class,
             BorrowSeeder::class,
             AuditLogSeeder::class,
         ]);
