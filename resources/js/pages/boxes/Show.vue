@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { Plus } from "@lucide/vue";
-import { Box, Documents } from "@/types";
-import { Head, Link } from "@inertiajs/vue3";
+import { Box, Boxes, Documents, Entities } from "@/types";
+import { Head } from "@inertiajs/vue3";
 import DocumentCard from "@/components/document/DocumentCard.vue";
-import Button from "@/components/ui/button/Button.vue";
 import FilterByType from "@/components/global/FilterByType.vue";
 import SearchByDate from "@/components/global/SearchByDate.vue";
 import Input from "@/components/ui/input/Input.vue";
@@ -11,6 +9,7 @@ import boxes from "@/routes/boxes";
 import EditBox from "@/components/box/EditBox.vue";
 import DeleteBox from "@/components/box/DeleteBox.vue";
 import Paginate from "@/components/global/Paginate.vue";
+import AddDocument from "@/components/document/AddDocument.vue";
 
 defineOptions({
   layout: {
@@ -28,7 +27,9 @@ defineOptions({
 
 const props = defineProps<{
   documents: Documents;
-  box: Box;
+  box: { data: Box };
+  boxes: Boxes;
+  entities: Entities;
 }>();
 </script>
 
@@ -39,23 +40,24 @@ const props = defineProps<{
     <header>
       <div class="flex justify-between items-center">
         <div class="flex items-center gap-4 font-bold">
-          <h2>{{ box.boxName }}</h2>
+          <h2>{{ box.data.boxName }}</h2>
           &mdash;
-          <p>{{ box.boxNumber }}</p>
+          <p>{{ box.data.boxNumber }}</p>
         </div>
 
         <div class="flex items-center gap-4">
           <!-- Delete Box button -->
-          <DeleteBox :box="box" />
+          <DeleteBox :box="props.box" />
 
           <!-- Edit Box button -->
-          <EditBox :box="box" />
+          <EditBox :box="props.box" />
 
           <!-- Add new document button -->
-          <Button>
-            <Plus />
-            <Link href="#">{{ $t("docs.new_doc_btn") }}</Link>
-          </Button>
+          <AddDocument
+            :boxes="props.boxes"
+            :entities="props.entities"
+            :box="props.box"
+          />
         </div>
       </div>
     </header>
@@ -86,13 +88,13 @@ const props = defineProps<{
         <DocumentCard
           v-for="doc in props.documents.data"
           :key="doc.id"
-          :doc="doc"
+          :document="doc"
           :box="box"
         />
       </div>
 
       <!-- Paginate -->
-      <Paginate :meta="documents.meta" />
+      <Paginate :meta="props.documents.meta" />
     </div>
   </div>
 </template>

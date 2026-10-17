@@ -16,6 +16,7 @@ return [
     'add_btn' => 'اضافة',
     'save_btn' => 'حفظ',
     'view_btn' => 'عرض',
+    'close_btn' => 'اغلاق',
 
     // Paginate
     'page :current' => 'صفحة :current',

@@ -12,7 +12,7 @@ import DialogClose from "../ui/dialog/DialogClose.vue";
 import DialogHeader from "../ui/dialog/DialogHeader.vue";
 import DialogDescription from "../ui/dialog/DialogDescription.vue";
 
-const props = defineProps<{ box: Box }>();
+const props = defineProps<{ box: { data: Box } }>();
 </script>
 
 <template>
@@ -40,7 +40,7 @@ const props = defineProps<{ box: Box }>();
       </DialogHeader>
 
       <Form
-        v-bind="destroy.form(box)"
+        v-bind="destroy.form(box.data)"
         reset-on-success
         :options="{
           preserveScroll: true,

@@ -1,14 +1,13 @@
 <script setup lang="ts">
+import { Boxes, Documents, Entities } from "@/types";
+import { Head } from "@inertiajs/vue3";
 import DocumentCard from "@/components/document/DocumentCard.vue";
-import Button from "@/components/ui/button/Button.vue";
 import FilterByType from "@/components/global/FilterByType.vue";
 import SearchByDate from "@/components/global/SearchByDate.vue";
 import Input from "@/components/ui/input/Input.vue";
 import Paginate from "@/components/global/Paginate.vue";
 import documents from "@/routes/documents";
-import { Plus } from "@lucide/vue";
-import { Documents } from "@/types";
-import { Head, Link } from "@inertiajs/vue3";
+import AddDocument from "@/components/document/AddDocument.vue";
 
 defineOptions({
   layout: {
@@ -21,7 +20,11 @@ defineOptions({
   },
 });
 
-const props = defineProps<{ documents: Documents }>();
+const props = defineProps<{
+  documents: Documents;
+  boxes: Boxes;
+  entities: Entities;
+}>();
 </script>
 
 <template>
@@ -30,10 +33,7 @@ const props = defineProps<{ documents: Documents }>();
   <div class="flex h-full flex-col gap-4 overflow-x-auto rounded-xl p-4">
     <!-- Add new document button -->
     <div class="flex justify-end items-center">
-      <Button>
-        <Plus />
-        <Link href="#">{{ $t("docs.new_doc_btn") }}</Link>
-      </Button>
+      <AddDocument :boxes="boxes" :entities="entities" />
     </div>
 
     <!-- Search -->
@@ -62,7 +62,7 @@ const props = defineProps<{ documents: Documents }>();
         <DocumentCard
           v-for="doc in props.documents.data"
           :key="doc.id"
-          :doc="doc"
+          :document="doc"
         />
       </div>
 

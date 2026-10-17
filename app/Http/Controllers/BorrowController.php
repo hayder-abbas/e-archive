@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Gate;
 
 class BorrowController extends Controller
 {
+    public function __construct(private AuditLogger $logger) {}
+
     public function index()
     {
         return inertia('borrows/index', [
@@ -30,8 +32,8 @@ class BorrowController extends Controller
 
         DB::transaction(function () use ($request) {
             $borrow = Borrow::create($request->validated());
-            AuditLogger::record(
-                Auth::user(),
+            ($this->logger)(
+                $request->user(),
                 AuditAction::Add,
                 AuditTarget::Borrow,
                 $borrow->doc_number
@@ -47,10 +49,10 @@ class BorrowController extends Controller
         Gate::authorize('update', $borrow);
 
         DB::transaction(function () use ($request, $borrow) {
-            $borrow->fill($request->validated());
-            $borrow->save();
-            AuditLogger::record(
-                Auth::user(),
+            $borrow->fill($request->validated())->save();
+
+            ($this->logger)(
+                $request->user(),
                 AuditAction::Edit,
                 AuditTarget::Borrow,
                 $borrow->doc_number
@@ -67,7 +69,8 @@ class BorrowController extends Controller
 
         DB::transaction(function () use ($borrow) {
             $borrow->delete();
-            AuditLogger::record(
+
+            ($this->logger)(
                 Auth::user(),
                 AuditAction::Delete,
                 AuditTarget::Borrow,
