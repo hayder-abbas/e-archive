@@ -2,7 +2,10 @@
 import { Trash } from "@lucide/vue";
 import { Form } from "@inertiajs/vue3";
 import { Document } from "@/types";
-import { destroy } from "@/actions/App/Http/Controllers/DocumentController.js";
+import {
+  destroy,
+  forceDelete,
+} from "@/actions/App/Http/Controllers/DocumentController.js";
 import Button from "../ui/button/Button.vue";
 import Dialog from "../ui/dialog/Dialog.vue";
 import DialogTrigger from "../ui/dialog/DialogTrigger.vue";
@@ -11,7 +14,18 @@ import DialogTitle from "../ui/dialog/DialogTitle.vue";
 import DialogClose from "../ui/dialog/DialogClose.vue";
 import DialogHeader from "../ui/dialog/DialogHeader.vue";
 
-const props = defineProps<{ document: Document }>();
+const props = defineProps<{
+  document: Document;
+  force?: boolean;
+}>();
+
+let handleDelete = null;
+
+if (props.force) {
+  handleDelete = () => forceDelete.form(props.document);
+} else {
+  handleDelete = () => destroy.form(props.document);
+}
 </script>
 
 <template>
@@ -31,7 +45,7 @@ const props = defineProps<{ document: Document }>();
       </DialogHeader>
 
       <Form
-        v-bind="destroy.form(document)"
+        v-bind="handleDelete()"
         v-slot="{ processing }"
         class="flex justify-center gap-4"
       >

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Box, Boxes, Documents, Entities } from "@/types";
-import { Head } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import DocumentCard from "@/components/document/DocumentCard.vue";
 import FilterByType from "@/components/global/FilterByType.vue";
 import SearchByDate from "@/components/global/SearchByDate.vue";
@@ -10,6 +10,8 @@ import EditBox from "@/components/box/EditBox.vue";
 import DeleteBox from "@/components/box/DeleteBox.vue";
 import Paginate from "@/components/global/Paginate.vue";
 import AddDocument from "@/components/document/AddDocument.vue";
+import Button from "@/components/ui/button/Button.vue";
+import documents from "@/routes/documents";
 
 defineOptions({
   layout: {
@@ -90,7 +92,18 @@ const props = defineProps<{
           :key="doc.id"
           :document="doc"
           :box="box"
-        />
+        >
+          <!-- View Document Button -->
+          <Button
+            size="icon-sm"
+            variant="outline"
+            class="flex-1 cursor-pointer"
+          >
+            <Link :href="documents.show(doc)">
+              {{ $t("global.view_btn") }}
+            </Link>
+          </Button>
+        </DocumentCard>
       </div>
 
       <!-- Paginate -->

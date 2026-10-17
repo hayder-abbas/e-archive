@@ -13,6 +13,21 @@ class DeleteDocument
     public function __construct(private AuditLogger $logger) {}
 
 
+    public function forceDelete(Document $document)
+    {
+        DB::transaction(function () use ($document) {
+            $document->forceDelete();
+
+            ($this->logger)(
+                Auth::user(),
+                AuditAction::ForceDelete,
+                AuditTarget::Document,
+                $document->number
+            );
+        });
+    }
+
+
     public function softDelete(Document $document)
     {
         DB::transaction(function () use ($document) {

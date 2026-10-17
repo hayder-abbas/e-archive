@@ -8,10 +8,14 @@ return [
     'target_number' => 'Number',
     'date' => 'Date',
     'confirm_title' => 'You will clear all audit logs!',
+
     // Actions
     'add' => 'add',
     'edit' => 'edit',
     'delete' => 'delete',
+    'force-delete' => 'force-delete',
+    'restore' => 'restore',
+
     // Types
     'entity' => 'entity',
     'box' => 'box',

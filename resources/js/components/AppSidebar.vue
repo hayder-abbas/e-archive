@@ -22,7 +22,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { dashboard } from "@/routes";
+import { dashboard, trash } from "@/routes";
 import type { NavItem } from "@/types";
 import boxes from "@/routes/boxes";
 import entities from "@/routes/entities";
@@ -69,7 +69,7 @@ const footerNavItems: NavItem[] = [
   },
   {
     title: "sidebar.trash",
-    href: "#",
+    href: trash(),
     icon: Trash,
   },
 ];
