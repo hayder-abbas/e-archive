@@ -27,7 +27,7 @@ class UpdateDocumentRequest extends FormRequest
             'type' => ['required', 'string'],
             'security' => ['required', 'string'],
             'file' => ['nullable', File::types('pdf')->max(20 * 1024)],
-            'description' => ['nullable', 'string'],
+            'notes' => ['nullable', 'string'],
             'box_id' => ['required', 'exists:boxes,id'],
             'entity_id' => ['required', 'exists:entities,id'],
         ];

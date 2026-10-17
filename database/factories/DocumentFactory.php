@@ -3,12 +3,12 @@
 namespace Database\Factories;
 
 use App\Models\Box;
-use App\Models\Doc;
+use App\Models\Document;
 use App\Models\Entity;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Doc>
+ * @extends Factory<Document>
  */
 class DocumentFactory extends Factory
 {
@@ -26,7 +26,7 @@ class DocumentFactory extends Factory
             'file' => fake()->filePath(),
             'type' => fake()->randomElement(['Incoming', 'Outgoing']),
             'security' => fake()->randomElement(['Normal', 'Secure']),
-            'description' => fake()->paragraph(2),
+            'notes' => fake()->paragraph(2),
             'box_id' => Box::factory(),
             'entity_id' => Entity::factory(),
         ];

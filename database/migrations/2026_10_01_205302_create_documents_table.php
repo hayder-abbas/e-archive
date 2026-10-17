@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('file')->nullable();
             $table->enum('type', ['Incoming', 'Outgoing']);
             $table->enum('security', ['Normal', 'Secure']);
-            $table->text('description')->nullable();
+            $table->text('notes')->nullable();
             $table->foreignId('box_id')
                 ->constrained()
                 ->cascadeOnUpdate()

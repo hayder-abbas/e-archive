@@ -22,7 +22,7 @@ class DocumentResource extends JsonResource
             'file' => $this->file,
             'type' => $this->type,
             'security' => $this->security,
-            'description' =>  $this->description,
+            'notes' =>  $this->notes,
             'box' => BoxResource::make($this->whenLoaded('box')),
             'entity' => EntityResource::make($this->whenLoaded('entity'))
         ];

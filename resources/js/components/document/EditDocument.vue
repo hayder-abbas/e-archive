@@ -177,17 +177,17 @@ const props = defineProps<{
           <InputError :message="errors.file" />
         </div>
 
-        <!-- Description -->
+        <!-- Notes -->
         <div class="space-y-2">
-          <Label for="docDescription">{{ $t("document.desc_label") }}</Label>
+          <Label for="notes">{{ $t("document.notes_label") }}</Label>
           <Textarea
-            id="docDescription"
+            id="notes"
             type="text"
-            name="description"
-            :default-value="document.description"
-            :placeholder="$t('document.desc_placeholder')"
+            name="notes"
+            :default-value="document.notes"
+            :placeholder="$t('document.notes_placeholder')"
           />
-          <InputError :message="errors.description" />
+          <InputError :message="errors.notes" />
         </div>
 
         <!-- Success Message -->
