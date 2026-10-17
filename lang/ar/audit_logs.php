@@ -8,10 +8,14 @@ return [
     'target_number' => 'العدد',
     'date' => 'الوقت',
     'confirm_title' => 'ستقوم بمسح جميع سجلات التدقيق!',
+
     // Actions
     'add' => 'اضافة',
     'edit' => 'تعديل',
     'delete' => 'حذف',
+    'force-delete' => 'حذف نهائي',
+    'restore' => 'استرجاع',
+
     // Types
     'entity' => 'الجهة',
     'box' => 'الاضبارة',
