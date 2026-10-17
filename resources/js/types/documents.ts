@@ -7,6 +7,7 @@ export type Document = {
     number: string;
     subject: string;
     date: string;
+    file: string;
     type: string;
     security: string;
     description: string;

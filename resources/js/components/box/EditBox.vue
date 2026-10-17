@@ -14,7 +14,7 @@ import InputError from "../InputError.vue";
 import InputSuccess from "../InputSuccess.vue";
 import Spinner from "../ui/spinner/Spinner.vue";
 
-const props = defineProps<{ box: Box }>();
+const props = defineProps<{ box: { data: Box } }>();
 </script>
 
 <template>
@@ -36,7 +36,7 @@ const props = defineProps<{ box: Box }>();
       </DialogTitle>
 
       <Form
-        v-bind="update.form(box)"
+        v-bind="update.form(box.data)"
         v-slot="{ errors, processing, wasSuccessful }"
         class="space-y-4"
       >
@@ -46,7 +46,7 @@ const props = defineProps<{ box: Box }>();
             id="boxName"
             type="text"
             name="box_name"
-            :default-value="box.boxName"
+            :default-value="box.data.boxName"
             v-focus
             :placeholder="$t('box.name_placeholder')"
           />
@@ -59,7 +59,7 @@ const props = defineProps<{ box: Box }>();
             id="boxNumber"
             type="text"
             name="box_number"
-            :default-value="box.boxNumber"
+            :default-value="box.data.boxNumber"
             :placeholder="$t('box.number_placeholder')"
           />
           <InputError :message="errors.box_number" />
@@ -71,7 +71,7 @@ const props = defineProps<{ box: Box }>();
             id="boxDate"
             type="date"
             name="box_date"
-            :default-value="box.boxDate"
+            :default-value="box.data.boxDate"
           />
           <InputError :message="errors.box_date" />
         </div>

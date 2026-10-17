@@ -9,7 +9,7 @@ use App\Models\User;
 
 class AuditLogger
 {
-    public static function record(
+    public function __invoke(
         User $user,
         AuditAction $action,
         AuditTarget $targetType,

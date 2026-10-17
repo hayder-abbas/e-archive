@@ -16,6 +16,7 @@ return [
     'add_btn' => 'Add',
     'save_btn' => 'Save',
     'view_btn' => 'View',
+    'close_btn' => 'Close',
 
     // Paginate
     'page :current' => 'Page :current',

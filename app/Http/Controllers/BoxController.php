@@ -8,12 +8,15 @@ use App\Http\Requests\StoreBoxRequest;
 use App\Http\Requests\UpdateBoxRequest;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Box;
+use App\Models\Entity;
 use App\Services\AuditLogger;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class BoxController extends Controller
 {
+    public function __construct(private AuditLogger $logger) {}
+
     public function index()
     {
         return inertia('boxes/index', [
@@ -30,8 +33,8 @@ class BoxController extends Controller
 
         DB::transaction(function () use ($request) {
             $newBox = Box::create($request->validated());
-            AuditLogger::record(
-                Auth::user(),
+            ($this->logger)(
+                $request->user(),
                 AuditAction::Add,
                 AuditTarget::Box,
                 $newBox->box_number
@@ -50,7 +53,13 @@ class BoxController extends Controller
                 ->latest('id')
                 ->paginate(20)
                 ->toResourceCollection(),
-            'box' => $box->toResource()
+            'box' => $box->toResource(),
+            'boxes' => Box::latest('id')
+                ->get(['id', 'box_number'])
+                ->toResourceCollection(),
+            'entities' => Entity::latest('id')
+                ->get()
+                ->toResourceCollection(),
         ]);
     }
 
@@ -62,8 +71,8 @@ class BoxController extends Controller
         DB::transaction(function () use ($request, $box) {
             $box->fill($request->validated());
             $box->save();
-            AuditLogger::record(
-                Auth::user(),
+            ($this->logger)(
+                $request->user(),
                 AuditAction::Edit,
                 AuditTarget::Box,
                 $box->box_number
@@ -80,7 +89,7 @@ class BoxController extends Controller
 
         DB::transaction(function () use ($box) {
             $box->delete();
-            AuditLogger::record(
+            ($this->logger)(
                 Auth::user(),
                 AuditAction::Delete,
                 AuditTarget::Box,

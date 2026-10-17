@@ -4,66 +4,79 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDocumentRequest;
 use App\Http\Requests\UpdateDocumentRequest;
+use App\Models\Box;
 use App\Models\Document;
+use App\Models\Entity;
+use App\Services\DeleteDocument;
+use App\Services\StoreDocument;
+use App\Services\UpdateDocument;
+use Illuminate\Support\Facades\Gate;
 
 class DocumentController extends Controller
 {
+    public function __construct(
+        private StoreDocument $storeDocument,
+        private UpdateDocument $updateDocument,
+        private DeleteDocument $deleteDocument
+    ) {}
+
     public function index()
     {
         return inertia('documents/index', [
             'documents' => Document::query()
-                ->with(['box'])
-                ->latest('date')
+                ->with(['box:id,box_number', 'entity'])
+                ->latest('id')
                 ->paginate(30)
-                ->toResourceCollection()
+                ->toResourceCollection(),
+            'boxes' => Box::latest('id')
+                ->get(['id', 'box_number'])
+                ->toResourceCollection(),
+            'entities' => Entity::latest('id')
+                ->get()
+                ->toResourceCollection(),
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreDocumentRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Document $document)
     {
-        //
+        return inertia('documents/Show', [
+            'document' => $document->toResource(),
+            'box' => $document->box->toResource(),
+            'entity' => $document->entity->toResource(),
+            'boxes' => Box::latest('id')
+                ->get(['id', 'box_number'])
+                ->toResourceCollection(),
+            'entities' => Entity::latest('id')
+                ->get()
+                ->toResourceCollection(),
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Document $document)
+
+    public function store(StoreDocumentRequest $request)
     {
-        //
+        Gate::authorize('create', Document::class);
+        ($this->storeDocument)($request);
+
+        return back();
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(UpdateDocumentRequest $request, Document $document)
     {
-        //
+        Gate::authorize('update', $document);
+        ($this->updateDocument)($request, $document);
+
+        return back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Document $document)
     {
-        //
+        Gate::authorize('delete', $document);
+        $this->deleteDocument->softDelete($document);
+
+        return to_route('documents.index');
     }
 }
