@@ -7,20 +7,15 @@ use App\Models\User;
 
 class DocumentPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->isAdmin();
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
+
     public function view(User $user, Document $document): bool
     {
-        return false;
+        return $user->isAdmin();
     }
 
 

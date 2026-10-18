@@ -134,10 +134,10 @@ const props = defineProps<{
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Incoming">
-                  {{ $t("document.incoming") }}
+                  {{ $t("document.Incoming") }}
                 </SelectItem>
                 <SelectItem value="Outgoing">
-                  {{ $t("document.outgoing") }}
+                  {{ $t("document.Outgoing") }}
                 </SelectItem>
               </SelectContent>
             </Select>
@@ -155,10 +155,10 @@ const props = defineProps<{
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Normal">
-                  {{ $t("document.normal") }}
+                  {{ $t("document.Normal") }}
                 </SelectItem>
                 <SelectItem value="Secure">
-                  {{ $t("document.secure") }}
+                  {{ $t("document.Secure") }}
                 </SelectItem>
               </SelectContent>
             </Select>
