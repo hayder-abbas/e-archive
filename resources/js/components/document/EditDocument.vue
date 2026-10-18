@@ -140,10 +140,10 @@ const props = defineProps<{
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Incoming">
-                  {{ $t("document.incoming") }}
+                  {{ $t("document.Incoming") }}
                 </SelectItem>
                 <SelectItem value="Outgoing">
-                  {{ $t("document.outgoing") }}
+                  {{ $t("document.Outgoing") }}
                 </SelectItem>
               </SelectContent>
             </Select>
@@ -159,10 +159,10 @@ const props = defineProps<{
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Normal">
-                  {{ $t("document.normal") }}
+                  {{ $t("document.Normal") }}
                 </SelectItem>
                 <SelectItem value="Secure">
-                  {{ $t("document.secure") }}
+                  {{ $t("document.Secure") }}
                 </SelectItem>
               </SelectContent>
             </Select>
@@ -177,17 +177,17 @@ const props = defineProps<{
           <InputError :message="errors.file" />
         </div>
 
-        <!-- Description -->
+        <!-- Notes -->
         <div class="space-y-2">
-          <Label for="docDescription">{{ $t("document.desc_label") }}</Label>
+          <Label for="notes">{{ $t("document.notes_label") }}</Label>
           <Textarea
-            id="docDescription"
+            id="notes"
             type="text"
-            name="description"
-            :default-value="document.description"
-            :placeholder="$t('document.desc_placeholder')"
+            name="notes"
+            :default-value="document.notes"
+            :placeholder="$t('document.notes_placeholder')"
           />
-          <InputError :message="errors.description" />
+          <InputError :message="errors.notes" />
         </div>
 
         <!-- Success Message -->

@@ -17,12 +17,12 @@ use Illuminate\Support\Carbon;
  * @property string $file
  * @property string $type
  * @property string $security
- * @property string $description
+ * @property string $notes
  * @property int $box_id
  * @property int $entity_id
  */
 
-#[Fillable('number', 'subject', 'date', 'file', 'type', 'security', 'description', 'box_id', 'entity_id')]
+#[Fillable('number', 'subject', 'date', 'file', 'type', 'security', 'notes', 'box_id', 'entity_id')]
 class Document extends Model
 {
     /** @use HasFactory<\Database\Factories\DocumentFactory> */

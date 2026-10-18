@@ -16,6 +16,8 @@ use App\Services\UpdateDocument;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class DocumentController extends Controller
 {
@@ -28,6 +30,8 @@ class DocumentController extends Controller
 
     public function index()
     {
+        Gate::authorize('viewAny', Document::class);
+
         return inertia('documents/index', [
             'documents' => Document::query()
                 ->with(['box:id,box_number', 'entity'])
@@ -46,10 +50,11 @@ class DocumentController extends Controller
 
     public function show(Document $document)
     {
+        Gate::authorize('view', $document);
+        $document->load(['box:id,box_number', 'entity']);
+
         return inertia('documents/Show', [
             'document' => $document->toResource(),
-            'box' => $document->box->toResource(),
-            'entity' => $document->entity->toResource(),
             'boxes' => Box::latest('id')
                 ->get(['id', 'box_number'])
                 ->toResourceCollection(),
@@ -57,6 +62,18 @@ class DocumentController extends Controller
                 ->get()
                 ->toResourceCollection(),
         ]);
+    }
+
+
+    public function showFile(Document $document)
+    {
+        Gate::authorize('view', $document);
+        abort_unless(Storage::exists($document->file), 404);
+
+        return Storage::response(
+            $document->file,
+            Str::slug($document->number) . '.pdf'
+        );
     }
 
 

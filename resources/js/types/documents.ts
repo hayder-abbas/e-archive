@@ -10,7 +10,7 @@ export type Document = {
     file: string;
     type: string;
     security: string;
-    description: string;
+    notes: string;
     box?: Box;
     entity?: Entity;
 };

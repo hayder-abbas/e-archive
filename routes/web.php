@@ -17,10 +17,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('entities', EntityController::class);
     Route::resource('documents', DocumentController::class);
 
-    Route::delete('/documents/{document}/force-delete', [DocumentController::class, 'forceDelete'])
-        ->name('document.force-delete')->withTrashed();
-    Route::patch('/documents/{document}/restore', [DocumentController::class, 'restore'])
-        ->name('document.restore')->withTrashed();
+    Route::controller(DocumentController::class)->group(function () {
+        Route::get('/documents/{document}/show-file', 'showFile')
+            ->name('documents.show-file');
+        Route::delete('/documents/{document}/force-delete', 'forceDelete')
+            ->name('document.force-delete')->withTrashed();
+        Route::patch('/documents/{document}/restore', 'restore')
+            ->name('document.restore')->withTrashed();
+    });
 
     Route::resource('borrows', BorrowController::class);
 
