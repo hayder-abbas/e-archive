@@ -6,7 +6,6 @@ use App\Http\Controllers\BoxController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EntityController;
 use App\Http\Controllers\Settings\SetLocaleContruller;
-use App\Models\Document;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Welcome')->name('home');
@@ -21,9 +20,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/documents/{document}/show-file', 'showFile')
             ->name('documents.show-file');
         Route::delete('/documents/{document}/force-delete', 'forceDelete')
-            ->name('document.force-delete')->withTrashed();
+            ->name('document.force-delete')
+            ->withTrashed();
         Route::patch('/documents/{document}/restore', 'restore')
-            ->name('document.restore')->withTrashed();
+            ->name('document.restore')
+            ->withTrashed();
+        Route::get('/trash', 'trash')->name('trash');
     });
 
     Route::resource('borrows', BorrowController::class);
@@ -35,13 +37,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::put('/settings/locale', SetLocaleContruller::class)->name('settings.local');
-
-    Route::inertia('trash', 'Trash', [
-        'documents' => Document::onlyTrashed()
-            ->with(['box:id,box_number'])
-            ->paginate(20)
-            ->toResourceCollection()
-    ])->name('trash');
 });
 
 

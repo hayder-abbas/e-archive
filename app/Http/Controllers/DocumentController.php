@@ -104,6 +104,19 @@ class DocumentController extends Controller
     }
 
 
+    public function trash()
+    {
+        Gate::authorize('viewAny', Document::class);
+
+        return inertia('Trash', [
+            'documents' => Document::onlyTrashed()
+                ->with(['box:id,box_number'])
+                ->paginate(20)
+                ->toResourceCollection()
+        ]);
+    }
+
+
     public function forceDelete(Document $document)
     {
         Gate::authorize('forceDelete', $document);
