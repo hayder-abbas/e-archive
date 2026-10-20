@@ -14,14 +14,23 @@ use Illuminate\Support\Facades\Gate;
 
 class BorrowController extends Controller
 {
-    public function __construct(private AuditLogger $logger) {}
+    private int $page;
+
+    public function __construct(private AuditLogger $logger)
+    {
+        $this->page = max(1, request()->integer('page', 1));
+    }
+
 
     public function index()
     {
         return inertia('borrows/index', [
-            'borrows' => Borrow::latest('id')
-                ->paginate(20)
-                ->toResourceCollection()
+            'borrows' => Borrow::cached(
+                fn() => Borrow::latest('id')
+                    ->paginate(20, page: $this->page)
+                    ->toResourceCollection(),
+                "borrows:page:{$this->page}"    // [table]:[page]:[number or all]
+            )
         ]);
     }
 
@@ -49,8 +58,7 @@ class BorrowController extends Controller
         Gate::authorize('update', $borrow);
 
         DB::transaction(function () use ($request, $borrow) {
-            $borrow->fill($request->validated())->save();
-
+            $borrow->update($request->validated());
             ($this->logger)(
                 $request->user(),
                 AuditAction::Edit,
@@ -69,7 +77,6 @@ class BorrowController extends Controller
 
         DB::transaction(function () use ($borrow) {
             $borrow->delete();
-
             ($this->logger)(
                 Auth::user(),
                 AuditAction::Delete,

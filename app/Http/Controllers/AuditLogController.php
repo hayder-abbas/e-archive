@@ -9,12 +9,23 @@ use Illuminate\Support\Facades\Gate;
 
 class AuditLogController extends Controller
 {
+    private int $page;
+
+    public function __construct()
+    {
+        $this->page = max(1, request()->integer('page', 1));
+    }
+
+
     public function index()
     {
         return inertia('auditlogs/index', [
-            'auditLogs' => AuditLog::latest('id')
-                ->paginate(20)
-                ->toResourceCollection()
+            'auditLogs' => AuditLog::cached(
+                fn() => AuditLog::latest('id')
+                    ->paginate(20, page: $this->page)
+                    ->toResourceCollection(),
+                "auditLogs:page:{$this->page}"  // [table]:[page]:[number or all]
+            )
         ]);
     }
 
