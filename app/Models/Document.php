@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Concerns\HasCachedResource;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +27,7 @@ use Illuminate\Support\Carbon;
 class Document extends Model
 {
     /** @use HasFactory<\Database\Factories\DocumentFactory> */
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasCachedResource;
 
     public function box(): BelongsTo
     {

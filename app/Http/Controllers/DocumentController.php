@@ -21,29 +21,42 @@ use Illuminate\Support\Str;
 
 class DocumentController extends Controller
 {
+    private int $page;
+
     public function __construct(
         private StoreDocument $storeDocument,
         private UpdateDocument $updateDocument,
         private DeleteDocument $deleteDocument,
         private AuditLogger $logger
-    ) {}
+    ) {
+        $this->page = max(1, request()->integer('page', 1));
+    }
 
     public function index()
     {
         Gate::authorize('viewAny', Document::class);
 
         return inertia('documents/index', [
-            'documents' => Document::query()
-                ->with(['box:id,box_number', 'entity'])
-                ->latest('id')
-                ->paginate(30)
-                ->toResourceCollection(),
-            'boxes' => Box::latest('id')
-                ->get(['id', 'box_number'])
-                ->toResourceCollection(),
-            'entities' => Entity::latest('id')
-                ->get()
-                ->toResourceCollection(),
+            'documents' => Document::cached(
+                fn() => Document::query()
+                    ->with(['box:id,box_number', 'entity'])
+                    ->latest('id')
+                    ->paginate(30, page: $this->page)
+                    ->toResourceCollection(),
+                "documents:page:{$this->page}"  // [table]:[page]:[number or all]
+            ),
+            'boxes' => Box::cached(
+                fn() => Box::latest('id')
+                    ->get(['id', 'box_number'])
+                    ->toResourceCollection(),
+                "boxes:page:all"    // [table]:page:all
+            ),
+            'entities' => Entity::cached(
+                fn() => Entity::latest('id')
+                    ->get()
+                    ->toResourceCollection(),
+                "entities:page:all" // [table]:page:all
+            ),
         ]);
     }
 
@@ -51,16 +64,26 @@ class DocumentController extends Controller
     public function show(Document $document)
     {
         Gate::authorize('view', $document);
-        $document->load(['box:id,box_number', 'entity']);
 
         return inertia('documents/Show', [
-            'document' => $document->toResource(),
-            'boxes' => Box::latest('id')
-                ->get(['id', 'box_number'])
-                ->toResourceCollection(),
-            'entities' => Entity::latest('id')
-                ->get()
-                ->toResourceCollection(),
+            'document' => Document::cached(
+                fn() => $document
+                    ->load(['box:id,box_number', 'entity'])
+                    ->toResource(),
+                "document:{$document->id}:show" // [model]:[number]:show
+            ),
+            'boxes' => Box::cached(
+                fn() => Box::latest('id')
+                    ->get(['id', 'box_number'])
+                    ->toResourceCollection(),
+                "boxes:page:all"    // [table]:page:all
+            ),
+            'entities' => Entity::cached(
+                fn() => Entity::latest('id')
+                    ->get()
+                    ->toResourceCollection(),
+                "entities:page:all" // [table]:page:all
+            ),
         ]);
     }
 
@@ -109,10 +132,13 @@ class DocumentController extends Controller
         Gate::authorize('viewAny', Document::class);
 
         return inertia('Trash', [
-            'documents' => Document::onlyTrashed()
-                ->with(['box:id,box_number'])
-                ->paginate(20)
-                ->toResourceCollection()
+            'documents' => Document::cached(
+                fn() => Document::onlyTrashed()
+                    ->with(['box:id,box_number'])
+                    ->paginate(20, page: $this->page)
+                    ->toResourceCollection(),
+                "trash:page:{$this->page}"  // trash:page:[number]
+            )
         ]);
     }
 

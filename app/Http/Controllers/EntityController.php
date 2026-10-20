@@ -9,12 +9,23 @@ use Illuminate\Support\Facades\Gate;
 
 class EntityController extends Controller
 {
+    private int $page;
+
+    public function __construct()
+    {
+        $this->page = max(1, request()->integer('page', 1));
+    }
+
+
     public function index()
     {
         return inertia('entities/index', [
-            'entities' => Entity::latest('id')
-                ->paginate(20)
-                ->toResourceCollection()
+            'entities' => Entity::cached(
+                fn() => Entity::latest('id')
+                    ->paginate(20, page: $this->page)
+                    ->toResourceCollection(),
+                "entities:page:{$this->page}"  // [table]:[page]:[number or all]
+            )
         ]);
     }
 
@@ -30,8 +41,7 @@ class EntityController extends Controller
     public function update(UpdateEntityRequest $request, Entity $entity)
     {
         Gate::authorize('update', $entity);
-        $entity->fill($request->validated());
-        $entity->save();
+        $entity->update($request->validated());
         return back();
     }
 

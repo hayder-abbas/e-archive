@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Concerns\HasCachedResource;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Box extends Model
 {
     /** @use HasFactory<\Database\Factories\BoxFactory> */
-    use HasFactory;
+    use HasFactory, HasCachedResource;
 
     public function documents(): HasMany
     {
