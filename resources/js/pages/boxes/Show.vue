@@ -85,25 +85,14 @@ const props = defineProps<{
       class="relative min-h-screen p-4 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border overflow-hidden"
     >
       <div
-        class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-2"
+        class="grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2"
       >
         <DocumentCard
           v-for="doc in props.documents.data"
           :key="doc.id"
           :document="doc"
           :box="box"
-        >
-          <!-- View Document Button -->
-          <Button
-            size="icon-sm"
-            variant="outline"
-            class="flex-1 cursor-pointer"
-          >
-            <Link :href="documents.show(doc)">
-              {{ $t("global.view_btn") }}
-            </Link>
-          </Button>
-        </DocumentCard>
+        />
       </div>
 
       <!-- Paginate -->

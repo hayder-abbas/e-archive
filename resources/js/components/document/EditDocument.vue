@@ -23,7 +23,7 @@ import Textarea from "../ui/textarea/Textarea.vue";
 
 const props = defineProps<{
   document: Document;
-  boxs: Boxes;
+  boxes: Boxes;
   entities: Entities;
 }>();
 </script>
@@ -31,7 +31,7 @@ const props = defineProps<{
 <template>
   <Dialog>
     <DialogTrigger>
-      <Button size="sm" variant="outline" class="cursor-pointer">
+      <Button size="sm" variant="outline" class="w-full cursor-pointer">
         <Edit />
         {{ $t("global.edit_btn") }}
       </Button>
@@ -61,9 +61,9 @@ const props = defineProps<{
           <InputError :message="errors.subject" />
         </div>
 
-        <div class="flex items-center gap-4">
+        <div class="grid md:grid-cols-2 gap-4">
           <!-- Number -->
-          <div class="space-y-2 flex-1">
+          <div class="space-y-2">
             <Label for="docNumber">{{ $t("document.number_label") }}</Label>
             <Input
               id="docNumber"
@@ -76,7 +76,7 @@ const props = defineProps<{
           </div>
 
           <!-- Date -->
-          <div class="space-y-2 flex-1">
+          <div class="space-y-2">
             <Label for="docDate">{{ $t("document.date_label") }}</Label>
             <Input
               id="docDate"
@@ -88,9 +88,9 @@ const props = defineProps<{
           </div>
         </div>
 
-        <div class="flex gap-4 items-center">
+        <div class="grid md:grid-cols-2 gap-4">
           <!-- Box -->
-          <div class="space-y-2 flex-1">
+          <div class="space-y-2">
             <Label>{{ $t("document.box_label") }}</Label>
             <Select name="box_id" :default-value="document.box?.id">
               <SelectTrigger class="w-full">
@@ -98,7 +98,7 @@ const props = defineProps<{
               </SelectTrigger>
               <SelectContent>
                 <SelectItem
-                  v-for="b in props.boxs.data"
+                  v-for="b in props.boxes.data"
                   :key="b.id"
                   :value="b.id"
                 >
@@ -110,7 +110,7 @@ const props = defineProps<{
           </div>
 
           <!-- Entity -->
-          <div class="space-y-2 flex-1">
+          <div class="space-y-2">
             <Label>{{ $t("document.entity_label") }}</Label>
             <Select name="entity_id" :default-value="document.entity?.id">
               <SelectTrigger class="w-full">
@@ -130,11 +130,11 @@ const props = defineProps<{
           </div>
         </div>
 
-        <div class="flex gap-4 items-center">
+        <div class="grid md:grid-cols-2 gap-4">
           <!-- Type -->
-          <div class="space-y-2 flex-1">
+          <div class="space-y-2">
             <Label>{{ $t("document.type_label") }}</Label>
-            <Select name="type" :default-value="props.document.type">
+            <Select name="type" :default-value="document.type">
               <SelectTrigger class="w-full">
                 <SelectValue />
               </SelectTrigger>
@@ -151,7 +151,7 @@ const props = defineProps<{
           </div>
 
           <!-- Security -->
-          <div class="space-y-2 flex-1">
+          <div class="space-y-2">
             <Label>{{ $t("document.security_label") }}</Label>
             <Select name="security" :default-value="document.security">
               <SelectTrigger class="w-full">
@@ -170,11 +170,26 @@ const props = defineProps<{
           </div>
         </div>
 
-        <!-- File -->
-        <div class="space-y-2">
-          <Label for="docFile">{{ $t("document.file_label") }}</Label>
-          <Input id="docFile" type="file" name="file" />
-          <InputError :message="errors.file" />
+        <div class="grid md:grid-cols-2 gap-4">
+          <!-- Belongs To -->
+          <div class="space-y-2">
+            <Label for="belongsTo">{{ $t("document.belongs_to_label") }}</Label>
+            <Input
+              id="belongsTo"
+              type="text"
+              name="belongs_to"
+              :default-value="document.belongsTo"
+              :placeholder="$t('document.belongs_to_placeholder')"
+            />
+            <InputError :message="errors.belongs_to" />
+          </div>
+
+          <!-- File -->
+          <div class="space-y-2">
+            <Label for="docFile">{{ $t("document.file_label") }}</Label>
+            <Input id="docFile" type="file" name="file" />
+            <InputError :message="errors.file" />
+          </div>
         </div>
 
         <!-- Notes -->

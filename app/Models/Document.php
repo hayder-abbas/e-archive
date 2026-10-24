@@ -13,17 +13,18 @@ use Illuminate\Support\Carbon;
 /**
  * @property int $id
  * @property string $number
- * @property string $subject
  * @property Carbon|null $date
+ * @property string $subject
  * @property string $file
  * @property string $type
  * @property string $security
+ * @property string $belongs_to
  * @property string $notes
  * @property int $box_id
  * @property int $entity_id
  */
 
-#[Fillable('number', 'subject', 'date', 'file', 'type', 'security', 'notes', 'box_id', 'entity_id')]
+#[Fillable('number', 'date', 'subject', 'file', 'type', 'security', 'belongs_to', 'notes', 'box_id', 'entity_id')]
 class Document extends Model
 {
     /** @use HasFactory<\Database\Factories\DocumentFactory> */
@@ -37,5 +38,13 @@ class Document extends Model
     public function entity(): BelongsTo
     {
         return $this->belongsTo(Entity::class);
+    }
+
+    public function followers()
+    {
+        return self::with('box:id,box_number')
+            ->where('belongs_to', $this->number)
+            ->latest('id')
+            ->get();
     }
 }

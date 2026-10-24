@@ -15,8 +15,8 @@ import SelectValue from "../ui/select/SelectValue.vue";
 
       <SelectContent>
         <SelectItem value="all">{{ $t("global.all") }}</SelectItem>
-        <SelectItem value="incoming">{{ $t("docs.incoming") }}</SelectItem>
-        <SelectItem value="outgoing">{{ $t("docs.outgoing") }}</SelectItem>
+        <SelectItem value="incoming">{{ $t("document.Incoming") }}</SelectItem>
+        <SelectItem value="outgoing">{{ $t("document.Outgoing") }}</SelectItem>
       </SelectContent>
     </Select>
   </div>

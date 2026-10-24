@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Plus, Save } from "@lucide/vue";
 import { Form } from "@inertiajs/vue3";
-import { Box, Boxes, Entities } from "@/types";
+import { Box, Boxes, Document, Entities } from "@/types";
 import { store } from "@/actions/App/Http/Controllers/DocumentController.js";
 import Button from "../ui/button/Button.vue";
 import Dialog from "../ui/dialog/Dialog.vue";
@@ -25,13 +25,14 @@ const props = defineProps<{
   boxes: Boxes;
   entities: Entities;
   box?: { data: Box };
+  document?: Document;
 }>();
 </script>
 
 <template>
   <Dialog>
-    <DialogTrigger>
-      <Button class="cursor-pointer">
+    <DialogTrigger class="w-full md:w-fit">
+      <Button class="w-full md:w-fit cursor-pointer" size="sm">
         <Plus />
         {{ $t("document.new_doc_btn") }}
       </Button>
@@ -61,9 +62,9 @@ const props = defineProps<{
           <InputError :message="errors.subject" />
         </div>
 
-        <div class="flex items-center gap-4">
+        <div class="grid md:grid-cols-2 gap-4">
           <!-- Number -->
-          <div class="space-y-2 flex-1">
+          <div class="space-y-2">
             <Label for="docNumber">{{ $t("document.number_label") }}</Label>
             <Input
               id="docNumber"
@@ -75,16 +76,16 @@ const props = defineProps<{
           </div>
 
           <!-- Date -->
-          <div class="space-y-2 flex-1">
+          <div class="space-y-2">
             <Label for="docDate">{{ $t("document.date_label") }}</Label>
             <Input id="docDate" type="date" name="date" />
             <InputError :message="errors.date" />
           </div>
         </div>
 
-        <div class="flex gap-4 items-center">
+        <div class="grid md:grid-cols-2 gap-4">
           <!-- Box -->
-          <div class="space-y-2 flex-1">
+          <div class="space-y-2">
             <Label>{{ $t("document.box_label") }}</Label>
             <Select name="box_id" :default-value="box?.data.id">
               <SelectTrigger class="w-full">
@@ -104,7 +105,7 @@ const props = defineProps<{
           </div>
 
           <!-- Entity -->
-          <div class="space-y-2 flex-1">
+          <div class="space-y-2">
             <Label>{{ $t("document.entity_label") }}</Label>
             <Select name="entity_id">
               <SelectTrigger class="w-full">
@@ -124,9 +125,9 @@ const props = defineProps<{
           </div>
         </div>
 
-        <div class="flex gap-4 items-center">
+        <div class="grid md:grid-cols-2 gap-4">
           <!-- Type -->
-          <div class="space-y-2 flex-1">
+          <div class="space-y-2">
             <Label>{{ $t("document.type_label") }}</Label>
             <Select name="type">
               <SelectTrigger class="w-full">
@@ -145,7 +146,7 @@ const props = defineProps<{
           </div>
 
           <!-- Security -->
-          <div class="space-y-2 flex-1">
+          <div class="space-y-2">
             <Label>{{ $t("document.security_label") }}</Label>
             <Select name="security">
               <SelectTrigger class="w-full">
@@ -166,11 +167,26 @@ const props = defineProps<{
           </div>
         </div>
 
-        <!-- File -->
-        <div class="space-y-2">
-          <Label for="docFile">{{ $t("document.file_label") }}</Label>
-          <Input id="docFile" type="file" name="file" />
-          <InputError :message="errors.file" />
+        <div class="grid md:grid-cols-2 gap-4">
+          <!-- Belongs To -->
+          <div class="space-y-2">
+            <Label for="belongsTo">{{ $t("document.belongs_to_label") }}</Label>
+            <Input
+              id="belongsTo"
+              type="text"
+              name="belongs_to"
+              :default-value="props.document?.number"
+              :placeholder="$t('document.belongs_to_placeholder')"
+            />
+            <InputError :message="errors.belongs_to" />
+          </div>
+
+          <!-- File -->
+          <div class="space-y-2">
+            <Label for="docFile">{{ $t("document.file_label") }}</Label>
+            <Input id="docFile" type="file" name="file" />
+            <InputError :message="errors.file" />
+          </div>
         </div>
 
         <!-- Notes -->

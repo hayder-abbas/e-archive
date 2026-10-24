@@ -11,11 +11,12 @@ return new class extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->string('number', 50);
-            $table->string('subject');
             $table->date('date');
+            $table->string('subject');
             $table->string('file')->nullable();
             $table->enum('type', ['Incoming', 'Outgoing']);
             $table->enum('security', ['Normal', 'Secure']);
+            $table->string('belongs_to', 50)->nullable();
             $table->text('notes')->nullable();
             $table->foreignId('box_id')
                 ->constrained()
@@ -27,6 +28,8 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->primary(['id', 'number', 'date']);
         });
     }
 

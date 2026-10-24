@@ -17,11 +17,12 @@ class DocumentResource extends JsonResource
         return [
             'id' => $this->id,
             'number' => $this->number,
-            'subject' => $this->subject,
             'date' => $this->date,
+            'subject' => $this->subject,
             'file' => $this->file,
             'type' => $this->type,
             'security' => $this->security,
+            'belongsTo' => $this->belongs_to,
             'notes' =>  $this->notes,
             'box' => BoxResource::make($this->whenLoaded('box')),
             'entity' => EntityResource::make($this->whenLoaded('entity'))

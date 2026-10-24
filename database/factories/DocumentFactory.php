@@ -21,11 +21,12 @@ class DocumentFactory extends Factory
     {
         return [
             'number' => fake()->buildingNumber(),
-            'subject' => fake()->word(),
             'date' => fake()->date(),
+            'subject' => fake()->word(),
             'file' => fake()->filePath(),
             'type' => fake()->randomElement(['Incoming', 'Outgoing']),
             'security' => fake()->randomElement(['Normal', 'Secure']),
+            'belongs_to' => fake()->buildingNumber(),
             'notes' => fake()->paragraph(2),
             'box_id' => Box::factory(),
             'entity_id' => Entity::factory(),

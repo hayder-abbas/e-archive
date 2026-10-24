@@ -7,6 +7,7 @@ return [
     'all' => 'الكل',
     'from' => 'من',
     'to' => 'الى',
+    'view_file' => 'عرض الملف',
 
     // Buttons
     'open_btn' => 'فتح',

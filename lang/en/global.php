@@ -7,6 +7,7 @@ return [
     'all' => 'All',
     'from' => 'From',
     'to' => 'To',
+    'view_file' => 'View file',
 
     // Buttons
     'open_btn' => 'Open',

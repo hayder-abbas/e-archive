@@ -22,10 +22,11 @@ class UpdateDocumentRequest extends FormRequest
     {
         return [
             'number' => ['required', 'string', 'min:1', 'max:50'],
-            'subject' => ['required', 'string', 'min:1', 'max:255'],
             'date' => ['required', 'date'],
+            'subject' => ['required', 'string', 'min:1', 'max:255'],
             'type' => ['required', 'string'],
             'security' => ['required', 'string'],
+            'belongs_to' => ['nullable', 'string', 'min:1', 'max:50', 'exists:documents'],
             'file' => ['nullable', File::types('pdf')->max(20 * 1024)],
             'notes' => ['nullable', 'string'],
             'box_id' => ['required', 'exists:boxes,id'],
