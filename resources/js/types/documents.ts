@@ -5,11 +5,12 @@ import { Links, Meta } from "./paginate";
 export type Document = {
     id: number;
     number: string;
-    subject: string;
     date: string;
-    file: string;
+    subject: string;
+    file: string | null;
     type: string;
     security: string;
+    belongsTo: string;
     notes: string;
     box?: Box;
     entity?: Entity;

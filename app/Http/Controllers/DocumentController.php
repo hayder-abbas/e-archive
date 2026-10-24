@@ -84,6 +84,10 @@ class DocumentController extends Controller
                     ->toResourceCollection(),
                 "entities:page:all" // [table]:page:all
             ),
+            'followers' => Document::cached(
+                fn() => $document->followers()->toResourceCollection(),
+                "document:{$document->id}:followers:all"
+            ),
         ]);
     }
 

@@ -25,12 +25,14 @@ return [
     'box_placeholder' => 'Chose box number',
     'entity_label' => 'Entity',
     'entity_placeholder' => 'Chose entity',
-    'file_label' => 'File (PDF)',
+    'belongs_to_label' => 'Belongs to',
+    'belongs_to_placeholder' => 'Belongs to',
+    'file_label' => 'Upload file (PDF)',
     'Incoming' => 'Incoming',
     'Outgoing' => 'Outgoing',
     'add_success_message' => 'Document creates successfully',
     'update_success_message' => 'Document updated successfully',
-    'missing_pdf' => 'The PDF file has been deleted or its source is faulty...',
+    'missing_pdf' => 'The PDF file has been deleted or has not yet been uploaded.',
 
     // Card
     'doc_no' => 'Number',
