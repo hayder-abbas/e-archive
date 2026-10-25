@@ -2,30 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\AuditAction;
-use App\Enums\AuditTarget;
 use App\Http\Requests\StoreBoxRequest;
 use App\Http\Requests\UpdateBoxRequest;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Box;
 use App\Models\Document;
 use App\Models\Entity;
-use App\Services\AuditLogger;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Services\StoreBox;
+use App\Services\UpdateBox;
 
 class BoxController extends Controller
 {
     private int $page;
 
-    public function __construct(private AuditLogger $logger)
-    {
+    public function __construct(
+        private StoreBox $storeBox,
+        private UpdateBox $updateBox
+    ) {
         $this->page = max(1, request()->integer('page', 1));
     }
 
 
     public function index()
     {
+        Gate::authorize('viewAny', Box::class);
+
         return inertia('boxes/index', [
             'boxes' => Box::cached(
                 fn() => Box::latest('id')
@@ -41,15 +42,7 @@ class BoxController extends Controller
     {
         Gate::authorize('create', Box::class);
 
-        DB::transaction(function () use ($request) {
-            $newBox = Box::create($request->validated());
-            ($this->logger)(
-                $request->user(),
-                AuditAction::Add,
-                AuditTarget::Box,
-                $newBox->box_number
-            );
-        });
+        ($this->storeBox)($request);
 
         return back();
     }
@@ -91,34 +84,8 @@ class BoxController extends Controller
     {
         Gate::authorize('update', $box);
 
-        DB::transaction(function () use ($request, $box) {
-            $box->update($request->validated());
-            ($this->logger)(
-                $request->user(),
-                AuditAction::Edit,
-                AuditTarget::Box,
-                $box->box_number
-            );
-        });
+        ($this->updateBox)($request, $box);
 
         return back();
-    }
-
-
-    public function destroy(Box $box)
-    {
-        Gate::authorize('delete', $box);
-
-        DB::transaction(function () use ($box) {
-            $box->delete();
-            ($this->logger)(
-                Auth::user(),
-                AuditAction::Delete,
-                AuditTarget::Box,
-                $box->box_number
-            );
-        });
-
-        return to_route('boxes.index');
     }
 }
