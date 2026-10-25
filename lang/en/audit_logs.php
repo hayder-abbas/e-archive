@@ -12,9 +12,8 @@ return [
     // Actions
     'add' => 'add',
     'edit' => 'edit',
-    'delete' => 'delete',
-    'force-delete' => 'force-delete',
-    'restore' => 'restore',
+    'revoke' => 'revoke',
+    'reinstate' => 'reinstate',
 
     // Types
     'entity' => 'entity',

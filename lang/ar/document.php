@@ -5,7 +5,6 @@ return [
     'add_title' => 'اضافة كتاب جديد',
     'edit_title' => 'التعديل على الكتاب',
     'breadcrumb' => 'مشاهدة الكتاب',
-    'confirm_title' => 'هل انت متأكد من حذف الكتاب؟',
 
     // Form
     'number_label' => 'العدد',
@@ -17,7 +16,7 @@ return [
     'notes_placeholder' => 'ملاحظاتك... (اختياري)',
     'type_label' => 'النوع',
     'type_placeholder' => 'نوع الكتاب',
-    'security_label' => 'السرية',
+    'security_label' => 'مستوى الكتمان',
     'security_placeholder' => 'مستوى الكتمان',
     'Normal' => 'عادي',
     'Secure' => 'سري',

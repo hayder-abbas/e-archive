@@ -1,13 +1,16 @@
 <script setup lang="ts">
+import type { NavItem } from "@/types";
+import { computed } from "vue";
 import { Link, usePage } from "@inertiajs/vue3";
+import { dashboard, revokeds } from "@/routes";
 import {
   FileBox,
   Files,
+  FileX,
   HandCoins,
   Landmark,
   LayoutGrid,
   Logs,
-  Trash,
 } from "@lucide/vue";
 import AppLogo from "@/components/AppLogo.vue";
 import NavFooter from "@/components/NavFooter.vue";
@@ -22,13 +25,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { dashboard, trash } from "@/routes";
-import type { NavItem } from "@/types";
 import boxes from "@/routes/boxes";
 import entities from "@/routes/entities";
 import borrows from "@/routes/borrows";
 import auditLogs from "@/routes/audit-logs";
-import { computed } from "vue";
 import documents from "@/routes/documents";
 
 const locale = computed(() => usePage().props.locale);
@@ -68,9 +68,9 @@ const footerNavItems: NavItem[] = [
     icon: Logs,
   },
   {
-    title: "sidebar.trash",
-    href: trash(),
-    icon: Trash,
+    title: "sidebar.revokeds",
+    href: revokeds(),
+    icon: FileX,
   },
 ];
 </script>
