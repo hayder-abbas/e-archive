@@ -7,18 +7,15 @@ use App\Models\User;
 
 class BoxPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->isAdmin();
     }
 
 
     public function view(User $user, Box $box): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
 
@@ -36,7 +33,7 @@ class BoxPolicy
 
     public function delete(User $user, Box $box): bool
     {
-        return $user->isAdmin();
+        return false;
     }
 
 

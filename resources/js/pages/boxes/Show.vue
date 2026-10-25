@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import { Box, Boxes, Documents, Entities } from "@/types";
-import { Head, Link } from "@inertiajs/vue3";
+import { Head } from "@inertiajs/vue3";
 import DocumentCard from "@/components/document/DocumentCard.vue";
 import FilterByType from "@/components/global/FilterByType.vue";
 import SearchByDate from "@/components/global/SearchByDate.vue";
 import Input from "@/components/ui/input/Input.vue";
 import boxes from "@/routes/boxes";
 import EditBox from "@/components/box/EditBox.vue";
-import DeleteBox from "@/components/box/DeleteBox.vue";
 import Paginate from "@/components/global/Paginate.vue";
 import AddDocument from "@/components/document/AddDocument.vue";
-import Button from "@/components/ui/button/Button.vue";
-import documents from "@/routes/documents";
 
 defineOptions({
   layout: {
@@ -48,9 +45,6 @@ const props = defineProps<{
         </div>
 
         <div class="flex items-center gap-4">
-          <!-- Delete Box button -->
-          <DeleteBox :box="props.box" />
-
           <!-- Edit Box button -->
           <EditBox :box="props.box" />
 

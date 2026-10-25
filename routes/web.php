@@ -12,7 +12,7 @@ Route::inertia('/', 'Welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'Dashboard')->name('dashboard');
-    Route::resource('boxes', BoxController::class);
+    Route::resource('boxes', BoxController::class)->except('destroy');
     Route::resource('entities', EntityController::class);
     Route::resource('documents', DocumentController::class)->except('destroy');
 
