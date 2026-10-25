@@ -24,6 +24,7 @@ class DocumentResource extends JsonResource
             'security' => $this->security,
             'belongsTo' => $this->belongs_to,
             'notes' =>  $this->notes,
+            'revokedAt' => $this->revoked_at,
             'box' => BoxResource::make($this->whenLoaded('box')),
             'entity' => EntityResource::make($this->whenLoaded('entity'))
         ];

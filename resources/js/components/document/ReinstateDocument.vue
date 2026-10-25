@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { Trash } from "@lucide/vue";
+import { FileCheckCorner } from "@lucide/vue";
 import { Form } from "@inertiajs/vue3";
 import { Document } from "@/types";
-import {
-  destroy,
-  forceDelete,
-} from "@/actions/App/Http/Controllers/DocumentController.js";
+import { reinstate } from "@/actions/App/Http/Controllers/DocumentController.js";
 import Button from "../ui/button/Button.vue";
 import Dialog from "../ui/dialog/Dialog.vue";
 import DialogTrigger from "../ui/dialog/DialogTrigger.vue";
@@ -14,38 +11,36 @@ import DialogTitle from "../ui/dialog/DialogTitle.vue";
 import DialogClose from "../ui/dialog/DialogClose.vue";
 import DialogHeader from "../ui/dialog/DialogHeader.vue";
 
-const props = defineProps<{
-  document: Document;
-  force?: boolean;
-}>();
-
-let handleDelete = null;
-
-if (props.force) {
-  handleDelete = () => forceDelete.form(props.document);
-} else {
-  handleDelete = () => destroy.form(props.document);
-}
+const props = defineProps<{ document: Document }>();
 </script>
 
 <template>
   <Dialog>
     <DialogTrigger as-child>
-      <Button variant="destructive" size="sm" class="cursor-pointer">
-        <Trash />
-        {{ $t("global.delete_btn") }}
+      <Button
+        size="sm"
+        variant="secondary"
+        class="cursor-pointer"
+        data-test="reinstate-document-button"
+      >
+        <FileCheckCorner />
+        {{ $t("revokeds.reinstate_btn") }}
       </Button>
     </DialogTrigger>
 
     <DialogContent>
       <DialogHeader>
         <DialogTitle class="text-center mb-4">
-          {{ $t("document.confirm_title") }}
+          {{ $t("revokeds.reinstate_confirm") }}
         </DialogTitle>
       </DialogHeader>
 
       <Form
-        v-bind="handleDelete()"
+        v-bind="reinstate.form(props.document)"
+        reset-on-success
+        :options="{
+          preserveScroll: true,
+        }"
         v-slot="{ processing }"
         class="flex justify-center gap-4"
       >
@@ -57,11 +52,11 @@ if (props.force) {
 
         <Button
           type="submit"
-          variant="destructive"
           size="sm"
           :disabled="processing"
+          data-test="confirm-reinstate-document-button"
         >
-          {{ $t("global.delete_btn") }}
+          {{ $t("revokeds.reinstate_btn") }}
         </Button>
       </Form>
     </DialogContent>

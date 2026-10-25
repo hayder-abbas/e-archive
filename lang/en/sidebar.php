@@ -12,10 +12,7 @@ return [
     'borrows' => 'Borrows',
     'entities' => 'Entities',
     'audit_logs' => 'Audit Logs',
-    'trash' => 'Trash',
+    'revokeds' => 'Revokeds',
     'platform' => 'Platform',
-    '' => '',
-    '' => '',
-    '' => '',
     '' => '',
 ];

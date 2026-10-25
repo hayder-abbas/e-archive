@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
@@ -20,15 +19,16 @@ use Illuminate\Support\Carbon;
  * @property string $security
  * @property string $belongs_to
  * @property string $notes
+ * @property Carbon|null $revoked_at
  * @property int $box_id
  * @property int $entity_id
  */
 
-#[Fillable('number', 'date', 'subject', 'file', 'type', 'security', 'belongs_to', 'notes', 'box_id', 'entity_id')]
+#[Fillable('number', 'date', 'subject', 'file', 'type', 'security', 'belongs_to', 'notes', 'revoked_at', 'box_id', 'entity_id')]
 class Document extends Model
 {
     /** @use HasFactory<\Database\Factories\DocumentFactory> */
-    use HasFactory, SoftDeletes, HasCachedResource;
+    use HasFactory, HasCachedResource;
 
     public function box(): BelongsTo
     {

@@ -8,37 +8,45 @@ use App\Models\Document;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class DeleteDocument
+class RevokeDocument
 {
     public function __construct(private AuditLogger $logger) {}
 
 
-    public function forceDelete(Document $document)
+    public function revoke(Document $document)
     {
-        DB::transaction(function () use ($document) {
-            $document->forceDelete();
+        return DB::transaction(function () use ($document) {
+            $document->update([
+                'revoked_at' => now()
+            ]);
 
             ($this->logger)(
                 Auth::user(),
-                AuditAction::ForceDelete,
+                AuditAction::Revoke,
                 AuditTarget::Document,
                 $document->number
             );
+
+            return $document->revoked_at;
         });
     }
 
 
-    public function softDelete(Document $document)
+    public function reinstate(Document $document)
     {
-        DB::transaction(function () use ($document) {
-            $document->delete();
+        return DB::transaction(function () use ($document) {
+            $document->update([
+                'revoked_at' => null
+            ]);
 
             ($this->logger)(
                 Auth::user(),
-                AuditAction::Delete,
+                AuditAction::Reinstate,
                 AuditTarget::Document,
                 $document->number
             );
+
+            return $document->revoked_at;
         });
     }
 }

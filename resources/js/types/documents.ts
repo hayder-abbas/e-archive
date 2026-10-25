@@ -12,6 +12,7 @@ export type Document = {
     security: string;
     belongsTo: string;
     notes: string;
+    revokedAt: string;
     box?: Box;
     entity?: Entity;
 };

@@ -31,19 +31,13 @@ class DocumentPolicy
     }
 
 
-    public function delete(User $user, Document $document): bool
+    public function revoke(User $user, Document $document): bool
     {
         return $user->isAdmin();
     }
 
 
-    public function restore(User $user, Document $document): bool
-    {
-        return $user->isAdmin();
-    }
-
-
-    public function forceDelete(User $user, Document $document): bool
+    public function reinstate(User $user, Document $document): bool
     {
         return $user->isAdmin();
     }

@@ -12,9 +12,8 @@ return [
     // Actions
     'add' => 'اضافة',
     'edit' => 'تعديل',
-    'delete' => 'حذف',
-    'force-delete' => 'حذف نهائي',
-    'restore' => 'استرجاع',
+    'revoke' => 'الغاء',
+    'reinstate' => 'إعادة التعيين',
 
     // Types
     'entity' => 'الجهة',

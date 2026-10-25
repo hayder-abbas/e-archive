@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('security', ['Normal', 'Secure']);
             $table->string('belongs_to', 50)->nullable();
             $table->text('notes')->nullable();
+            $table->timestamp('revoked_at')->nullable();
             $table->foreignId('box_id')
                 ->constrained()
                 ->cascadeOnUpdate()
@@ -27,7 +28,6 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->timestamps();
-            $table->softDeletes();
 
             $table->primary(['id', 'number', 'date']);
         });

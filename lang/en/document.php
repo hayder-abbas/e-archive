@@ -5,7 +5,6 @@ return [
     'add_title' => 'Add New Document',
     'edit_title' => 'Edit The Document',
     'breadcrumb' => 'Show document',
-    'confirm_title' => 'Are you sure to delete this Document?',
 
     // Form
     'number_label' => 'Number',

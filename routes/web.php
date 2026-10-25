@@ -14,18 +14,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'Dashboard')->name('dashboard');
     Route::resource('boxes', BoxController::class);
     Route::resource('entities', EntityController::class);
-    Route::resource('documents', DocumentController::class);
+    Route::resource('documents', DocumentController::class)->except('destroy');
 
     Route::controller(DocumentController::class)->group(function () {
         Route::get('/documents/{document}/show-file', 'showFile')
             ->name('documents.show-file');
-        Route::delete('/documents/{document}/force-delete', 'forceDelete')
-            ->name('document.force-delete')
-            ->withTrashed();
-        Route::patch('/documents/{document}/restore', 'restore')
-            ->name('document.restore')
-            ->withTrashed();
-        Route::get('/trash', 'trash')->name('trash');
+        Route::get('/revokeds', 'revokeds')->name('revokeds');
+        Route::patch('/documents/{document}/revoke', 'revoke')
+            ->name('document.revoke');
+        Route::patch('/documents/{document}/reinstate', 'reinstate')
+            ->name('document.reinstate');
     });
 
     Route::resource('borrows', BorrowController::class);
