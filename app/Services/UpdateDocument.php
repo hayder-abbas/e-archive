@@ -15,9 +15,11 @@ class UpdateDocument
 
     public function __invoke(UpdateDocumentRequest $request, Document $document): Document
     {
-        $fields   = $request->safe()->except('file');
-        $boxId    = $fields['box_id'];
+        $fields = $request->validated();
+        $boxId = $fields['box_id'];
+        $storePath = "pdfs/{$boxId}";
         $oldPath  = $document->file;
+        $baseFileName = basename($oldPath);
         $newPath  = null;
         $undo     = null;
         $replaced = false;
@@ -25,13 +27,13 @@ class UpdateDocument
 
         try {
             if ($request->hasFile('file')) {
-                $newPath = $request->file('file')->store($boxId);
+                $newPath = $request->file('file')->store($storePath);
                 $undo = fn() => Storage::delete($newPath);
 
                 $fields['file'] = $newPath;
                 $replaced = true;
-            } elseif ((int) $boxId !== (int) $document->box_id && basename($oldPath) !== '') {
-                $newPath = $boxId . '/' . basename($oldPath);
+            } elseif ((int) $boxId !== (int) $document->box_id && $baseFileName !== '') {
+                $newPath = "{$storePath}/{$baseFileName}";
                 $undo = fn() => Storage::move($newPath, $oldPath);
 
                 $fields['file'] = $newPath;
