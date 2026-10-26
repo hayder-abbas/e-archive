@@ -20,12 +20,9 @@ class AuditLogController extends Controller
     public function index()
     {
         return inertia('auditlogs/index', [
-            'auditLogs' => AuditLog::cached(
-                fn() => AuditLog::latest('id')
-                    ->paginate(20, page: $this->page)
-                    ->toResourceCollection(),
-                "auditLogs:page:{$this->page}"  // [table]:[page]:[number or all]
-            )
+            'auditLogs' => AuditLog::latest('id')
+                ->paginate(20, page: $this->page)
+                ->toResourceCollection()
         ]);
     }
 
@@ -38,7 +35,7 @@ class AuditLogController extends Controller
     }
 
 
-    public function destroy()
+    public function destroy(AuditLog $audit_log)
     {
         Gate::authorize('delete', AuditLog::class);
         DB::delete('truncate table audit_logs');
