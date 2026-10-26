@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Trash } from "@lucide/vue";
 import { Form } from "@inertiajs/vue3";
+import { AuditLog } from "@/types";
 import { destroy } from "@/actions/App/Http/Controllers/AuditLogController.js";
 import Button from "../ui/button/Button.vue";
 import Dialog from "../ui/dialog/Dialog.vue";
@@ -8,6 +9,8 @@ import DialogTrigger from "../ui/dialog/DialogTrigger.vue";
 import DialogContent from "../ui/dialog/DialogContent.vue";
 import DialogTitle from "../ui/dialog/DialogTitle.vue";
 import DialogClose from "../ui/dialog/DialogClose.vue";
+
+const props = defineProps<{ auditLog: AuditLog }>();
 </script>
 
 <template>
@@ -25,7 +28,7 @@ import DialogClose from "../ui/dialog/DialogClose.vue";
       </DialogTitle>
 
       <Form
-        v-bind="destroy.form()"
+        v-bind="destroy.form(props.auditLog)"
         :options="{
           preserveScroll: true,
         }"

@@ -36,7 +36,7 @@ const props = defineProps<{ auditLogs: AuditLogs }>();
       <Input :placeholder="$t('global.search_by_number')" />
 
       <!-- Clear Logs -->
-      <ClearLogs />
+      <ClearLogs :auditLog="props.auditLogs.data[0]" />
     </div>
 
     <div
