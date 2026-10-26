@@ -23,7 +23,6 @@ class DocumentFactory extends Factory
             'number' => fake()->buildingNumber(),
             'date' => fake()->date(),
             'subject' => fake()->word(),
-            'file' => fake()->filePath(),
             'type' => fake()->randomElement(['Incoming', 'Outgoing']),
             'security' => fake()->randomElement(['Normal', 'Secure']),
             'belongs_to' => fake()->buildingNumber(),

@@ -93,10 +93,7 @@ class DocumentController extends Controller
 
         abort_unless(Storage::exists($document->file), 404);
 
-        return Storage::response(
-            $document->file,
-            Str::slug($document->number) . '.pdf'
-        );
+        return Storage::response($document->file);
     }
 
 

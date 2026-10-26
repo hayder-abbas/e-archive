@@ -16,11 +16,13 @@ class StoreDocument
     public function __invoke(StoreDocumentRequest $request): Document
     {
         $fields = $request->validated();
+        $boxId = $fields['box_id'];
+        $storePath = "pdfs/{$boxId}";
         $filePath = null;
 
         try {
             if ($request->hasFile('file')) {
-                $filePath = $request->file('file')->store($request->input('box_id'));
+                $filePath = $request->file('file')->store($storePath);
                 $fields['file'] = $filePath;
             }
 
