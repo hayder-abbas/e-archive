@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { Head, Link } from "@inertiajs/vue3";
 import { dashboard } from "@/routes";
+import Card from "@/components/ui/card/Card.vue";
+import CardHeader from "@/components/ui/card/CardHeader.vue";
+import CardTitle from "@/components/ui/card/CardTitle.vue";
+import CardDescription from "@/components/ui/card/CardDescription.vue";
+import CardContent from "@/components/ui/card/CardContent.vue";
+import Button from "@/components/ui/button/Button.vue";
 </script>
 
 <template>
@@ -12,22 +18,24 @@ import { dashboard } from "@/routes";
     class="flex min-h-screen flex-col items-center bg-[#FDFDFC] p-6 text-[#1b1b18] lg:justify-center lg:p-8 dark:bg-[#0a0a0a]"
   >
     <main
-      class="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0"
+      class="w-full flex justify-center items-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0"
     >
-      <div
-        class="flex flex-col gap-4 items-center shadow-2xl p-4 rounded-lg w-full max-w-3xl"
-      >
-        <h1 class="font-bold text-3xl">{{ $t("home.title") }}</h1>
-        <p class="text-slate-800 text-xl mb-6">
-          {{ $t("home.description") }}
-        </p>
-        <Link
-          :href="dashboard()"
-          class="bg-primary text-primary-foreground px-6 py-2 rounded-md hover:opacity-90"
-        >
-          {{ $t("home.accessing_btn") }}
-        </Link>
-      </div>
+      <Card class="w-full">
+        <CardHeader class="text-center">
+          <CardTitle class="text-4xl">{{ $t("home.title") }}</CardTitle>
+          <CardDescription class="text-lg">
+            {{ $t("home.description") }}
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent class="flex justify-center">
+          <Button>
+            <Link :href="dashboard()" class="w-full">
+              {{ $t("home.accessing_btn") }}
+            </Link>
+          </Button>
+        </CardContent>
+      </Card>
     </main>
   </div>
 </template>
