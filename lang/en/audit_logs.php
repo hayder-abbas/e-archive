@@ -14,6 +14,7 @@ return [
     'edit' => 'edit',
     'revoke' => 'revoke',
     'reinstate' => 'reinstate',
+    'delete' => 'delete',
 
     // Types
     'entity' => 'entity',

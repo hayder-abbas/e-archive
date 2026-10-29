@@ -21,7 +21,7 @@ class StoreBox
                 $request->user(),
                 AuditAction::Add,
                 AuditTarget::Box,
-                $newBox->box_number
+                $newBox->number
             );
 
             return $newBox;

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Concerns\HasCachedResource;
+use App\Concerns\Searchable;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,17 +11,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int $id
  * @property int $user_id
- * @property string $username
+ * @property string $name
  * @property string $action
- * @property string $target_type
- * @property string $target_number
+ * @property string $type
+ * @property string $number
  */
 
-#[Fillable('user_id', 'username', 'action', 'target_type', 'target_number')]
+#[Fillable('user_id', 'name', 'action', 'type', 'number')]
 class AuditLog extends Model
 {
     /** @use HasFactory<\Database\Factories\AuditLogFactory> */
-    use HasFactory, HasCachedResource;
+    use HasFactory, Searchable;
 
     public function user(): BelongsTo
     {

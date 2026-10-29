@@ -18,6 +18,7 @@ return [
     'save_btn' => 'Save',
     'view_btn' => 'View',
     'close_btn' => 'Close',
+    'search_btn' => 'Search',
 
     // Paginate
     'page :current' => 'Page :current',

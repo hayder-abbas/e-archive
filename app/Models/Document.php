@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Concerns\HasCachedResource;
+use App\Concerns\Searchable;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,7 +29,7 @@ use Illuminate\Support\Carbon;
 class Document extends Model
 {
     /** @use HasFactory<\Database\Factories\DocumentFactory> */
-    use HasFactory, HasCachedResource;
+    use HasFactory, HasCachedResource, Searchable;
 
     public function box(): BelongsTo
     {
@@ -42,9 +43,13 @@ class Document extends Model
 
     public function followers()
     {
-        return self::with('box:id,box_number')
-            ->where('belongs_to', $this->number)
-            ->latest('id')
-            ->get();
+        return self::cached(
+            fn() => self::with('box:id,number')
+                ->where('belongs_to', $this->number)
+                ->latest('id')
+                ->get()
+                ->toResourceCollection(),
+            "document:{$this->id}:followers:all"
+        );
     }
 }

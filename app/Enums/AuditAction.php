@@ -8,4 +8,5 @@ enum AuditAction: string
     case Edit = 'edit';
     case Revoke = 'revoke';
     case Reinstate = 'reinstate';
+    case Delete = 'delete';
 }

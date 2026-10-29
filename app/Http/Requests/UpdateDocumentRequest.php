@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
 
 class UpdateDocumentRequest extends FormRequest
@@ -21,12 +22,12 @@ class UpdateDocumentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'number' => ['required', 'string', 'min:1', 'max:50'],
+            'number' => ['required', 'string', 'max:50'],
             'date' => ['required', 'date'],
-            'subject' => ['required', 'string', 'min:1', 'max:255'],
-            'type' => ['required', 'string'],
-            'security' => ['required', 'string'],
-            'belongs_to' => ['nullable', 'string', 'min:1', 'max:50', 'exists:documents'],
+            'subject' => ['required', 'string', 'max:255'],
+            'type' => ['required', Rule::in(['Incoming', 'Outgoing'])],
+            'security' => ['required', Rule::in(['Normal', 'Secure'])],
+            'belongs_to' => ['nullable', 'string', 'max:50', 'exists:documents,number'],
             'file' => ['nullable', File::types('pdf')->max(20 * 1024)],
             'notes' => ['nullable', 'string'],
             'box_id' => ['required', 'exists:boxes,id'],

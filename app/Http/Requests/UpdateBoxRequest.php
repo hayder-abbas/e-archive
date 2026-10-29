@@ -20,9 +20,9 @@ class UpdateBoxRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "box_name" => ['required', 'string', 'min:1', 'max:255'],
-            "box_number" => ['sometimes', 'required', 'string', 'min:1', 'max:10'],
-            "box_date" => ['required', 'string', 'date'],
+            "name" => ['required', 'string', 'max:255'],
+            "number" => ['required', 'string', 'max:20', 'unique:boxes'],
+            "date" => ['required', 'date'],
         ];
     }
 }

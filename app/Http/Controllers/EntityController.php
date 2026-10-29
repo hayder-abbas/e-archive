@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchRequest;
 use App\Http\Requests\StoreEntityRequest;
 use App\Http\Requests\UpdateEntityRequest;
 use App\Models\Entity;
@@ -9,23 +10,11 @@ use Illuminate\Support\Facades\Gate;
 
 class EntityController extends Controller
 {
-    private int $page;
-
-    public function __construct()
-    {
-        $this->page = max(1, request()->integer('page', 1));
-    }
-
-
-    public function index()
+    public function index(SearchRequest $request)
     {
         return inertia('entities/index', [
-            'entities' => Entity::cached(
-                fn() => Entity::latest('id')
-                    ->paginate(20, page: $this->page)
-                    ->toResourceCollection(),
-                "entities:page:{$this->page}"  // [table]:[page]:[number or all]
-            )
+            'entities' => Entity::getResources($request, Entity::query()),
+            'filters' => $this->getFilters($request),
         ]);
     }
 
@@ -51,5 +40,11 @@ class EntityController extends Controller
         Gate::authorize('delete', $entity);
         $entity->delete();
         return back();
+    }
+
+
+    private function getFilters(SearchRequest $request)
+    {
+        return $request->only(['name']);
     }
 }

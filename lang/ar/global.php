@@ -18,6 +18,7 @@ return [
     'save_btn' => 'حفظ',
     'view_btn' => 'عرض',
     'close_btn' => 'اغلاق',
+    'search_btn' => 'بحث',
 
     // Paginate
     'page :current' => 'صفحة :current',

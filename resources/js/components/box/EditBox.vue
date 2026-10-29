@@ -19,12 +19,8 @@ const props = defineProps<{ box: { data: Box } }>();
 
 <template>
   <Dialog>
-    <DialogTrigger>
-      <Button
-        variant="outline"
-        class="cursor-pointer"
-        data-test="add-box-button"
-      >
+    <DialogTrigger class="w-full md:w-fit">
+      <Button variant="outline" class="cursor-pointer w-full md:w-fit">
         <Edit />
         {{ $t("box.edit_box_btn") }}
       </Button>
@@ -45,12 +41,12 @@ const props = defineProps<{ box: { data: Box } }>();
           <Input
             id="boxName"
             type="text"
-            name="box_name"
+            name="name"
             :default-value="box.data.boxName"
             v-focus
             :placeholder="$t('box.name_placeholder')"
           />
-          <InputError :message="errors.box_name" />
+          <InputError :message="errors.name" />
         </div>
 
         <div class="space-y-2">
@@ -58,11 +54,11 @@ const props = defineProps<{ box: { data: Box } }>();
           <Input
             id="boxNumber"
             type="text"
-            name="box_number"
+            name="number"
             :default-value="box.data.boxNumber"
             :placeholder="$t('box.number_placeholder')"
           />
-          <InputError :message="errors.box_number" />
+          <InputError :message="errors.number" />
         </div>
 
         <div class="space-y-2">
@@ -70,10 +66,10 @@ const props = defineProps<{ box: { data: Box } }>();
           <Input
             id="boxDate"
             type="date"
-            name="box_date"
+            name="date"
             :default-value="box.data.boxDate"
           />
-          <InputError :message="errors.box_date" />
+          <InputError :message="errors.date" />
         </div>
 
         <!-- Success Message -->

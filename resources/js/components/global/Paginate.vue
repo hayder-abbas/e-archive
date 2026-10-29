@@ -9,13 +9,14 @@ defineProps<{ meta: Meta }>();
 <template>
   <div
     v-if="meta.links.length > 3"
-    class="flex items-center justify-between mt-8"
+    class="flex flex-col md:flex-row items-start md:items-center gap-4 justify-between mt-8"
   >
     <div class="text-sm">
       {{ $t("global.page :current", { current: String(meta.current_page) }) }}
       {{ $t("global.of :last", { last: String(meta.last_page) }) }} -
       {{ $t("global.(:total) total_items", { total: String(meta.total) }) }}
     </div>
+
     <div>
       <div class="flex items-center gap-1">
         <Button

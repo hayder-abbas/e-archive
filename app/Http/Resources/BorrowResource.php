@@ -18,7 +18,7 @@ class BorrowResource extends JsonResource
             'id' => $this->id,
             'lender' => $this->lender,
             'borrower' => $this->borrower,
-            'docNumber' => $this->doc_number,
+            'docNumber' => $this->number,
             'date' => $this->date,
         ];
     }

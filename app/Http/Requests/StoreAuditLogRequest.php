@@ -4,15 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreAuditLogRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,10 +22,10 @@ class StoreAuditLogRequest extends FormRequest
     {
         return [
             'user_id' => ['nullable', 'exists:users'],
-            'username' => ['reqired', 'string', 'min:1', 'max:50'],
-            'action' => ['reqired', 'string', 'min:1', 'max:20'],
-            'target_type' => ['reqired', 'string', 'min:1', 'max:20'],
-            'target_number' => ['reqired', 'string', 'min:1', 'max:20'],
+            'name' => ['reqired', 'string', 'max:50'],
+            'action' => ['reqired', 'string', Rule::in(['add', 'edit', 'revoke', 'reinstate', 'delete'])],
+            'type' => ['reqired', Rule::in(['document', 'box', 'entity', 'borrow'])],
+            'number' => ['reqired', 'string', 'max:50'],
         ];
     }
 }

@@ -16,8 +16,8 @@ import Spinner from "../ui/spinner/Spinner.vue";
 
 <template>
   <Dialog>
-    <DialogTrigger>
-      <Button class="cursor-pointer" data-test="add-box-button">
+    <DialogTrigger class="w-full">
+      <Button class="cursor-pointer w-full" data-test="add-box-button">
         <Plus />
         {{ $t("box.new_box_btn") }}
       </Button>
@@ -39,11 +39,11 @@ import Spinner from "../ui/spinner/Spinner.vue";
           <Input
             id="boxName"
             type="text"
-            name="box_name"
+            name="name"
             v-focus
             :placeholder="$t('box.name_placeholder')"
           />
-          <InputError :message="errors.box_name" />
+          <InputError :message="errors.name" />
         </div>
 
         <div class="space-y-2">
@@ -51,16 +51,16 @@ import Spinner from "../ui/spinner/Spinner.vue";
           <Input
             id="boxNumber"
             type="text"
-            name="box_number"
+            name="number"
             :placeholder="$t('box.number_placeholder')"
           />
-          <InputError :message="errors.box_number" />
+          <InputError :message="errors.number" />
         </div>
 
         <div class="space-y-2">
           <Label for="boxDate">{{ $t("box.date") }}</Label>
-          <Input id="boxDate" type="date" name="box_date" />
-          <InputError :message="errors.box_date" />
+          <Input id="boxDate" type="date" name="date" />
+          <InputError :message="errors.date" />
         </div>
 
         <!-- Success Message -->

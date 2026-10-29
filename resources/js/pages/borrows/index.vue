@@ -2,9 +2,7 @@
 import AddBorrow from "@/components/borrow/AddBorrow.vue";
 import DeleteBorrow from "@/components/borrow/DeleteBorrow.vue";
 import EditBorrow from "@/components/borrow/EditBorrow.vue";
-import FilterByType from "@/components/global/FilterByType.vue";
 import Paginate from "@/components/global/Paginate.vue";
-import SearchByDate from "@/components/global/SearchByDate.vue";
 import Input from "@/components/ui/input/Input.vue";
 import Table from "@/components/ui/table/Table.vue";
 import TableBody from "@/components/ui/table/TableBody.vue";
@@ -14,7 +12,7 @@ import TableHeader from "@/components/ui/table/TableHeader.vue";
 import TableRow from "@/components/ui/table/TableRow.vue";
 import borrows from "@/routes/borrows";
 import { Borrows } from "@/types";
-import { Head } from "@inertiajs/vue3";
+import { Form, Head } from "@inertiajs/vue3";
 
 defineOptions({
   layout: {
@@ -27,30 +25,35 @@ defineOptions({
   },
 });
 
-const props = defineProps<{ borrows: Borrows }>();
+const props = defineProps<{
+  borrows: Borrows;
+  filters: {
+    number: string;
+  };
+}>();
 </script>
 
 <template>
   <Head :title="$t('sidebar.borrows')" />
 
   <div class="flex h-full flex-col gap-4 overflow-x-auto rounded-xl p-4">
-    <!-- Add new borrow button -->
-    <div class="flex justify-end items-center">
-      <AddBorrow />
-    </div>
-
     <div
-      class="flex flex-wrap justify-between gap-4 flex-col lg:flex-row lg:items-center"
+      class="flex flex-wrap justify-between gap-4 flex-col md:flex-row lg:items-center"
     >
-      <!-- Search by date -->
-      <SearchByDate />
+      <div class="flex gap-4 w-full md:w-fit">
+        <!-- Search by Number -->
+        <Form method="get" :action="borrows.index()" class="w-full">
+          <Input
+            name="number"
+            :default-value="props.filters.number || ''"
+            :placeholder="$t('global.search_by_number')"
+          />
+        </Form>
+      </div>
 
-      <div class="flex gap-4">
-        <!-- Search by doc-no -->
-        <Input :placeholder="$t('global.search_by_number')" />
-
-        <!-- Filter by type -->
-        <FilterByType class="md:flex-1 lg:flex-none" />
+      <!-- Add new borrow button -->
+      <div class="flex justify-end items-center w-full md:w-fit">
+        <AddBorrow />
       </div>
     </div>
 

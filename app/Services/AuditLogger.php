@@ -12,15 +12,15 @@ class AuditLogger
     public function __invoke(
         User $user,
         AuditAction $action,
-        AuditTarget $targetType,
-        string $targetNumber
+        AuditTarget $type,
+        string $number
     ): AuditLog {
         return AuditLog::create([
             'user_id' => $user->id,
-            'username' => $user->name,
+            'name' => $user->name,
             'action' => $action,
-            'target_type' => $targetType,
-            'target_number' => $targetNumber,
+            'type' => $type,
+            'number' => $number,
         ]);
     }
 }

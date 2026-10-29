@@ -24,10 +24,8 @@ class UpdateEntityRequest extends FormRequest
             "name" => [
                 'required',
                 'string',
-                'min:4',
                 'max:255',
-                Rule::unique('entities', 'name')
-                    ->ignore($this->route('entity'))
+                Rule::unique('entities', 'name')->ignore($this->route('entity'))
             ]
         ];
     }
