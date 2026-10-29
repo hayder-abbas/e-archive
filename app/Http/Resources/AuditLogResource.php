@@ -17,10 +17,10 @@ class AuditLogResource extends JsonResource
         return [
             'id' => $this->id,
             'userId' => $this->user_id,
-            'username' => $this->username,
+            'username' => $this->name,
             'action' => $this->action,
-            'targetType' => $this->target_type,
-            'targetNumber' => $this->target_number,
+            'targetType' => $this->type,
+            'targetNumber' => $this->number,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
         ];

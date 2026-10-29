@@ -21,7 +21,7 @@ class UpdateBox
                 $request->user(),
                 AuditAction::Edit,
                 AuditTarget::Box,
-                $box->box_number
+                $box->number
             );
 
             return $box;

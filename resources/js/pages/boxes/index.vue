@@ -6,7 +6,7 @@ import SearchByDate from "@/components/global/SearchByDate.vue";
 import Input from "@/components/ui/input/Input.vue";
 import boxes from "@/routes/boxes";
 import { Boxes } from "@/types";
-import { Head } from "@inertiajs/vue3";
+import { Form, Head } from "@inertiajs/vue3";
 
 defineOptions({
   layout: {
@@ -19,26 +19,42 @@ defineOptions({
   },
 });
 
-const props = defineProps<{ boxes: Boxes }>();
+const props = defineProps<{
+  boxes: Boxes;
+  filters: {
+    number: string;
+    fromDate: string;
+    toDate: string;
+  };
+}>();
 </script>
 
 <template>
   <Head :title="$t('sidebar.boxes')" />
 
   <div class="flex h-full flex-col gap-4 overflow-x-auto rounded-xl p-4">
-    <!-- Box Search -->
-    <div
-      class="flex justify-between gap-4 flex-col lg:flex-row lg:items-center"
-    >
+    <!-- Search -->
+    <div class="grid lg:grid-cols-2 gap-4">
       <!-- Search by box date -->
-      <SearchByDate />
+      <SearchByDate
+        :fromDate="props.filters.fromDate"
+        :toDate="props.filters.toDate"
+      />
 
-      <div class="md:flex md:gap-4 space-y-4 md:space-y-0">
+      <div class="grid md:grid-cols-2 gap-4">
         <!-- Search by box number -->
-        <Input :placeholder="$t('global.search_by_number')" />
+        <Form method="get" :action="boxes.index()">
+          <Input
+            name="number"
+            :default-value="props.filters.number || ''"
+            :placeholder="$t('global.search_by_number')"
+          />
+        </Form>
 
         <!-- Add box button -->
-        <AddBox />
+        <div class="flex justify-end items-center">
+          <AddBox />
+        </div>
       </div>
     </div>
 

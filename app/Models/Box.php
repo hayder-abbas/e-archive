@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Concerns\HasCachedResource;
+use App\Concerns\Searchable;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,16 +12,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
- * @property string $box_name
- * @property string $box_number
- * @property Carbon|null $box_date
+ * @property string $name
+ * @property string $number
+ * @property Carbon|null $date
  */
 
-#[Fillable('box_name', 'box_number', 'box_date')]
+#[Fillable('name', 'number', 'date')]
 class Box extends Model
 {
     /** @use HasFactory<\Database\Factories\BoxFactory> */
-    use HasFactory, HasCachedResource;
+    use HasFactory, HasCachedResource, Searchable;
 
     public function documents(): HasMany
     {

@@ -32,7 +32,7 @@ const props = defineProps<{
 <template>
   <Dialog>
     <DialogTrigger class="w-full md:w-fit">
-      <Button class="w-full md:w-fit cursor-pointer" size="sm">
+      <Button class="w-full md:w-fit cursor-pointer">
         <Plus />
         {{ $t("document.new_doc_btn") }}
       </Button>

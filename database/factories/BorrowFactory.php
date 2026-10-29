@@ -20,7 +20,7 @@ class BorrowFactory extends Factory
         return [
             'lender' => fake()->firstName(),
             'borrower' => fake()->firstName(),
-            'doc_number' => fake()->buildingNumber(),
+            'number' => fake()->buildingNumber(),
             'date' => fake()->date(),
         ];
     }

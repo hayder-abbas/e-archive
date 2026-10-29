@@ -20,9 +20,9 @@ class StoreBoxRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "box_name" => ['required', 'string', 'min:1', 'max:255'],
-            "box_number" => ['required', 'string', 'min:1', 'max:10', 'unique:boxes'],
-            "box_date" => ['required', 'string', 'date'],
+            "name" => ['required', 'string', 'max:255'],
+            "number" => ['required', 'string', 'max:20', 'unique:boxes'],
+            "date" => ['required', 'date'],
         ];
     }
 }

@@ -20,9 +20,9 @@ class StoreBorrowRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lender' => ['required', 'string', 'min:2', 'max:255'],
-            'borrower' => ['required', 'string', 'min:2', 'max:255'],
-            'doc_number' => ['required', 'string', 'min:1', 'max:10'],
+            'lender' => ['required', 'string', 'max:255'],
+            'borrower' => ['required', 'string', 'max:255'],
+            'number' => ['required', 'string', 'max:50', 'exists:documents,number'],
             'date' => ['required', 'date'],
         ];
     }

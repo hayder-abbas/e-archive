@@ -12,7 +12,7 @@ import TableHeader from "@/components/ui/table/TableHeader.vue";
 import TableRow from "@/components/ui/table/TableRow.vue";
 import entities from "@/routes/entities";
 import { Entities } from "@/types";
-import { Head } from "@inertiajs/vue3";
+import { Form, Head } from "@inertiajs/vue3";
 
 defineOptions({
   layout: {
@@ -25,19 +25,37 @@ defineOptions({
   },
 });
 
-const props = defineProps<{ entities: Entities }>();
+const props = defineProps<{
+  entities: Entities;
+  filters: {
+    name: string | null;
+  };
+}>();
 </script>
 
 <template>
   <Head :title="$t('sidebar.entities')" />
 
   <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-    <div class="flex justify-end items-center gap-4">
+    <div
+      class="flex flex-wrap justify-between gap-4 flex-col md:flex-row lg:items-center"
+    >
       <!-- Search -->
-      <Input :placeholder="$t('global.search_by_name')" />
+      <div class="flex gap-4 w-full md:w-fit">
+        <!-- Search by Name -->
+        <Form method="get" :action="entities.index()" class="w-full">
+          <Input
+            name="name"
+            :default-value="props.filters.name || ''"
+            :placeholder="$t('global.search_by_name')"
+          />
+        </Form>
+      </div>
 
       <!-- Add Entity Dialog -->
-      <AddEntity />
+      <div class="flex justify-end items-center w-full md:w-fit">
+        <AddEntity />
+      </div>
     </div>
 
     <div

@@ -10,9 +10,9 @@ return new class extends Migration
     {
         Schema::create('borrows', function (Blueprint $table) {
             $table->id();
-            $table->string('lender', 255);
-            $table->string('borrower', 255);
-            $table->string('doc_number', 10);
+            $table->string('lender');
+            $table->string('borrower');
+            $table->string('number', 50);
             $table->date('date');
             $table->timestamps();
         });

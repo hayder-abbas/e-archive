@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Plus, Save } from "@lucide/vue";
 import { Form } from "@inertiajs/vue3";
+import { store } from "@/actions/App/Http/Controllers/BorrowController.js";
 import Button from "../ui/button/Button.vue";
 import Dialog from "../ui/dialog/Dialog.vue";
 import DialogTrigger from "../ui/dialog/DialogTrigger.vue";
@@ -11,13 +12,12 @@ import Input from "../ui/input/Input.vue";
 import InputError from "../InputError.vue";
 import InputSuccess from "../InputSuccess.vue";
 import Spinner from "../ui/spinner/Spinner.vue";
-import { store } from "@/actions/App/Http/Controllers/BorrowController.js";
 </script>
 
 <template>
   <Dialog>
-    <DialogTrigger>
-      <Button class="cursor-pointer" data-test="add-box-button">
+    <DialogTrigger class="w-full md:w-fit">
+      <Button class="cursor-pointer w-full" data-test="add-box-button">
         <Plus />
         {{ $t("borrow.add_borrow_btn") }}
       </Button>
@@ -62,10 +62,10 @@ import { store } from "@/actions/App/Http/Controllers/BorrowController.js";
           <Input
             id="document"
             type="text"
-            name="doc_number"
+            name="number"
             :placeholder="$t('borrow.document_placeholder')"
           />
-          <InputError :message="errors.doc_number" />
+          <InputError :message="errors.number" />
         </div>
 
         <div class="space-y-2">

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Boxes, Documents, Entities } from "@/types";
-import { Head } from "@inertiajs/vue3";
+import { Form, Head } from "@inertiajs/vue3";
 import DocumentCard from "@/components/document/DocumentCard.vue";
 import FilterByType from "@/components/global/FilterByType.vue";
 import SearchByDate from "@/components/global/SearchByDate.vue";
@@ -24,6 +24,11 @@ const props = defineProps<{
   documents: Documents;
   boxes: Boxes;
   entities: Entities;
+  filters: {
+    number: string | null;
+    fromDate: string | null;
+    toDate: string | null;
+  };
 }>();
 </script>
 
@@ -37,15 +42,22 @@ const props = defineProps<{
     </div>
 
     <!-- Search -->
-    <div
-      class="flex flex-wrap justify-between gap-4 flex-col lg:flex-row lg:items-center"
-    >
+    <div class="grid lg:grid-cols-2 gap-4">
       <!-- Search by document date -->
-      <SearchByDate />
+      <SearchByDate
+        :fromDate="props.filters.fromDate"
+        :toDate="props.filters.toDate"
+      />
 
-      <div class="flex gap-4">
+      <div class="grid md:grid-cols-2 gap-4 items-end">
         <!-- Search by document number -->
-        <Input :placeholder="$t('global.search_by_number')" />
+        <Form method="get" :action="documents.index()">
+          <Input
+            name="number"
+            :default-value="props.filters.number || ''"
+            :placeholder="$t('global.search_by_number')"
+          />
+        </Form>
 
         <!-- Filter by document type -->
         <FilterByType class="md:flex-1 lg:flex-none" />

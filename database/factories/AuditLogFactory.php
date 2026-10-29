@@ -20,10 +20,10 @@ class AuditLogFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'username' => fake()->name(),
-            'action' => fake()->randomElement(['add', 'edit', 'delete', 'force-delete', 'restore']),
-            'target_type' => fake()->randomElement(['entity', 'box', 'document', 'borrow']),
-            'target_number' => fake()->word(),
+            'name' => fake()->name(),
+            'action' => fake()->randomElement(['add', 'edit', 'revoke', 'reinstate']),
+            'type' => fake()->randomElement(['entity', 'box', 'document', 'borrow']),
+            'number' => fake()->buildingNumber(),
         ];
     }
 }

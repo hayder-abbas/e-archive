@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Concerns\HasCachedResource;
+use App\Concerns\Searchable;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Entity extends Model
 {
     /** @use HasFactory<\Database\Factories\EntityFactory> */
-    use HasFactory, HasCachedResource;
+    use HasFactory, HasCachedResource, Searchable;
 
     public function documents(): HasMany
     {

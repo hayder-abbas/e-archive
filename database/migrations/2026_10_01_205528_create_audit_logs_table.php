@@ -11,10 +11,10 @@ return new class extends Migration
         Schema::create('audit_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('username', 50);
+            $table->string('name', 50);
             $table->string('action', 20);
-            $table->string('target_type', 20);
-            $table->string('target_number', 20);
+            $table->string('type', 20);
+            $table->string('number', 50);
             $table->timestamps();
         });
     }

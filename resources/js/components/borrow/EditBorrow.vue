@@ -20,12 +20,7 @@ const props = defineProps<{ borrow: Borrow }>();
 <template>
   <Dialog>
     <DialogTrigger>
-      <Button
-        variant="secondary"
-        size="icon-sm"
-        class="cursor-pointer"
-        data-test="add-box-button"
-      >
+      <Button variant="secondary" size="icon-sm" class="cursor-pointer">
         <Edit />
       </Button>
     </DialogTrigger>
@@ -70,11 +65,11 @@ const props = defineProps<{ borrow: Borrow }>();
           <Input
             id="document"
             type="text"
-            name="doc_number"
+            name="number"
             :default-value="borrow.docNumber"
             :placeholder="$t('borrow.document_placeholder')"
           />
-          <InputError :message="errors.doc_number" />
+          <InputError :message="errors.number" />
         </div>
 
         <div class="space-y-2">

@@ -14,6 +14,7 @@ return [
     'edit' => 'تعديل',
     'revoke' => 'الغاء',
     'reinstate' => 'إعادة التعيين',
+    'delete' => 'حذف',
 
     // Types
     'entity' => 'الجهة',
