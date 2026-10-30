@@ -1,31 +1,56 @@
 <script setup lang="ts">
-import { Edit, Save } from "@lucide/vue";
-import { Form } from "@inertiajs/vue3";
+import { CheckIcon, Edit, Save } from "@lucide/vue";
+import { Form, usePage } from "@inertiajs/vue3";
 import { Boxes, Document, Entities } from "@/types";
 import { update } from "@/actions/App/Http/Controllers/DocumentController.js";
 import Button from "../ui/button/Button.vue";
-import Dialog from "../ui/dialog/Dialog.vue";
-import DialogTrigger from "../ui/dialog/DialogTrigger.vue";
-import DialogContent from "../ui/dialog/DialogContent.vue";
-import DialogTitle from "../ui/dialog/DialogTitle.vue";
 import Label from "../ui/label/Label.vue";
 import Input from "../ui/input/Input.vue";
 import InputError from "../InputError.vue";
 import InputSuccess from "../InputSuccess.vue";
 import Spinner from "../ui/spinner/Spinner.vue";
-import Select from "../ui/select/Select.vue";
-import SelectTrigger from "../ui/select/SelectTrigger.vue";
-import SelectValue from "../ui/select/SelectValue.vue";
-import SelectContent from "../ui/select/SelectContent.vue";
-import SelectItem from "../ui/select/SelectItem.vue";
-import DialogClose from "../ui/dialog/DialogClose.vue";
 import Textarea from "../ui/textarea/Textarea.vue";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog/index.js";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select/index.js";
+import {
+  Combobox,
+  ComboboxAnchor,
+  ComboboxEmpty,
+  ComboboxGroup,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemIndicator,
+  ComboboxList,
+  ComboboxTrigger,
+} from "../ui/combobox/index.js";
 
 const props = defineProps<{
   document: Document;
   boxes: Boxes;
   entities: Entities;
 }>();
+
+const pageDir = usePage().props.locale === "ar" ? "rtl" : "ltr";
+
+function getBoxNumber(id: number | undefined) {
+  return props.boxes.data.find((b) => b.id === id)?.boxNumber ?? "";
+}
+
+function getEntityName(id: number | undefined) {
+  return props.entities.data.find((e) => e.id === id)?.name ?? "";
+}
 </script>
 
 <template>
@@ -92,40 +117,72 @@ const props = defineProps<{
           <!-- Box -->
           <div class="space-y-2">
             <Label>{{ $t("document.box_label") }}</Label>
-            <Select name="box_id" :default-value="document.box?.id">
-              <SelectTrigger class="w-full">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem
-                  v-for="b in props.boxes.data"
-                  :key="b.id"
-                  :value="b.id"
-                >
-                  {{ b.boxNumber }}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+            <Combobox
+              :default-value="props.document.box?.id"
+              name="box_id"
+              :dir="pageDir"
+              class="border rounded-lg overflow-hidden"
+            >
+              <ComboboxAnchor as-child>
+                <ComboboxInput
+                  :display-value="getBoxNumber"
+                  :placeholder="$t('document.box_placeholder')"
+                />
+                <ComboboxTrigger as-child />
+              </ComboboxAnchor>
+              <ComboboxList class="max-h-80">
+                <ComboboxEmpty>{{ $t("document.no_box_found") }}</ComboboxEmpty>
+                <ComboboxGroup>
+                  <ComboboxItem
+                    v-for="b in props.boxes.data"
+                    :key="b.id"
+                    :value="b.id"
+                  >
+                    {{ b.boxNumber }}
+                    <ComboboxItemIndicator>
+                      <CheckIcon />
+                    </ComboboxItemIndicator>
+                  </ComboboxItem>
+                </ComboboxGroup>
+              </ComboboxList>
+            </Combobox>
             <InputError :message="errors.box_id" />
           </div>
 
           <!-- Entity -->
           <div class="space-y-2">
             <Label>{{ $t("document.entity_label") }}</Label>
-            <Select name="entity_id" :default-value="document.entity?.id">
-              <SelectTrigger class="w-full">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem
-                  v-for="en in props.entities.data"
-                  :key="en.id"
-                  :value="en.id"
-                >
-                  {{ en.name }}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+            <Combobox
+              :default-value="props.document.entity?.id"
+              name="entity_id"
+              :dir="pageDir"
+              class="border rounded-lg overflow-hidden"
+            >
+              <ComboboxAnchor as-child>
+                <ComboboxInput
+                  :display-value="getEntityName"
+                  :placeholder="$t('document.entity_placeholder')"
+                />
+                <ComboboxTrigger as-child />
+              </ComboboxAnchor>
+              <ComboboxList class="max-h-80">
+                <ComboboxEmpty>
+                  {{ $t("document.no_entity_found") }}
+                </ComboboxEmpty>
+                <ComboboxGroup>
+                  <ComboboxItem
+                    v-for="e in props.entities.data"
+                    :key="e.id"
+                    :value="e.id"
+                  >
+                    {{ e.name }}
+                    <ComboboxItemIndicator>
+                      <CheckIcon />
+                    </ComboboxItemIndicator>
+                  </ComboboxItem>
+                </ComboboxGroup>
+              </ComboboxList>
+            </Combobox>
             <InputError :message="errors.entity_id" />
           </div>
         </div>

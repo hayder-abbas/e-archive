@@ -45,10 +45,10 @@ const formatRevoked = computed(
   <div class="flex h-full flex-col gap-4 overflow-x-auto rounded-xl p-6">
     <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
       <div>
-        <h1 class="font-bold text-xl">{{ document.data.subject }}</h1>
+        <h1 class="font-bold text-lg">{{ document.data.subject }}</h1>
       </div>
 
-      <div class="flex flex-col md:flex-row gap-4">
+      <div class="flex flex-col items-center md:flex-row gap-4">
         <div class="w-full grid grid-cols-2 md:w-fit gap-4">
           <!-- Revoke button -->
           <RevokeDocument v-if="!revoked" :document="props.document.data" />
@@ -86,33 +86,35 @@ const formatRevoked = computed(
       <Card class="flex flex-col h-full">
         <div class="flex flex-col md:flex-row md:gap-6 px-6 mb-6">
           <div class="flex-1">
-            <div class="flex justify-between py-2">
+            <div class="flex justify-between gap-4 py-2">
               <div>{{ $t("document.number_label") }}:</div>
               <div>{{ document.data.number }}</div>
             </div>
             <Separator />
 
-            <div class="flex justify-between py-2">
+            <div class="flex justify-between gap-4 py-2">
               <div>{{ $t("document.date_label") }}:</div>
               <div>{{ document.data.date }}</div>
             </div>
             <Separator />
 
-            <div class="flex justify-between py-2">
+            <div class="flex justify-between gap-4 py-2">
               <div>{{ $t("document.box_label") }}:</div>
               <div>{{ document.data.box?.boxNumber }}</div>
             </div>
             <Separator />
 
-            <div class="flex justify-between py-2">
+            <div class="flex justify-between gap-4 py-2">
               <div>{{ $t("document.entity_label") }}:</div>
               <div>{{ document.data.entity?.name }}</div>
             </div>
             <Separator />
 
-            <div class="flex justify-between py-2">
+            <div class="flex justify-between gap-4 py-2">
               <div>{{ $t("document.belongs_to_label") }}:</div>
-              <div>{{ document.data.belongsTo }}</div>
+              <div>
+                {{ document.data.belongsTo ?? $t("document.belongs_to_non") }}
+              </div>
             </div>
           </div>
           <Separator class="md:hidden" />
@@ -144,7 +146,7 @@ const formatRevoked = computed(
                 <div
                   class="bg-rose-100 text-rose-600 font-bold rounded-2xl px-4 py-2 flex justify-between items-center"
                 >
-                  <span>{{ $t("revokeds.revoked_at") }}:</span>
+                  <span>{{ $t("document.revoked_at") }}:</span>
                   <span>{{ formatRevoked }}</span>
                 </div>
               </div>
