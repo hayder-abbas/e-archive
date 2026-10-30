@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Plus, Save } from "@lucide/vue";
-import { Form } from "@inertiajs/vue3";
+import { CheckIcon, Plus, Save } from "@lucide/vue";
+import { Form, usePage } from "@inertiajs/vue3";
 import { Box, Boxes, Document, Entities } from "@/types";
 import { store } from "@/actions/App/Http/Controllers/DocumentController.js";
 import Button from "../ui/button/Button.vue";
@@ -13,13 +13,28 @@ import Input from "../ui/input/Input.vue";
 import InputError from "../InputError.vue";
 import InputSuccess from "../InputSuccess.vue";
 import Spinner from "../ui/spinner/Spinner.vue";
-import Select from "../ui/select/Select.vue";
-import SelectTrigger from "../ui/select/SelectTrigger.vue";
-import SelectValue from "../ui/select/SelectValue.vue";
-import SelectContent from "../ui/select/SelectContent.vue";
-import SelectItem from "../ui/select/SelectItem.vue";
 import Textarea from "../ui/textarea/Textarea.vue";
 import DialogClose from "../ui/dialog/DialogClose.vue";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select/index.js";
+import {
+  Combobox,
+  ComboboxAnchor,
+  ComboboxEmpty,
+  ComboboxGroup,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemIndicator,
+  ComboboxList,
+  ComboboxTrigger,
+} from "../ui/combobox/index.js";
+import { computed, ref } from "vue";
+import { Direction } from "reka-ui";
 
 const props = defineProps<{
   boxes: Boxes;
@@ -27,12 +42,22 @@ const props = defineProps<{
   box?: { data: Box };
   document?: Document;
 }>();
+
+const pageDir = usePage().props.locale === "ar" ? "rtl" : "ltr";
+
+function getBoxNumber(id: number | undefined) {
+  return props.boxes.data.find((b) => b.id === id)?.boxNumber ?? "";
+}
+
+function getEntityName(id: number | undefined) {
+  return props.entities.data.find((e) => e.id === id)?.name ?? "";
+}
 </script>
 
 <template>
   <Dialog>
     <DialogTrigger class="w-full md:w-fit">
-      <Button class="w-full md:w-fit cursor-pointer">
+      <Button size="sm" class="w-full md:w-fit cursor-pointer">
         <Plus />
         {{ $t("document.new_doc_btn") }}
       </Button>
@@ -87,40 +112,70 @@ const props = defineProps<{
           <!-- Box -->
           <div class="space-y-2">
             <Label>{{ $t("document.box_label") }}</Label>
-            <Select name="box_id" :default-value="box?.data.id">
-              <SelectTrigger class="w-full">
-                <SelectValue :placeholder="$t('document.box_placeholder')" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem
-                  v-for="b in props.boxes.data"
-                  :key="b.id"
-                  :value="b.id"
-                >
-                  {{ b.boxNumber }}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+            <Combobox
+              name="box_id"
+              :dir="pageDir"
+              class="border rounded-lg overflow-hidden"
+            >
+              <ComboboxAnchor as-child>
+                <ComboboxInput
+                  :display-value="getBoxNumber"
+                  :placeholder="$t('document.box_placeholder')"
+                />
+                <ComboboxTrigger as-child />
+              </ComboboxAnchor>
+              <ComboboxList class="max-h-80">
+                <ComboboxEmpty>{{ $t("document.no_box_found") }}</ComboboxEmpty>
+                <ComboboxGroup>
+                  <ComboboxItem
+                    v-for="b in props.boxes.data"
+                    :key="b.id"
+                    :value="b.id"
+                  >
+                    {{ b.boxNumber }}
+                    <ComboboxItemIndicator>
+                      <CheckIcon />
+                    </ComboboxItemIndicator>
+                  </ComboboxItem>
+                </ComboboxGroup>
+              </ComboboxList>
+            </Combobox>
             <InputError :message="errors.box_id" />
           </div>
 
           <!-- Entity -->
           <div class="space-y-2">
             <Label>{{ $t("document.entity_label") }}</Label>
-            <Select name="entity_id">
-              <SelectTrigger class="w-full">
-                <SelectValue :placeholder="$t('document.entity_placeholder')" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem
-                  v-for="en in props.entities.data"
-                  :key="en.id"
-                  :value="en.id"
-                >
-                  {{ en.name }}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+            <Combobox
+              name="entity_id"
+              :dir="pageDir"
+              class="border rounded-lg overflow-hidden"
+            >
+              <ComboboxAnchor as-child>
+                <ComboboxInput
+                  :display-value="getEntityName"
+                  :placeholder="$t('document.entity_placeholder')"
+                />
+                <ComboboxTrigger as-child />
+              </ComboboxAnchor>
+              <ComboboxList class="max-h-80">
+                <ComboboxEmpty>
+                  {{ $t("document.no_entity_found") }}
+                </ComboboxEmpty>
+                <ComboboxGroup>
+                  <ComboboxItem
+                    v-for="e in props.entities.data"
+                    :key="e.id"
+                    :value="e.id"
+                  >
+                    {{ e.name }}
+                    <ComboboxItemIndicator>
+                      <CheckIcon />
+                    </ComboboxItemIndicator>
+                  </ComboboxItem>
+                </ComboboxGroup>
+              </ComboboxList>
+            </Combobox>
             <InputError :message="errors.entity_id" />
           </div>
         </div>

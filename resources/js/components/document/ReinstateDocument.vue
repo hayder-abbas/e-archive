@@ -17,21 +17,16 @@ const props = defineProps<{ document: Document }>();
 <template>
   <Dialog>
     <DialogTrigger as-child>
-      <Button
-        size="sm"
-        variant="secondary"
-        class="cursor-pointer"
-        data-test="reinstate-document-button"
-      >
+      <Button size="sm" variant="secondary" class="cursor-pointer">
         <FileCheckCorner />
-        {{ $t("revokeds.reinstate_btn") }}
+        {{ $t("document.reinstate_btn") }}
       </Button>
     </DialogTrigger>
 
     <DialogContent>
       <DialogHeader>
         <DialogTitle class="text-center mb-4">
-          {{ $t("revokeds.reinstate_confirm") }}
+          {{ $t("document.reinstate_confirm") }}
         </DialogTitle>
       </DialogHeader>
 
@@ -50,13 +45,8 @@ const props = defineProps<{ document: Document }>();
           </Button>
         </DialogClose>
 
-        <Button
-          type="submit"
-          size="sm"
-          :disabled="processing"
-          data-test="confirm-reinstate-document-button"
-        >
-          {{ $t("revokeds.reinstate_btn") }}
+        <Button type="submit" size="sm" :disabled="processing">
+          {{ $t("document.reinstate_btn") }}
         </Button>
       </Form>
     </DialogContent>

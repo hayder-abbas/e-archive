@@ -18,24 +18,19 @@ const props = defineProps<{ document: Document }>();
 <template>
   <Dialog>
     <DialogTrigger as-child>
-      <Button
-        size="sm"
-        variant="destructive"
-        class="cursor-pointer"
-        data-test="revoke-document-button"
-      >
+      <Button size="sm" variant="destructive" class="cursor-pointer">
         <FileXCorner />
-        {{ $t("revokeds.revoke_btn") }}
+        {{ $t("document.revoke_btn") }}
       </Button>
     </DialogTrigger>
 
     <DialogContent>
       <DialogHeader>
         <DialogTitle class="text-center mb-4">
-          {{ $t("revokeds.revoke_confirm") }}
+          {{ $t("document.revoke_confirm") }}
         </DialogTitle>
         <DialogDescription class="text-center mb-6">
-          {{ $t("revokeds.revoke_confirm_desc") }}
+          {{ $t("document.revoke_confirm_desc") }}
         </DialogDescription>
       </DialogHeader>
 
@@ -59,9 +54,8 @@ const props = defineProps<{ document: Document }>();
           variant="destructive"
           size="sm"
           :disabled="processing"
-          data-test="confirm-revoke-document-button"
         >
-          {{ $t("revokeds.revoke_btn") }}
+          {{ $t("document.revoke_btn") }}
         </Button>
       </Form>
     </DialogContent>
