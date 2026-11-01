@@ -4,6 +4,7 @@ return [
     'E-Archive' => 'E-Archive',
     'settings' => 'Settings',
     'logout' => 'Log out',
+    'sudo' => 'leader',
     'admin' => 'admin',
     'user' => 'user',
     'dashboard' => 'Dashboard',
@@ -14,5 +15,4 @@ return [
     'audit_logs' => 'Audit Logs',
     'revokeds' => 'Revokeds',
     'platform' => 'Platform',
-    '' => '',
 ];

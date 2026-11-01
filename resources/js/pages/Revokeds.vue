@@ -11,7 +11,7 @@ defineOptions({
   layout: {
     breadcrumbs: [
       {
-        title: "revokeds.title",
+        title: "document.revokeds_title",
         href: revokeds(),
       },
     ],
@@ -29,7 +29,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <Head :title="$t('revokeds.title')" />
+  <Head :title="$t('document.revokeds_title')" />
 
   <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
     <!-- Search -->
