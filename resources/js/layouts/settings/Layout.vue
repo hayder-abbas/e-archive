@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
 import Heading from "@/components/Heading.vue";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -8,6 +8,7 @@ import { toUrl } from "@/lib/utils";
 import { edit as editAppearance } from "@/routes/appearance";
 import { edit as editProfile } from "@/routes/profile";
 import { edit as editSecurity } from "@/routes/security";
+import { users } from "@/routes";
 import type { NavItem } from "@/types";
 
 const sidebarNavItems: NavItem[] = [
@@ -24,6 +25,9 @@ const sidebarNavItems: NavItem[] = [
     href: editAppearance(),
   },
 ];
+
+if (usePage().props.auth.sudo)
+  sidebarNavItems.push({ title: "settings.users", href: users() });
 
 const { isCurrentOrParentUrl } = useCurrentUrl();
 </script>

@@ -12,9 +12,14 @@ class AuditLogController extends Controller
 {
     public function index(SearchRequest $request)
     {
+        Gate::authorize('viewAny', AuditLog::class);
+
         return inertia('auditlogs/index', [
             'auditLogs' => AuditLog::getResources($request, AuditLog::query()),
             'filters' => $this->getFilters($request),
+            'can' => [
+                'delete' => Gate::allows('delete', new AuditLog()),
+            ],
         ]);
     }
 

@@ -30,6 +30,9 @@ const props = defineProps<{
     name: string | null;
     number: string | null;
   };
+  can: {
+    delete: boolean;
+  };
 }>();
 </script>
 
@@ -67,7 +70,10 @@ const props = defineProps<{
 
       <!-- Clear Logs -->
       <div class="flex justify-end items-center w-full md:w-fit">
-        <ClearLogs :auditLog="props.auditLogs.data[0]" />
+        <ClearLogs
+          v-if="props.can.delete"
+          :auditLog="props.auditLogs.data[0]"
+        />
       </div>
     </div>
 

@@ -9,4 +9,5 @@ enum AuditAction: string
     case Revoke = 'revoke';
     case Reinstate = 'reinstate';
     case Delete = 'delete';
+    case AddRole = 'add_role';
 }

@@ -1,7 +1,10 @@
+export type Role = "sudo" | "admin" | "user";
+
 export type User = {
     id: number;
     name: string;
     email: string;
+    role: Role;
     avatar?: string;
     email_verified_at: string | null;
     two_factor_enabled?: boolean;
@@ -12,6 +15,7 @@ export type User = {
 
 export type Auth = {
     user: User;
+    sudo: boolean;
 };
 
 export type Passkey = {

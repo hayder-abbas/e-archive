@@ -26,6 +26,9 @@ const props = defineProps<{
     fromDate: string;
     toDate: string;
   };
+  can: {
+    create: boolean;
+  };
 }>();
 </script>
 
@@ -52,7 +55,7 @@ const props = defineProps<{
         </Form>
 
         <!-- Add box button -->
-        <div class="flex justify-end items-center">
+        <div v-if="props.can.create" class="flex justify-end items-center">
           <AddBox />
         </div>
       </div>

@@ -51,6 +51,11 @@ class User extends Authenticatable implements /*MustVerifyEmail,*/ PasskeyUser
         ];
     }
 
+    public function isSudo(): bool
+    {
+        return $this->role === 'sudo';
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === 'admin';

@@ -31,6 +31,12 @@ const props = defineProps<{
   followers: Documents;
   boxes: Boxes;
   entities: Entities;
+  can: {
+    create: boolean;
+    update: boolean;
+    revoke: boolean;
+    reinstate: boolean;
+  };
 }>();
 
 const revoked = computed(() => props.document.data.revokedAt);
@@ -51,16 +57,25 @@ const formatRevoked = computed(
       <div class="flex flex-col items-center md:flex-row gap-4">
         <div class="w-full grid grid-cols-2 md:w-fit gap-4">
           <!-- Revoke button -->
-          <RevokeDocument v-if="!revoked" :document="props.document.data" />
+          <RevokeDocument
+            v-if="!revoked && props.can.revoke"
+            :document="props.document.data"
+          />
 
           <!-- Reinstate button -->
-          <ReinstateDocument v-else :document="props.document.data" />
+          <ReinstateDocument
+            v-if="revoked && props.can.reinstate"
+            :document="props.document.data"
+          />
 
           <!-- Display File -->
           <ViewFile :document="props.document.data" />
         </div>
 
-        <div v-if="!revoked" class="w-full grid grid-cols-2 md:w-fit gap-4">
+        <div
+          v-if="!revoked && props.can.update"
+          class="w-full grid grid-cols-2 md:w-fit gap-4"
+        >
           <!-- Edit document button -->
           <EditDocument
             :document="props.document.data"

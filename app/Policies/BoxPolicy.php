@@ -9,25 +9,25 @@ class BoxPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->isAdmin();
+        return !!$user;
     }
 
 
     public function view(User $user, Box $box): bool
     {
-        return $user->isAdmin();
+        return !!$user;
     }
 
 
     public function create(User $user): bool
     {
-        return $user->isAdmin();
+        return $user->isSudo() || $user->isAdmin();
     }
 
 
     public function update(User $user, Box $box): bool
     {
-        return $user->isAdmin();
+        return $user->isSudo() || $user->isAdmin();
     }
 
 

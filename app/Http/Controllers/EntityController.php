@@ -12,9 +12,17 @@ class EntityController extends Controller
 {
     public function index(SearchRequest $request)
     {
+        Gate::authorize('viewAny', Entity::class);
+        $entity = new Entity();
+
         return inertia('entities/index', [
             'entities' => Entity::getResources($request, Entity::query()),
             'filters' => $this->getFilters($request),
+            'can' => [
+                'create' => Gate::allows('create', $entity),
+                'update' => Gate::allows('update', $entity),
+                'delete' => Gate::allows('delete', $entity),
+            ],
         ]);
     }
 

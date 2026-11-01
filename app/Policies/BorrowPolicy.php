@@ -4,42 +4,36 @@ namespace App\Policies;
 
 use App\Models\Borrow;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class BorrowPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
     public function viewAny(User $user): bool
     {
-        return false;
+        return !!$user;
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
+
     public function view(User $user, Borrow $borrow): bool
     {
-        return false;
+        return !!$user;
     }
 
 
     public function create(User $user): bool
     {
-        return $user->isAdmin();
+        return $user->isSudo() || $user->isAdmin();
     }
 
 
     public function update(User $user, Borrow $borrow): bool
     {
-        return $user->isAdmin();
+        return $user->isSudo() || $user->isAdmin();
     }
 
 
     public function delete(User $user, Borrow $borrow): bool
     {
-        return $user->isAdmin();
+        return $user->isSudo() || $user->isAdmin();
     }
 
 
@@ -48,9 +42,7 @@ class BorrowPolicy
         return false;
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
+
     public function forceDelete(User $user, Borrow $borrow): bool
     {
         return false;
