@@ -34,6 +34,10 @@ const props = defineProps<{
     fromDate: string | null;
     toDate: string | null;
   };
+  can: {
+    create: boolean;
+    update: boolean;
+  };
 }>();
 </script>
 
@@ -51,7 +55,10 @@ const props = defineProps<{
           <p>{{ box.data.boxNumber }}</p>
         </div>
 
-        <div class="flex items-center justify-end gap-4 w-full">
+        <div
+          v-if="props.can.create && props.can.update"
+          class="flex items-center justify-end gap-4 w-full"
+        >
           <!-- Edit Box button -->
           <EditBox :box="props.box" />
 

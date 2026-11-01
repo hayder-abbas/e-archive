@@ -77,4 +77,21 @@ return [
     'passkey_help' => 'A name helps you identify this passkey later.',
     'register_passkey' => 'Register passkey',
     'registering' => 'Registering...',
+
+    // Manage users
+    'users' => 'Users',
+    'users_title' => 'Users management',
+    'users_description' => 'delete and promote users',
+    'admin' => 'Admin',
+    'user' => 'User',
+    'confirm_set_admin' => 'Are you sure you want to promote this user to Manager?',
+    'confirm_set_user' => 'Are you sure you want to demote this user?',
+    'delete_user_title' => 'Are you sure you want to remove this user?',
+    'flash_set_admin' => 'The user has been promoted to admin',
+    'flash_set_user' => 'The admin has been demoted to user',
+    'flash_delete_user' => 'The user has been deleted',
+    'name_col' => 'Name',
+    'email_col' => 'Email',
+    'role_col' => 'Role',
+    'delete_col' => 'Delete',
 ];

@@ -7,31 +7,38 @@ use App\Models\User;
 
 class AuditLogPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
     public function viewAny(User $user): bool
     {
-        return false;
+        return !!$user;
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
+
     public function view(User $user, AuditLog $auditLog): bool
     {
-        return false;
+        return !!$user;
     }
 
 
     public function create(User $user): bool
     {
-        return $user->isAdmin();
+        return $user->isSudo() || $user->isAdmin();
     }
 
 
     public function delete(User $user): bool
     {
-        return $user->isAdmin();
+        return $user->isSudo();
+    }
+
+
+    public function restore(User $user, AuditLog $auditLog): bool
+    {
+        return false;
+    }
+
+
+    public function forceDelete(User $user, AuditLog $auditLog): bool
+    {
+        return false;
     }
 }

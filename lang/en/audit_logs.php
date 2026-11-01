@@ -15,12 +15,15 @@ return [
     'revoke' => 'revoke',
     'reinstate' => 'reinstate',
     'delete' => 'delete',
+    'add_role' => 'change role',
 
     // Types
     'entity' => 'entity',
     'box' => 'box',
     'borrow' => 'borrow',
     'document' => 'document',
+    'admin' => 'admin',
+    'user' => 'user',
 
     'clear_btn' => 'Clear',
     '' => '',

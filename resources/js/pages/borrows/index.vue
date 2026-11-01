@@ -30,6 +30,11 @@ const props = defineProps<{
   filters: {
     number: string;
   };
+  can: {
+    create: boolean;
+    update: boolean;
+    delete: boolean;
+  };
 }>();
 </script>
 
@@ -53,7 +58,7 @@ const props = defineProps<{
 
       <!-- Add new borrow button -->
       <div class="flex justify-end items-center w-full md:w-fit">
-        <AddBorrow />
+        <AddBorrow v-if="props.can.create" />
       </div>
     </div>
 
@@ -85,9 +90,9 @@ const props = defineProps<{
             <TableCell>{{ b.date }}</TableCell>
             <TableCell class="space-x-2">
               <!-- Edit Borrow -->
-              <EditBorrow :borrow="b" />
+              <EditBorrow v-if="props.can.update" :borrow="b" />
               <!-- Delete Borrow -->
-              <DeleteBorrow :borrow="b" />
+              <DeleteBorrow v-if="props.can.delete" :borrow="b" />
             </TableCell>
           </TableRow>
         </TableBody>

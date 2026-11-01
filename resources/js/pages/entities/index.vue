@@ -30,6 +30,11 @@ const props = defineProps<{
   filters: {
     name: string | null;
   };
+  can: {
+    create: boolean;
+    update: boolean;
+    delete: boolean;
+  };
 }>();
 </script>
 
@@ -54,7 +59,7 @@ const props = defineProps<{
 
       <!-- Add Entity Dialog -->
       <div class="flex justify-end items-center w-full md:w-fit">
-        <AddEntity />
+        <AddEntity v-if="props.can.create" />
       </div>
     </div>
 
@@ -78,9 +83,9 @@ const props = defineProps<{
             <TableCell>{{ entity.name }}</TableCell>
             <TableCell class="flex justify-center items-center gap-2">
               <!-- Edit Borrow -->
-              <EditEntity :entity="entity" />
+              <EditEntity v-if="props.can.update" :entity="entity" />
               <!-- Delete Borrow -->
-              <DeleteEntity :entity="entity" />
+              <DeleteEntity v-if="props.can.delete" :entity="entity" />
             </TableCell>
           </TableRow>
         </TableBody>

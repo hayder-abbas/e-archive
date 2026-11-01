@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->hasAuditLogs(50)->create([
             'name' => 'Admin',
             'email' => 'admin@mail.com',
-            'role' => 'admin'
+            'role' => 'sudo'
         ]);
 
         $this->call([

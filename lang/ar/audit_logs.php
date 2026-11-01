@@ -15,12 +15,15 @@ return [
     'revoke' => 'الغاء',
     'reinstate' => 'إعادة التعيين',
     'delete' => 'حذف',
+    'add_role' => 'تغيير الدور',
 
     // Types
     'entity' => 'الجهة',
     'box' => 'الاضبارة',
     'borrow' => 'الاستعارة',
     'document' => 'الكتاب',
+    'admin' => 'مدير',
+    'user' => 'مستخدم',
 
     'clear_btn' => 'حذف الكل',
     '' => '',

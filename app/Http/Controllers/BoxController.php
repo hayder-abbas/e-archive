@@ -19,9 +19,15 @@ class BoxController extends Controller
     public function index(SearchRequest $request)
     {
         Gate::authorize('viewAny', Box::class);
+        $box = new Box();
+
         return inertia('boxes/index', [
             'boxes' => Box::getResources($request, Box::query()),
             'filters' => $this->getFilters($request),
+            'can' => [
+                'create' => Gate::allows('create', $box),
+                'update' => Gate::allows('update', $box),
+            ],
         ]);
     }
 
@@ -29,11 +35,16 @@ class BoxController extends Controller
     public function show(Box $box, SearchRequest $request)
     {
         Gate::authorize('view', $box);
+
         return inertia('boxes/Show', [
             'documents' => Box::getResources(
                 $request,
                 $box->documents()->getQuery()->whereNull('revoked_at')
             ),
+            'can' => [
+                'create' => Gate::allows('create', $box),
+                'update' => Gate::allows('update', $box),
+            ],
             'box' => $box->toResource(),
             'boxes' => $this->getBoxes(),
             'entities' => $this->getEntities(),

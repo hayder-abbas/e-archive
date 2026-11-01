@@ -29,6 +29,10 @@ const props = defineProps<{
     fromDate: string | null;
     toDate: string | null;
   };
+  can: {
+    create: boolean;
+    update: boolean;
+  };
 }>();
 </script>
 
@@ -37,7 +41,7 @@ const props = defineProps<{
 
   <div class="flex h-full flex-col gap-4 overflow-x-auto rounded-xl p-4">
     <!-- Add new document button -->
-    <div class="flex justify-end items-center">
+    <div v-if="props.can.create" class="flex justify-end items-center">
       <AddDocument :boxes="boxes" :entities="entities" />
     </div>
 

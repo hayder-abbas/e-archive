@@ -20,9 +20,17 @@ class BorrowController extends Controller
 
     public function index(SearchRequest $request)
     {
+        Gate::authorize('viewAny', Borrow::class);
+        $borrow = new Borrow();
+
         return inertia('borrows/index', [
             'borrows' => Borrow::getResources($request, Borrow::query()),
             'filters' => $this->getFilters($request),
+            'can' => [
+                'create' => Gate::allows('create', $borrow),
+                'update' => Gate::allows('update', $borrow),
+                'delete' => Gate::allows('delete', $borrow),
+            ],
         ]);
     }
 

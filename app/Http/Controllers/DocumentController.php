@@ -26,11 +26,17 @@ class DocumentController extends Controller
     public function index(SearchRequest $request)
     {
         Gate::authorize('viewAny', Document::class);
+        $doc = new Document();
+
         return inertia('documents/index', [
             'documents' => Document::getResources(
                 $request,
                 Document::query()->with(['box:id,number'])->whereNull('revoked_at')
             ),
+            'can' => [
+                'create' => Gate::allows('create', $doc),
+                'update' => Gate::allows('update', $doc),
+            ],
             'boxes' => $this->getBoxes(),
             'entities' => $this->getEntities(),
             'filters' => $this->getFilters($request),
@@ -41,18 +47,25 @@ class DocumentController extends Controller
     public function show(Document $document)
     {
         Gate::authorize('view', $document);
+
         return inertia('documents/Show', [
             'document' => $document->load(['box:id,number', 'entity'])->toResource(),
             'followers' => $document->followers(),
             'boxes' => $this->getBoxes(),
             'entities' => $this->getEntities(),
+            'can' => [
+                'create' => Gate::allows('create', $document),
+                'update' => Gate::allows('update', $document),
+                'revoke' => Gate::allows('revoke', $document),
+                'reinstate' => Gate::allows('reinstate', $document),
+            ],
         ]);
     }
 
 
     public function showFile(Document $document)
     {
-        Gate::authorize('view', $document);
+        Gate::authorize('viewAny', $document);
         abort_unless(Storage::exists($document->file), 404);
         return Storage::response($document->file);
     }
