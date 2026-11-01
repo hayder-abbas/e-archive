@@ -42,12 +42,11 @@ return [
     'box_no' => 'الاضبارة',
 
     // Revoke
-    'title' => 'تم إلغاؤها',
+    'revokeds_title' => 'الكتب الملغاة',
     'revoked_at' => 'تم إلغاؤه بتأريخ',
     'revoke_confirm' => 'هل سيتم إلغاء هذا الكتاب؟',
     'revoke_confirm_desc' => 'تأكد من إرفاق أمر الإلغاء قبل التنفيذ!',
     'reinstate_confirm' => 'سيتم إعادة العمل بهذه الكتاب!',
-    '' => '',
 
     // Buttons
     'revoke_btn' => 'الغاء الكتاب',
