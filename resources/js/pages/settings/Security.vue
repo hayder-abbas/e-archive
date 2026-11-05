@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { edit } from "@/routes/security";
 import type { Props as ManagePasskeysProps } from "@/components/ManagePasskeys.vue";
-import ManagePasskeys from "@/components/ManagePasskeys.vue";
+// import ManagePasskeys from "@/components/ManagePasskeys.vue";
 import type { Props as ManageTwoFactorProps } from "@/components/ManageTwoFactor.vue";
 import ManageTwoFactor from "@/components/ManageTwoFactor.vue";
 
@@ -111,5 +111,6 @@ defineOptions({
     :twoFactorEnabled="twoFactorEnabled"
   />
 
-  <ManagePasskeys :canManagePasskeys="canManagePasskeys" :passkeys="passkeys" />
+  <!-- The passkey was commented out because it doesn't work on the localhost -->
+  <!-- <ManagePasskeys :canManagePasskeys="canManagePasskeys" :passkeys="passkeys" /> -->
 </template>
