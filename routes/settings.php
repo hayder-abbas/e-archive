@@ -9,28 +9,26 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', '/settings/profile');
 
-    Route::get('settings/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('settings/profile', [ProfileController::class, 'update'])->name('profile.update');
-});
+    Route::prefix('settings/')->group(function () {
+        Route::controller(ProfileController::class)->group(function () {
+            Route::get('profile', 'edit')->name('profile.edit');
+            Route::patch('profile', 'update')->name('profile.update');
+            Route::delete('profile', 'destroy')->name('profile.destroy');
+        });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::delete('settings/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::controller(SecurityController::class)->group(function () {
+            Route::get('security', 'edit')->middleware(RequirePassword::class)->name('security.edit');
+            Route::put('password', 'update')->middleware('throttle:6,1')->name('user-password.update');
+        });
 
-    Route::get('settings/security', [SecurityController::class, 'edit'])
-        ->middleware(RequirePassword::class)
-        ->name('security.edit');
+        Route::inertia('appearance', 'settings/Appearance')->name('appearance.edit');
 
-    Route::put('settings/password', [SecurityController::class, 'update'])
-        ->middleware('throttle:6,1')
-        ->name('user-password.update');
-
-    Route::inertia('settings/appearance', 'settings/Appearance')->name('appearance.edit');
-
-    Route::controller(UserController::class)->group(function () {
-        Route::get('settings/users', 'index')->name('users');
-        Route::patch('settings/users/{user}/set-admin', 'setAsAdmin')->name('users.set-admin');
-        Route::patch('settings/users/{user}/set-user', 'setAsUser')->name('users.set-user');
-        Route::delete('settings/users/{user}', 'destroy')->name('users.destroy');
+        Route::controller(UserController::class)->group(function () {
+            Route::get('users', 'index')->name('users');
+            Route::patch('users/{user}/set-admin', 'setAsAdmin')->name('users.set-admin');
+            Route::patch('users/{user}/set-user', 'setAsUser')->name('users.set-user');
+            Route::delete('users/{user}', 'destroy')->name('users.destroy');
+        });
     });
 });
 

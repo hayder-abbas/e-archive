@@ -9,6 +9,7 @@ return [
     'edit_profile' => 'الحساب',
     'edit_security' => 'الأمان',
     'edit_appearance' => 'المظهر',
+    'users' => 'المستخدمين',
     'input_name' => 'الاسم',
     'input_email' => 'عنوان البريد الإلكتروني',
 
@@ -79,7 +80,6 @@ return [
     'registering' => 'جارٍ التسجيل...',
 
     // Manage users
-    'users' => 'المستخدمين',
     'users_title' => 'إدارة المستخدمين',
     'users_description' => 'حذف وترقية المستخدمين',
     'admin' => 'مدير',

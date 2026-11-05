@@ -9,6 +9,7 @@ return [
     'edit_profile' => 'Profile',
     'edit_security' => 'Security',
     'edit_appearance' => 'Appearance',
+    'users' => 'Users',
     'input_name' => 'Name',
     'input_email' => 'Email address',
 
@@ -79,7 +80,6 @@ return [
     'registering' => 'Registering...',
 
     // Manage users
-    'users' => 'Users',
     'users_title' => 'Users management',
     'users_description' => 'delete and promote users',
     'admin' => 'Admin',
