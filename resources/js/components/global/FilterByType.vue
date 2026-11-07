@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { router, usePage } from "@inertiajs/vue3";
-import { AcceptableValue } from "reka-ui";
+import { AcceptableValue, Direction } from "reka-ui";
 import { Box } from "@/types/boxes.js";
 import boxes from "@/routes/boxes/index.js";
 import documents from "@/routes/documents/index.js";
@@ -16,7 +16,10 @@ const props = defineProps<{
   box?: Box;
 }>();
 
-const component = ref<string>(usePage().component);
+const page = usePage();
+const component = page.component;
+const dir = page.props.dir as Direction;
+
 const selected = ref<string>(props.typeFilter || "all");
 
 function applyFilter(value: AcceptableValue) {
@@ -24,9 +27,7 @@ function applyFilter(value: AcceptableValue) {
   selected.value = filter;
 
   router.get(
-    component.value !== "boxes/Show"
-      ? documents.index()
-      : boxes.show(props.box!),
+    component !== "boxes/Show" ? documents.index() : boxes.show(props.box!),
     { typeFilter: value === "all" ? undefined : filter },
     { preserveState: true, preserveScroll: true, replace: true },
   );
@@ -34,12 +35,11 @@ function applyFilter(value: AcceptableValue) {
 </script>
 
 <template>
-  <Select v-model="selected" @update:model-value="applyFilter">
+  <Select :model-value="selected" @update:model-value="applyFilter" :dir="dir">
     <SelectTrigger class="w-full">
       <SelectValue />
     </SelectTrigger>
-
-    <SelectContent>
+    <SelectContent :dir="dir">
       <SelectItem value="all">{{ $t("global.all") }}</SelectItem>
       <SelectItem value="Incoming">
         {{ $t("document.Incoming") }}

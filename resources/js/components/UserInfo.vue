@@ -7,7 +7,7 @@ import type { User } from "@/types";
 type Props = {
   user: User;
   showEmail?: boolean;
-  rtl: boolean;
+  rtl?: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {

@@ -19,6 +19,7 @@ return [
     'view_btn' => 'عرض',
     'close_btn' => 'اغلاق',
     'search_btn' => 'بحث',
+    'go_btn' => 'بحث',
 
     // Paginate
     'page :current' => 'صفحة :current',

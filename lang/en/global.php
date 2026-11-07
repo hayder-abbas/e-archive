@@ -19,6 +19,7 @@ return [
     'view_btn' => 'View',
     'close_btn' => 'Close',
     'search_btn' => 'Search',
+    'go_btn' => 'Go',
 
     // Paginate
     'page :current' => 'Page :current',
