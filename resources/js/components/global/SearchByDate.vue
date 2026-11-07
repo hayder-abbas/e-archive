@@ -54,7 +54,7 @@ function submit() {
       variant="secondary"
       class="cursor-pointer w-full md:w-fit"
     >
-      {{ $t("global.search_btn") }}
+      {{ $t("global.go_btn") }}
     </Button>
   </Form>
 </template>
