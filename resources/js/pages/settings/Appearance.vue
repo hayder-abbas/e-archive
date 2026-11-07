@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { Head } from "@inertiajs/vue3";
+import { edit } from "@/routes/appearance";
+import { Separator } from "@/components/ui/separator";
 import AppearanceTabs from "@/components/AppearanceTabs.vue";
 import Heading from "@/components/Heading.vue";
-import { edit } from "@/routes/appearance";
+import LocaleSelector from "@/components/global/LocaleSelector.vue";
 
 defineOptions({
   layout: {
@@ -27,6 +29,12 @@ defineOptions({
       :title="$t('settings.appearance_title')"
       :description="$t('settings.appearance_description')"
     />
+    <!-- Appearance -->
     <AppearanceTabs />
+
+    <Separator />
+
+    <!-- Locale Selector -->
+    <LocaleSelector />
   </div>
 </template>

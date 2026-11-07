@@ -43,6 +43,7 @@ return [
     'light_mode' => 'فاتح',
     'dark_mode' => 'داكن',
     'system_mode' => 'النظام',
+    'language' => 'اللغات',
 
     // Security settings
     'security_title' => 'إعدادات الأمان',

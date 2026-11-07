@@ -43,6 +43,7 @@ return [
     'light_mode' => 'Light',
     'dark_mode' => 'Dark',
     'system_mode' => 'System',
+    'language' => 'Language',
 
     // Security settings
     'security_title' => 'Security settings',

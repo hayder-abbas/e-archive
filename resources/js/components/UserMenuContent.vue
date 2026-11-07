@@ -9,7 +9,6 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import UserInfo from "@/components/UserInfo.vue";
-import LocalSelector from "./global/LocalSelector.vue";
 import { logout } from "@/routes";
 import { edit } from "@/routes/profile";
 import type { User } from "@/types";
@@ -39,14 +38,7 @@ const rtl = computed(() => usePage().props.locale === "ar");
   </DropdownMenuLabel>
 
   <DropdownMenuSeparator />
-  <!-- Local Selector -->
-  <DropdownMenuGroup>
-    <DropdownMenuItem :as-child="true">
-      <LocalSelector />
-    </DropdownMenuItem>
-  </DropdownMenuGroup>
 
-  <DropdownMenuSeparator />
   <!-- Settings -->
   <DropdownMenuGroup>
     <DropdownMenuItem :as-child="true">
@@ -63,6 +55,7 @@ const rtl = computed(() => usePage().props.locale === "ar");
   </DropdownMenuGroup>
 
   <DropdownMenuSeparator />
+
   <!-- Logout -->
   <DropdownMenuItem :as-child="true">
     <Link

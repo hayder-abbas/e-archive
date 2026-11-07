@@ -35,6 +35,7 @@ import {
   ComboboxList,
   ComboboxTrigger,
 } from "../ui/combobox/index.js";
+import { Direction } from "reka-ui";
 
 const props = defineProps<{
   document: Document;
@@ -42,7 +43,7 @@ const props = defineProps<{
   entities: Entities;
 }>();
 
-const pageDir = usePage().props.locale === "ar" ? "rtl" : "ltr";
+const dir = usePage().props.dir as Direction;
 
 function getBoxNumber(id: number | undefined) {
   return props.boxes.data.find((b) => b.id === id)?.boxNumber ?? "";
@@ -120,7 +121,7 @@ function getEntityName(id: number | undefined) {
             <Combobox
               :default-value="props.document.box?.id"
               name="box_id"
-              :dir="pageDir"
+              :dir="dir"
               class="border rounded-lg overflow-hidden"
             >
               <ComboboxAnchor as-child>
@@ -155,7 +156,7 @@ function getEntityName(id: number | undefined) {
             <Combobox
               :default-value="props.document.entity?.id"
               name="entity_id"
-              :dir="pageDir"
+              :dir="dir"
               class="border rounded-lg overflow-hidden"
             >
               <ComboboxAnchor as-child>
@@ -191,11 +192,11 @@ function getEntityName(id: number | undefined) {
           <!-- Type -->
           <div class="space-y-2">
             <Label>{{ $t("document.type_label") }}</Label>
-            <Select name="type" :default-value="document.type">
+            <Select name="type" :default-value="document.type" :dir="dir">
               <SelectTrigger class="w-full">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent :dir="dir">
                 <SelectItem value="Incoming">
                   {{ $t("document.Incoming") }}
                 </SelectItem>
@@ -210,11 +211,15 @@ function getEntityName(id: number | undefined) {
           <!-- Security -->
           <div class="space-y-2">
             <Label>{{ $t("document.security_label") }}</Label>
-            <Select name="security" :default-value="document.security">
+            <Select
+              name="security"
+              :default-value="document.security"
+              :dir="dir"
+            >
               <SelectTrigger class="w-full">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent :dir="dir">
                 <SelectItem value="Normal">
                   {{ $t("document.Normal") }}
                 </SelectItem>
