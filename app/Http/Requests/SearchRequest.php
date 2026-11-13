@@ -21,7 +21,9 @@ class SearchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'       => ['nullable', 'string', 'max:255'],
+            'name'       => ['nullable', 'string', 'max:50'],
+            'subject'    => ['nullable', 'string', 'max:50'],
+            'keyWord'    => ['nullable', 'string', 'max:50'],
             'number'     => ['nullable', 'string', 'max:50'],
             'fromDate'   => ['nullable', 'date_format:Y-m-d'],
             'toDate'     => ['nullable', 'date_format:Y-m-d', 'after_or_equal:fromDate'],

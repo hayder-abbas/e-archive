@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Concerns\HasCachedResource;
 use App\Concerns\Searchable;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +17,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $date
  * @property string $subject
  * @property string $file
+ * @property string $content
  * @property string $type
  * @property string $security
  * @property string $belongs_to
@@ -25,7 +27,8 @@ use Illuminate\Support\Carbon;
  * @property int $entity_id
  */
 
-#[Fillable('number', 'date', 'subject', 'file', 'type', 'security', 'belongs_to', 'notes', 'revoked_at', 'box_id', 'entity_id')]
+#[Fillable('number', 'date', 'subject', 'file', 'content', 'type', 'security', 'belongs_to', 'notes', 'revoked_at', 'box_id', 'entity_id')]
+#[Hidden('content')]
 class Document extends Model
 {
     /** @use HasFactory<\Database\Factories\DocumentFactory> */

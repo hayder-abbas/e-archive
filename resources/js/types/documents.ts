@@ -17,6 +17,13 @@ export type Document = {
     entity?: Entity;
 };
 
+export type OverView = {
+    archived: number;
+    borrow: number;
+    incoming: number;
+    outgoing: number;
+};
+
 export type Documents = {
     data: Document[];
     links: Links;
