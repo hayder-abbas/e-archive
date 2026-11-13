@@ -13,14 +13,18 @@ trait Searchable
         $filters = $request->validated();
         $page = max(1, $request->integer('page', 1));
 
+        $typeFilter = $filters['typeFilter'] ?? null;
         $name       = $filters['name'] ?? null;
+        $subject    = $filters['subject'] ?? null;
+        $keyWord    = $filters['keyWord'] ?? null;
         $number     = $filters['number'] ?? null;
         $from       = $filters['fromDate'] ?? null;
         $to         = $filters['toDate'] ?? null;
-        $typeFilter = $filters['typeFilter'] ?? null;
 
         return $query
             ->when(filled($name), fn($q) => $q->where('name', 'LIKE', "%{$name}%"))
+            ->when(filled($subject), fn($q) => $q->where('subject', 'LIKE', "%{$subject}%"))
+            ->when(filled($keyWord), fn($q) => $q->whereFullText('content', $keyWord))
             ->when(filled($number), fn($q) => $q->where('number', $number))
             ->when(filled($from), fn($q) => $q->where('date', '>=', $from))
             ->when(filled($to), fn($q) => $q->where('date', '<=', $to))

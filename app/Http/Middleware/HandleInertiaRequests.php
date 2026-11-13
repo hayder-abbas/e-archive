@@ -43,7 +43,7 @@ class HandleInertiaRequests extends Middleware
                 'sudo' => $request->user()?->role === "sudo",
             ],
             'locale' => $request->user()->locale ?? $request->getPreferredLanguage(),
-            'dir' => $request->user()->locale === 'ar' ? 'rtl' : 'ltr',
+            'dir' => $request->user()?->locale === 'ar' ? 'rtl' : 'ltr',
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }
