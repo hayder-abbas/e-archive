@@ -10,32 +10,26 @@ import Button from "@/components/ui/button/Button.vue";
 </script>
 
 <template>
-  <Head :title="$t('home.title')">
-    <link rel="preconnect" href="https://rsms.me/" />
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-  </Head>
-  <div
-    class="flex min-h-screen flex-col items-center bg-[#FDFDFC] p-6 text-[#1b1b18] lg:justify-center lg:p-8 dark:bg-[#0a0a0a]"
-  >
-    <main
-      class="w-full flex justify-center items-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0"
-    >
-      <Card class="w-full">
-        <CardHeader class="text-center">
-          <CardTitle class="text-4xl">{{ $t("home.title") }}</CardTitle>
-          <CardDescription class="text-lg">
-            {{ $t("home.description") }}
-          </CardDescription>
-        </CardHeader>
+  <Head :title="$t('home.title')" />
 
-        <CardContent class="flex justify-center">
-          <Button>
-            <Link :href="dashboard()" class="w-full">
-              {{ $t("home.accessing_btn") }}
-            </Link>
-          </Button>
-        </CardContent>
-      </Card>
-    </main>
+  <div
+    class="flex min-h-screen items-center justify-center bg-[#FDFDFC] p-6 text-[#1b1b18] dark:bg-[#0a0a0a]"
+  >
+    <Card class="w-full max-w-2xl">
+      <CardHeader class="text-center">
+        <CardTitle class="text-4xl">{{ $t("home.title") }}</CardTitle>
+        <CardDescription class="text-base lg:text-lg xl:text-xl">
+          {{ $t("home.description") }}
+        </CardDescription>
+      </CardHeader>
+
+      <CardContent class="flex justify-center">
+        <Button>
+          <Link :href="dashboard()" class="w-full">
+            {{ $t("home.accessing_btn") }}
+          </Link>
+        </Button>
+      </CardContent>
+    </Card>
   </div>
 </template>

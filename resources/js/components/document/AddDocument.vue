@@ -55,8 +55,8 @@ function getEntityName(id: number | undefined) {
 
 <template>
   <Dialog>
-    <DialogTrigger class="w-full md:w-fit">
-      <Button size="sm" class="w-full md:w-fit cursor-pointer">
+    <DialogTrigger class="w-full sm:w-fit">
+      <Button class="w-full sm:w-fit cursor-pointer">
         <Plus />
         {{ $t("document.new_doc_btn") }}
       </Button>

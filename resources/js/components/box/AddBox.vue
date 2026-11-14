@@ -16,7 +16,7 @@ import Spinner from "../ui/spinner/Spinner.vue";
 
 <template>
   <Dialog>
-    <DialogTrigger class="w-full">
+    <DialogTrigger class="w-full sm:w-fit">
       <Button class="cursor-pointer w-full" data-test="add-box-button">
         <Plus />
         {{ $t("box.new_box_btn") }}

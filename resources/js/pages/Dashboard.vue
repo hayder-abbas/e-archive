@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { Form, Head } from "@inertiajs/vue3";
+import { Head } from "@inertiajs/vue3";
 import { dashboard } from "@/routes";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Documents, OverView } from "@/types";
 import Overview from "@/components/dashboard/Overview.vue";
 import DocumentCard from "@/components/document/DocumentCard.vue";
 import Paginate from "@/components/global/Paginate.vue";
+import SearchInput from "@/components/global/SearchInput.vue";
 
 defineOptions({
   layout: {
@@ -22,7 +21,7 @@ defineOptions({
 const props = defineProps<{
   documents: Documents;
   overView: OverView;
-  keyWord?: string | null;
+  keyWord: string | null;
 }>();
 </script>
 
@@ -38,10 +37,13 @@ const props = defineProps<{
     >
       <!-- Search Form -->
       <div>
-        <Form class="flex flex-col md:flex-row gap-2">
-          <Input name="keyWord" :default-value="props.keyWord || ''" />
-          <Button type="submit" variant="secondary">Search</Button>
-        </Form>
+        <SearchInput
+          :action="dashboard()"
+          name="keyWord"
+          :value="props.keyWord"
+          :placeholder="$t('dashboard.search_by_keyword')"
+          class="max-w-3xl mx-auto"
+        />
       </div>
 
       <!-- Result -->

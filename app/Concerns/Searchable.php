@@ -18,12 +18,16 @@ trait Searchable
         $subject    = $filters['subject'] ?? null;
         $keyWord    = $filters['keyWord'] ?? null;
         $number     = $filters['number'] ?? null;
+        $lender     = $filters['lender'] ?? null;
+        $borrower   = $filters['borrower'] ?? null;
         $from       = $filters['fromDate'] ?? null;
         $to         = $filters['toDate'] ?? null;
 
         return $query
             ->when(filled($name), fn($q) => $q->where('name', 'LIKE', "%{$name}%"))
             ->when(filled($subject), fn($q) => $q->where('subject', 'LIKE', "%{$subject}%"))
+            ->when(filled($lender), fn($q) => $q->where('lender', 'LIKE', "%{$lender}%"))
+            ->when(filled($borrower), fn($q) => $q->where('borrower', 'LIKE', "%{$borrower}%"))
             ->when(filled($keyWord), fn($q) => $q->whereFullText('content', $keyWord))
             ->when(filled($number), fn($q) => $q->where('number', $number))
             ->when(filled($from), fn($q) => $q->where('date', '>=', $from))

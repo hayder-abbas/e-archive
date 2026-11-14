@@ -15,7 +15,7 @@ const props = defineProps<{ auditLog: AuditLog }>();
 
 <template>
   <Dialog>
-    <DialogTrigger class="w-full md:w-fit">
+    <DialogTrigger class="w-full sm:w-fit">
       <Button variant="destructive" class="cursor-pointer w-full">
         <Trash />
         {{ $t("audit_logs.clear_btn") }}

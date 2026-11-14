@@ -88,6 +88,6 @@ class BorrowController extends Controller
 
     private function getFilters(SearchRequest $request)
     {
-        return $request->only(['number']);
+        return $request->only(['number', 'lender', 'borrower']);
     }
 }
