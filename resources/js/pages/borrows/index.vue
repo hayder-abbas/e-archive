@@ -3,7 +3,7 @@ import AddBorrow from "@/components/borrow/AddBorrow.vue";
 import DeleteBorrow from "@/components/borrow/DeleteBorrow.vue";
 import EditBorrow from "@/components/borrow/EditBorrow.vue";
 import Paginate from "@/components/global/Paginate.vue";
-import Input from "@/components/ui/input/Input.vue";
+import SearchInput from "@/components/global/SearchInput.vue";
 import Table from "@/components/ui/table/Table.vue";
 import TableBody from "@/components/ui/table/TableBody.vue";
 import TableCell from "@/components/ui/table/TableCell.vue";
@@ -11,8 +11,8 @@ import TableHead from "@/components/ui/table/TableHead.vue";
 import TableHeader from "@/components/ui/table/TableHeader.vue";
 import TableRow from "@/components/ui/table/TableRow.vue";
 import borrows from "@/routes/borrows";
-import { Borrows } from "@/types";
-import { Form, Head } from "@inertiajs/vue3";
+import { Borrows, Can, Filters } from "@/types";
+import { Head } from "@inertiajs/vue3";
 
 defineOptions({
   layout: {
@@ -27,14 +27,8 @@ defineOptions({
 
 const props = defineProps<{
   borrows: Borrows;
-  filters: {
-    number: string;
-  };
-  can: {
-    create: boolean;
-    update: boolean;
-    delete: boolean;
-  };
+  filters: Filters;
+  can: Can;
 }>();
 </script>
 
@@ -42,22 +36,33 @@ const props = defineProps<{
   <Head :title="$t('sidebar.borrows')" />
 
   <div class="flex h-full flex-col gap-4 overflow-x-auto rounded-xl p-4">
-    <div
-      class="flex flex-wrap justify-between gap-4 flex-col md:flex-row lg:items-center"
-    >
-      <div class="flex gap-4 w-full md:w-fit">
-        <!-- Search by Number -->
-        <Form method="get" :action="borrows.index()" class="w-full">
-          <Input
-            name="number"
-            :default-value="props.filters.number || ''"
-            :placeholder="$t('global.search_by_number')"
-          />
-        </Form>
+    <!-- Searchs -->
+    <div class="flex flex-col-reverse md:flex-row gap-4">
+      <div class="flex flex-col md:flex-row gap-4 w-full md:w-5/6 2xl:w-4/6">
+        <SearchInput
+          :action="borrows.index()"
+          name="lender"
+          :value="props.filters.lender"
+          :placeholder="$t('global.search_by_lender')"
+        />
+
+        <SearchInput
+          :action="borrows.index()"
+          name="borrower"
+          :value="props.filters.borrower"
+          :placeholder="$t('global.search_by_borrower')"
+        />
+
+        <SearchInput
+          :action="borrows.index()"
+          name="number"
+          :value="props.filters.number"
+          :placeholder="$t('global.search_by_number')"
+        />
       </div>
 
       <!-- Add new borrow button -->
-      <div class="flex justify-end items-center w-full md:w-fit">
+      <div class="flex sm:justify-end w-full md:w-1/6 2xl:w-2/6">
         <AddBorrow v-if="props.can.create" />
       </div>
     </div>

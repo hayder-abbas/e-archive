@@ -2,7 +2,7 @@
 
 return [
     'accessing_btn' => 'Accessing the system',
-    'title' => 'Archiving system',
-    'description' => 'A system for managing and archiving official documents',
+    'title' => 'E-Archive system',
+    'description' => 'for managing and archiving official documents',
     '' => '',
 ];

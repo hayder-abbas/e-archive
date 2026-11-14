@@ -8,6 +8,7 @@ import Label from "../ui/label/Label.vue";
 import documents from "@/routes/documents";
 import Button from "../ui/button/Button.vue";
 import boxes from "@/routes/boxes";
+import { Search } from "@lucide/vue";
 
 const props = defineProps<{
   fromDate: string | null;
@@ -37,24 +38,27 @@ function submit() {
   <Form
     method="get"
     :action="submit()"
-    class="space-y-4 md:space-y-0 md:flex md:flex-row md:gap-2"
+    class="flex flex-col sm:flex-row gap-2 w-full"
   >
-    <div class="flex flex-col md:flex-row md:justify-start gap-2 w-full">
+    <div class="flex flex-col sm:flex-row gap-2 w-full">
       <Label>{{ $t("global.from") }}:</Label>
       <Input type="date" name="fromDate" :default-value="fromDate || ''" />
     </div>
 
-    <div class="flex flex-col md:flex-row md:justify-start gap-2 w-full">
+    <div class="flex flex-col sm:flex-row gap-2 w-full">
       <Label>{{ $t("global.to") }}:</Label>
       <Input type="date" name="toDate" :default-value="toDate || ''" />
     </div>
 
-    <Button
-      type="submit"
-      variant="secondary"
-      class="cursor-pointer w-full md:w-fit"
-    >
-      {{ $t("global.go_btn") }}
-    </Button>
+    <div class="w-full sm:w-fit flex justify-end">
+      <Button
+        type="submit"
+        variant="secondary"
+        class="cursor-pointer w-full sm:w-fit"
+      >
+        <Search />
+        {{ $t("global.search_btn") }}
+      </Button>
+    </div>
   </Form>
 </template>

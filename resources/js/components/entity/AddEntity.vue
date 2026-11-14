@@ -16,8 +16,8 @@ import Spinner from "../ui/spinner/Spinner.vue";
 
 <template>
   <Dialog>
-    <DialogTrigger class="w-full md:w-fit">
-      <Button class="cursor-pointer w-full" data-test="add-entity-button">
+    <DialogTrigger class="w-full sm:w-fit">
+      <Button class="cursor-pointer w-full">
         <Plus />
         {{ $t("entity.new_entity") }}
       </Button>

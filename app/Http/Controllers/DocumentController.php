@@ -141,7 +141,7 @@ class DocumentController extends Controller
     private function getFilters(SearchRequest $request)
     {
         return $request->only(
-            ['number', 'fromDate', 'toDate', 'typeFilter']
+            ['number', 'subject', 'fromDate', 'toDate', 'typeFilter']
         );
     }
 }

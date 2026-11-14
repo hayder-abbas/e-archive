@@ -3,10 +3,10 @@ import AddBox from "@/components/box/AddBox.vue";
 import BoxCard from "@/components/box/BoxCard.vue";
 import Paginate from "@/components/global/Paginate.vue";
 import SearchByDate from "@/components/global/SearchByDate.vue";
-import Input from "@/components/ui/input/Input.vue";
+import SearchInput from "@/components/global/SearchInput.vue";
 import boxes from "@/routes/boxes";
-import { Boxes } from "@/types";
-import { Form, Head } from "@inertiajs/vue3";
+import { Boxes, Can, Filters } from "@/types";
+import { Head } from "@inertiajs/vue3";
 
 defineOptions({
   layout: {
@@ -21,14 +21,8 @@ defineOptions({
 
 const props = defineProps<{
   boxes: Boxes;
-  filters: {
-    number: string;
-    fromDate: string;
-    toDate: string;
-  };
-  can: {
-    create: boolean;
-  };
+  filters: Filters;
+  can: Can;
 }>();
 </script>
 
@@ -37,28 +31,28 @@ const props = defineProps<{
 
   <div class="flex h-full flex-col gap-4 overflow-x-auto rounded-xl p-4">
     <!-- Search -->
-    <div class="grid lg:grid-cols-2 gap-4">
-      <!-- Search by box date -->
-      <SearchByDate
-        :fromDate="props.filters.fromDate"
-        :toDate="props.filters.toDate"
-      />
-
-      <div class="grid md:grid-cols-2 gap-4">
-        <!-- Search by box number -->
-        <Form method="get" :action="boxes.index()">
-          <Input
-            name="number"
-            :default-value="props.filters.number || ''"
-            :placeholder="$t('global.search_by_number')"
-          />
-        </Form>
+    <div class="flex flex-col xl:flex-row-reverse gap-4">
+      <div
+        class="flex flex-col-reverse sm:flex-row gap-4 w-full xl:w-2/5 2xl:w-1/2"
+      >
+        <SearchInput
+          :action="boxes.index()"
+          name="number"
+          :value="props.filters.number"
+          :placeholder="$t('global.search_by_number')"
+        />
 
         <!-- Add box button -->
-        <div v-if="props.can.create" class="flex justify-end items-center">
+        <div v-if="props.can.create" class="flex justify-end w-full">
           <AddBox />
         </div>
       </div>
+
+      <SearchByDate
+        :fromDate="props.filters.fromDate"
+        :toDate="props.filters.toDate"
+        class="xl:w-3/5 2xl:w-1/2"
+      />
     </div>
 
     <!-- Boxes -->

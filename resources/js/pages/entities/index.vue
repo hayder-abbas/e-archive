@@ -3,7 +3,7 @@ import AddEntity from "@/components/entity/AddEntity.vue";
 import DeleteEntity from "@/components/entity/DeleteEntity.vue";
 import EditEntity from "@/components/entity/EditEntity.vue";
 import Paginate from "@/components/global/Paginate.vue";
-import Input from "@/components/ui/input/Input.vue";
+import SearchInput from "@/components/global/SearchInput.vue";
 import Table from "@/components/ui/table/Table.vue";
 import TableBody from "@/components/ui/table/TableBody.vue";
 import TableCell from "@/components/ui/table/TableCell.vue";
@@ -11,8 +11,8 @@ import TableHead from "@/components/ui/table/TableHead.vue";
 import TableHeader from "@/components/ui/table/TableHeader.vue";
 import TableRow from "@/components/ui/table/TableRow.vue";
 import entities from "@/routes/entities";
-import { Entities } from "@/types";
-import { Form, Head } from "@inertiajs/vue3";
+import { Can, Entities, Filters } from "@/types";
+import { Head } from "@inertiajs/vue3";
 
 defineOptions({
   layout: {
@@ -27,14 +27,8 @@ defineOptions({
 
 const props = defineProps<{
   entities: Entities;
-  filters: {
-    name: string | null;
-  };
-  can: {
-    create: boolean;
-    update: boolean;
-    delete: boolean;
-  };
+  filters: Filters;
+  can: Can;
 }>();
 </script>
 
@@ -42,23 +36,18 @@ const props = defineProps<{
   <Head :title="$t('sidebar.entities')" />
 
   <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-    <div
-      class="flex flex-wrap justify-between gap-4 flex-col md:flex-row lg:items-center"
-    >
+    <div class="flex flex-col-reverse sm:flex-row md:justify-between gap-4">
       <!-- Search -->
-      <div class="flex gap-4 w-full md:w-fit">
-        <!-- Search by Name -->
-        <Form method="get" :action="entities.index()" class="w-full">
-          <Input
-            name="name"
-            :default-value="props.filters.name || ''"
-            :placeholder="$t('global.search_by_name')"
-          />
-        </Form>
-      </div>
+      <SearchInput
+        :action="entities.index()"
+        name="name"
+        :value="props.filters.name"
+        :placeholder="$t('global.search_by_name')"
+        class="md:max-w-lg"
+      />
 
-      <!-- Add Entity Dialog -->
-      <div class="flex justify-end items-center w-full md:w-fit">
+      <!-- Add Entity -->
+      <div class="flex sm:justify-end">
         <AddEntity v-if="props.can.create" />
       </div>
     </div>
@@ -71,7 +60,9 @@ const props = defineProps<{
         <TableHeader>
           <TableRow class="text-start">
             <TableHead class="text-start">#</TableHead>
-            <TableHead class="text-start">{{ $t("entity.name") }}</TableHead>
+            <TableHead class="text-start">
+              {{ $t("entity.name") }}
+            </TableHead>
             <TableHead class="text-center">
               {{ $t("entity.actions") }}
             </TableHead>

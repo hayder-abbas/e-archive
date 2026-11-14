@@ -19,10 +19,10 @@ const overView = reactive([
     <div
       v-for="{ id, title, total } in overView"
       :key="id"
-      class="relative p-6 flex flex-col items-center justify-center gap-4 aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
+      class="relative flex flex-col items-center justify-center gap-4 p-6 overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
     >
-      <div class="text-3xl lg:text-xl">{{ title }}</div>
-      <div class="font-semibold text-3xl lg:text-xl">{{ total }}</div>
+      <h2 class="text-xl">{{ $t(`dashboard.${title}`) }}</h2>
+      <div class="font-medium text-2xl">{{ total }}</div>
     </div>
   </div>
 </template>
