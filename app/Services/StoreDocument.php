@@ -23,7 +23,9 @@ class StoreDocument
 
         try {
             if ($request->hasFile('file')) {
-                $filePath = $request->file('file')->store('pdfs/' . $fields['box_id'], self::DISK);
+                $path = 'pdfs/' . now()->format('Y') . '/' . $fields['box_id'];
+                $filePath = $request->file('file')->store($path, self::DISK);
+
                 if (!$filePath) throw new \RuntimeException('Failed to store the uploaded file.');
                 $fields['file'] = $filePath;
             }

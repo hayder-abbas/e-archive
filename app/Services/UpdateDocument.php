@@ -20,9 +20,8 @@ class UpdateDocument
     {
         $fields = $request->validated();
         $boxId = $fields['box_id'];
-        $storeDir = "pdfs/{$boxId}";
+        $storeDir = 'pdfs/' . now()->format('Y') . '/' . $boxId;
         $oldPath  = $document->file;
-        $newPath  = null;
         $undo     = null;
         $replaced = false;
 
