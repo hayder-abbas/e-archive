@@ -20,18 +20,11 @@ return new class extends Migration
             $table->string('belongs_to', 50)->nullable();
             $table->text('notes')->nullable();
             $table->timestamp('revoked_at')->nullable();
-            $table->foreignId('box_id')
-                ->constrained()
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-            $table->foreignId('entity_id')
-                ->nullable()
-                ->constrained()
-                ->cascadeOnUpdate()
-                ->nullOnDelete();
+            $table->foreignId('box_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('entity_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();
 
-            $table->primary(['id', 'number', 'date']);
+            $table->unique(['number', 'date']);
             $table->fullText('content');
         });
     }
