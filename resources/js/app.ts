@@ -1,3 +1,4 @@
+import "@fontsource-variable/noto-kufi-arabic";
 import { createInertiaApp } from "@inertiajs/vue3";
 import { i18nVue } from "laravel-vue-i18n";
 import { initializeTheme } from "@/composables/useAppearance";
