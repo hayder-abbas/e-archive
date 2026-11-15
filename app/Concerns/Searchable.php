@@ -24,10 +24,10 @@ trait Searchable
         $to         = $filters['toDate'] ?? null;
 
         return $query
-            ->when(filled($name), fn($q) => $q->where('name', 'LIKE', "%{$name}%"))
-            ->when(filled($subject), fn($q) => $q->where('subject', 'LIKE', "%{$subject}%"))
-            ->when(filled($lender), fn($q) => $q->where('lender', 'LIKE', "%{$lender}%"))
-            ->when(filled($borrower), fn($q) => $q->where('borrower', 'LIKE', "%{$borrower}%"))
+            ->when(filled($name), fn($q) => $q->where('name', 'LIKE', "{$name}%"))
+            ->when(filled($subject), fn($q) => $q->where('subject', 'LIKE', "{$subject}%"))
+            ->when(filled($lender), fn($q) => $q->where('lender', 'LIKE', "{$lender}%"))
+            ->when(filled($borrower), fn($q) => $q->where('borrower', 'LIKE', "{$borrower}%"))
             ->when(filled($keyWord), fn($q) => $q->whereFullText('content', $keyWord))
             ->when(filled($number), fn($q) => $q->where('number', $number))
             ->when(filled($from), fn($q) => $q->where('date', '>=', $from))
@@ -37,7 +37,7 @@ trait Searchable
                 fn($q) => $q->where('type', $typeFilter)
             )
             ->latest('id')
-            ->paginate(20, page: $page)
+            ->paginate(50, page: $page)
             ->withQueryString()
             ->toResourceCollection();
     }

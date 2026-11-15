@@ -13,15 +13,12 @@ class DashboardController extends Controller
         $doc = new Document();
 
         return inertia('Dashboard', [
-            'documents' => Document::getResources(
-                $request,
-                Document::query()->with(['box:id,number'])->whereNull('revoked_at')
-            ),
+            'documents' => $doc::getResources($request, $doc->query()->with(['box:id,number'])),
             'overView' => [
-                'archived' => $doc->all()->count(),
+                'archived' => $doc->whereNull('revoked_at')->count(),
                 'incoming' => $doc->where('type', 'Incoming')->count(),
                 'outgoing' => $doc->where('type', 'Outgoing')->count(),
-                'borrow' => Borrow::all()->count()
+                'borrow'   => Borrow::query()->count()
             ],
             'keyWord' => $request->keyWord,
         ]);

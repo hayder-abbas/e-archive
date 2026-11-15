@@ -11,9 +11,11 @@ return new class extends Migration
         Schema::create('boxes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('number', 20)->unique();
+            $table->string('number', 20);
             $table->date('date');
             $table->timestamps();
+
+            $table->unique(['number', 'date']);
         });
     }
 
