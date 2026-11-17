@@ -160,19 +160,15 @@ DB_PASSWORD=password
 Run these commands from the project folder.
 
 ```bash
-# Create your environment file, generate key, migrate database, install and build resources
 composer setup:dev
-
-# Run the application
 composer run dev
+```
 
-# Install sail (If you want to use docker)
+Install sail (If you want to use docker)
+
+```bash
 php artisan sail:install
-
-# Start the containers (the first run builds the images and can take a few minutes)
 ./vendor/bin/sail up -d
-
-# Run the application
 composer run dev
 ```
 
@@ -280,7 +276,6 @@ composer setup:prod
 Or setup manually
 
 ```bash
-# Create the environment file
 cp .env.example .env
 ```
 
@@ -294,7 +289,6 @@ Typical deployment commands:
 ```bash
 composer install --no-dev --optimize-autoloader
 php artisan migrate --force
-# first deployment only: creates the default sudo account
 php artisan db:seed --class=UserSeeder --force
 npm ci && npm run build
 php artisan optimize
