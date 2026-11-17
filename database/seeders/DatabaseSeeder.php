@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->hasAuditLogs(50)->create([
             'name' => 'Admin',
             'email' => 'admin@mail.com',
+            'password' => bcrypt('admin123'),
             'role' => 'sudo'
         ]);
 
