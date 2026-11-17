@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Storage;
 
 class UpdateDocument
 {
-    private const DISK = 'local';
-
     public function __construct(private AuditLogger $logger) {}
 
     public function __invoke(UpdateDocumentRequest $request, Document $document): Document
@@ -28,23 +26,25 @@ class UpdateDocument
         try {
             if ($request->hasFile('file')) {
                 // Store
-                $newPath = $request->file('file')->store($storeDir, self::DISK);
+                $newPath = $request->file('file')->store($storeDir);
                 $undo = fn() => Storage::delete($newPath);
 
                 if (!$newPath) throw new \RuntimeException('Failed to store the uploaded file.');
+
                 $fields['file'] = $newPath;
                 $fields['content'] = null;
                 $replaced = true;
             } elseif ($oldPath && (int) $boxId !== (int) $document->box_id) {
                 // Move
                 $newPath = "{$storeDir}/" . basename($oldPath);
-                Storage::disk(self::DISK)->move($oldPath, $newPath) || throw new \RuntimeException("Could not move {$oldPath}");
 
+                Storage::move($oldPath, $newPath) || throw new \RuntimeException("Could not move {$oldPath}");
                 $undo = fn() => Storage::move($newPath, $oldPath);
+
                 $fields['file'] = $newPath;
             }
 
-            DB::transaction(function () use ($document, $fields, $request) {
+            DB::transaction(function () use ($document, $fields, $request, $replaced) {
                 $document->update($fields);
 
                 ($this->logger)(
@@ -54,15 +54,14 @@ class UpdateDocument
                     $document->number
                 );
 
-                if (isset($fields['file'])) ExtractPdfText::dispatch($document)->afterCommit();
+                if ($replaced) ExtractPdfText::dispatch($document)->afterCommit();
             });
         } catch (\Throwable $th) {
             if ($undo) rescue($undo);
-            $replaced = false;
             throw $th;
         }
 
-        if ($replaced && !!$oldPath) rescue(fn() => Storage::delete($oldPath));
+        if ($oldPath !== null) rescue(fn() => Storage::delete($oldPath));
 
         return $document;
     }
