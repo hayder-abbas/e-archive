@@ -9,9 +9,10 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory()->create([
+        User::create([
             'name' => 'Admin',
             'email' => 'admin@mail.com',
+            'password' => bcrypt('admin123'),
             'role' => 'sudo'
         ]);
     }
