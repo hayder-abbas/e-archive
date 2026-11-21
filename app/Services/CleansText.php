@@ -55,16 +55,11 @@ class CleansText
         static $lookup = null;
 
         if ($lookup === null) {
-            $stopWords = new StopWords();
+            $sw = new StopWords();
 
             $lookup = array_flip(array_map(
                 fn($w) => $this->normalize($w),
-                [
-                    ...$stopWords->getStopWordsFromLanguage('ar'),
-                    ...$this->getArabicStopWords(),
-                    ...$stopWords->getStopWordsFromLanguage('en'),
-                    ...$this->getEnglishStopwords(),
-                ]
+                [...$this->arabicStopWords($sw), ...$this->englishStopwords($sw)]
             ));
         }
 
