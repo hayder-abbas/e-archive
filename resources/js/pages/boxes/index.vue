@@ -5,7 +5,7 @@ import Paginate from "@/components/global/Paginate.vue";
 import SearchByDate from "@/components/global/SearchByDate.vue";
 import SearchInput from "@/components/global/SearchInput.vue";
 import boxes from "@/routes/boxes";
-import { Boxes, Can, Filters } from "@/types";
+import { Boxes, Can, Searches } from "@/types";
 import { Head } from "@inertiajs/vue3";
 
 defineOptions({
@@ -21,7 +21,7 @@ defineOptions({
 
 const props = defineProps<{
   boxes: Boxes;
-  filters: Filters;
+  searches: Searches;
   can: Can;
 }>();
 </script>
@@ -38,7 +38,7 @@ const props = defineProps<{
         <SearchInput
           :action="boxes.index()"
           name="number"
-          :value="props.filters.number"
+          :value="props.searches.number"
           :placeholder="$t('global.search_by_number')"
         />
 
@@ -49,8 +49,8 @@ const props = defineProps<{
       </div>
 
       <SearchByDate
-        :fromDate="props.filters.fromDate"
-        :toDate="props.filters.toDate"
+        :fromDate="props.searches.fromDate"
+        :toDate="props.searches.toDate"
         class="xl:w-3/5 2xl:w-1/2"
       />
     </div>
@@ -59,7 +59,7 @@ const props = defineProps<{
     <div
       class="relative min-h-screen p-4 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border overflow-hidden"
     >
-      <div class="grid gap-4 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6">
+      <div class="grid gap-2 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6">
         <BoxCard v-for="box in props.boxes.data" :key="box.id" :box="box" />
       </div>
 

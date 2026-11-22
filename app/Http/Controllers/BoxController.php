@@ -23,16 +23,17 @@ class BoxController extends Controller
 
         return inertia('boxes/index', [
             'boxes' => Box::getResources($request, Box::query()),
-            'filters' => $this->getFilters($request),
             'can' => [
                 'create' => Gate::allows('create', $box),
                 'update' => Gate::allows('update', $box),
             ],
+            'searches' => $request->only(['number', 'fromDate', 'toDate']),
+            'typeFilter' => $request->input('typeFilter'),
         ]);
     }
 
 
-    public function show(Box $box, SearchRequest $request)
+    public function show(SearchRequest $request, Box $box)
     {
         Gate::authorize('view', $box);
 
@@ -48,7 +49,8 @@ class BoxController extends Controller
             'box' => $box->toResource(),
             'boxes' => $this->getBoxes(),
             'entities' => $this->getEntities(),
-            'filters' => $this->getFilters($request),
+            'searches' => $request->only(['number', 'fromDate', 'toDate']),
+            'typeFilter' => $request->input('typeFilter'),
         ]);
     }
 
@@ -72,9 +74,7 @@ class BoxController extends Controller
     private function getBoxes()
     {
         return Box::cached(
-            fn() => Box::latest('id')
-                ->get(['id', 'number'])
-                ->toResourceCollection(),
+            fn() => Box::latest('id')->get(['id', 'number'])->toResourceCollection(),
             "boxes:page:all"    // [table]:page:all
         );
     }
@@ -83,18 +83,8 @@ class BoxController extends Controller
     private function getEntities()
     {
         return Entity::cached(
-            fn() => Entity::latest('id')
-                ->get()
-                ->toResourceCollection(),
+            fn() => Entity::latest('id')->get()->toResourceCollection(),
             "entities:page:all" // [table]:page:all
-        );
-    }
-
-
-    private function getFilters(SearchRequest $request)
-    {
-        return $request->only(
-            ['number', 'fromDate', 'toDate', 'typeFilter']
         );
     }
 }

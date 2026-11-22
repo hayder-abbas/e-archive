@@ -1,14 +1,21 @@
 <script setup lang="ts">
-import { Box, Boxes, Documents, Entities } from "@/types";
-import { Form, Head } from "@inertiajs/vue3";
+import {
+  Box,
+  Boxes,
+  Can,
+  Documents,
+  Entities,
+  TypeFilter,
+  Searches,
+} from "@/types";
+import { Head } from "@inertiajs/vue3";
 import DocumentCard from "@/components/document/DocumentCard.vue";
-import FilterByType from "@/components/global/FilterByType.vue";
 import SearchByDate from "@/components/global/SearchByDate.vue";
-import Input from "@/components/ui/input/Input.vue";
 import boxes from "@/routes/boxes";
 import EditBox from "@/components/box/EditBox.vue";
 import Paginate from "@/components/global/Paginate.vue";
 import AddDocument from "@/components/document/AddDocument.vue";
+import SearchInput from "@/components/global/SearchInput.vue";
 
 defineOptions({
   layout: {
@@ -29,15 +36,9 @@ const props = defineProps<{
   box: { data: Box };
   boxes: Boxes;
   entities: Entities;
-  filters: {
-    number: string | null;
-    fromDate: string | null;
-    toDate: string | null;
-  };
-  can: {
-    create: boolean;
-    update: boolean;
-  };
+  searches: Searches;
+  typeFilter: TypeFilter;
+  can: Can;
 }>();
 </script>
 
@@ -47,7 +48,7 @@ const props = defineProps<{
   <div class="flex h-full flex-col gap-4 overflow-x-auto rounded-xl p-4">
     <header>
       <div
-        class="flex flex-col md:flex-row items-start md:justify-between md:items-center gap-4"
+        class="flex flex-col sm:flex-row items-start md:justify-between md:items-center gap-4"
       >
         <div class="flex items-center gap-4 font-bold w-full">
           <h2>{{ box.data.boxName }}</h2>
@@ -72,27 +73,31 @@ const props = defineProps<{
       </div>
     </header>
 
-    <!-- Search -->
-    <div class="grid lg:grid-cols-2 gap-4">
-      <!-- Search by date -->
-      <SearchByDate
-        :fromDate="props.filters.fromDate"
-        :toDate="props.filters.toDate"
-        :box="props.box.data"
-      />
+    <!-- Searchs -->
+    <div class="space-y-4">
+      <div class="flex flex-col sm:flex-row gap-4 w-full xl:w-1/2">
+        <SearchInput
+          :action="boxes.show(props.box.data)"
+          name="subject"
+          :value="props.searches.subject"
+          :placeholder="$t('global.search_by_subject')"
+        />
 
-      <div class="grid md:grid-cols-2 gap-4 items-end">
-        <!-- Search by document number -->
-        <Form method="get" :action="boxes.show(props.box.data)">
-          <Input
-            name="number"
-            :default-value="props.filters.number || ''"
-            :placeholder="$t('global.search_by_number')"
-          />
-        </Form>
+        <SearchInput
+          :action="boxes.show(props.box.data)"
+          name="number"
+          :value="props.searches.number"
+          :placeholder="$t('global.search_by_number')"
+        />
+      </div>
 
-        <!-- Filter by document type -->
-        <FilterByType :box="props.box.data" class="md:flex-1 lg:flex-none" />
+      <div class="w-full 2xl:w-1/2">
+        <SearchByDate
+          :fromDate="props.searches.fromDate"
+          :toDate="props.searches.toDate"
+          :typeFilter="props.typeFilter"
+          :box="props.box.data"
+        />
       </div>
     </div>
 

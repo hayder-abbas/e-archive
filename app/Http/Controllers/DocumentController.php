@@ -29,9 +29,9 @@ class DocumentController extends Controller
         $doc = new Document();
 
         return inertia('documents/index', [
-            'documents' => Document::getResources(
+            'documents' => $doc::getResources(
                 $request,
-                Document::query()->with(['box:id,number'])->whereNull('revoked_at')
+                $doc->query()->with(['box:id,number'])->whereNull('revoked_at')
             ),
             'can' => [
                 'create' => Gate::allows('create', $doc),
@@ -39,7 +39,8 @@ class DocumentController extends Controller
             ],
             'boxes' => $this->getBoxes(),
             'entities' => $this->getEntities(),
-            'filters' => $this->getFilters($request),
+            'searches' => $request->only(['number', 'subject', 'fromDate', 'toDate']),
+            'typeFilter' => $request->input('typeFilter'),
         ]);
     }
 
@@ -106,12 +107,15 @@ class DocumentController extends Controller
     public function revokeds(SearchRequest $request)
     {
         Gate::authorize('viewAny', Document::class);
+        $doc = new Document();
+
         return inertia('Revokeds', [
-            'revokeds' => Document::getResources(
+            'revokeds' => $doc::getResources(
                 $request,
-                Document::query()->with('box:id,number')->whereNotNull('revoked_at')
+                $doc->query()->with('box:id,number')->whereNotNull('revoked_at')
             ),
-            'filters' => $this->getFilters($request),
+            'searches' => $request->only(['number', 'subject', 'fromDate', 'toDate']),
+            'typeFilter' => $request->input('typeFilter'),
         ]);
     }
 
@@ -119,9 +123,7 @@ class DocumentController extends Controller
     private function getBoxes()
     {
         return Box::cached(
-            fn() => Box::latest('id')
-                ->get(['id', 'number'])
-                ->toResourceCollection(),
+            fn() => Box::latest('id')->get(['id', 'number'])->toResourceCollection(),
             "boxes:page:all"    // [table]:page:all
         );
     }
@@ -130,18 +132,8 @@ class DocumentController extends Controller
     private function getEntities()
     {
         return Entity::cached(
-            fn() => Entity::latest('id')
-                ->get()
-                ->toResourceCollection(),
+            fn() => Entity::latest('id')->get()->toResourceCollection(),
             "entities:page:all" // [table]:page:all
-        );
-    }
-
-
-    private function getFilters(SearchRequest $request)
-    {
-        return $request->only(
-            ['number', 'subject', 'fromDate', 'toDate', 'typeFilter']
         );
     }
 }

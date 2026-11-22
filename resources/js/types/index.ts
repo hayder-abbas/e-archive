@@ -7,5 +7,6 @@ export * from "./boxes";
 export * from "./documents";
 export * from "./entities";
 export * from "./paginate";
-export * from "./filters";
+export * from "./searches";
+export * from "./typeFilter";
 export * from "./can";
