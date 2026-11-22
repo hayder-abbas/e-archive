@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head } from "@inertiajs/vue3";
-import { Documents, Filters } from "@/types";
+import { Documents, Searches, TypeFilter } from "@/types";
 import { revokeds } from "@/routes";
 import DocumentCard from "@/components/document/DocumentCard.vue";
 import Paginate from "@/components/global/Paginate.vue";
@@ -20,7 +20,8 @@ defineOptions({
 
 const props = defineProps<{
   revokeds: Documents;
-  filters: Filters;
+  searches: Searches;
+  typeFilter: TypeFilter;
 }>();
 </script>
 
@@ -32,8 +33,9 @@ const props = defineProps<{
     <div class="flex flex-wrap lg:flex-row gap-4">
       <div class="w-full max-w-3xl">
         <SearchByDate
-          :fromDate="props.filters.fromDate"
-          :toDate="props.filters.toDate"
+          :fromDate="props.searches.fromDate"
+          :toDate="props.searches.toDate"
+          :typeFilter="props.typeFilter"
         />
       </div>
 
@@ -41,14 +43,14 @@ const props = defineProps<{
         <SearchInput
           :action="revokeds()"
           name="subject"
-          :value="props.filters.subject"
+          :value="props.searches.subject"
           :placeholder="$t('global.search_by_subject')"
         />
 
         <SearchInput
           :action="revokeds()"
           name="number"
-          :value="props.filters.number"
+          :value="props.searches.number"
           :placeholder="$t('global.search_by_number')"
         />
       </div>

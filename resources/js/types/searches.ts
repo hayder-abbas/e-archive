@@ -1,4 +1,4 @@
-export type Filters = {
+export type Searches = {
     name: string | null;
     number: string | null;
     subject: string | null;

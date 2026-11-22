@@ -19,7 +19,7 @@ const props = defineProps<{ box: { data: Box } }>();
 
 <template>
   <Dialog>
-    <DialogTrigger class="w-full md:w-fit">
+    <DialogTrigger class="w-full sm:w-fit">
       <Button variant="outline" class="cursor-pointer w-full md:w-fit">
         <Edit />
         {{ $t("box.edit_box_btn") }}

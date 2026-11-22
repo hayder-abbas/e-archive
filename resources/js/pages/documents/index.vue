@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { Boxes, Can, Documents, Entities, Filters } from "@/types";
+import { Boxes, Can, Documents, Entities, Searches, TypeFilter } from "@/types";
 import { Head } from "@inertiajs/vue3";
 import DocumentCard from "@/components/document/DocumentCard.vue";
-import FilterByType from "@/components/global/FilterByType.vue";
 import SearchByDate from "@/components/global/SearchByDate.vue";
 import Paginate from "@/components/global/Paginate.vue";
 import documents from "@/routes/documents";
@@ -24,7 +23,8 @@ const props = defineProps<{
   documents: Documents;
   boxes: Boxes;
   entities: Entities;
-  filters: Filters;
+  searches: Searches;
+  typeFilter: TypeFilter;
   can: Can;
 }>();
 </script>
@@ -35,15 +35,25 @@ const props = defineProps<{
   <div class="flex h-full flex-col gap-4 overflow-x-auto rounded-xl p-4">
     <!-- Searchs -->
     <div class="space-y-4">
-      <div class="flex flex-col-reverse lg:flex-row gap-4">
-        <SearchByDate
-          :fromDate="props.filters.fromDate"
-          :toDate="props.filters.toDate"
-          class="w-full lg:w-2/3 2xl:w-3/6"
-        />
+      <div class="flex flex-col-reverse sm:flex-row gap-4">
+        <div class="flex flex-col sm:flex-row gap-4 w-full xl:w-1/2">
+          <SearchInput
+            :action="documents.index()"
+            name="subject"
+            :value="props.searches.subject"
+            :placeholder="$t('global.search_by_subject')"
+          />
+
+          <SearchInput
+            :action="documents.index()"
+            name="number"
+            :value="props.searches.number"
+            :placeholder="$t('global.search_by_number')"
+          />
+        </div>
 
         <!-- Add new document button -->
-        <div class="flex justify-end w-full lg:w-1/3 2xl:w-3/6">
+        <div class="flex justify-end xl:w-1/2">
           <AddDocument
             v-if="props.can.create"
             :boxes="boxes"
@@ -52,29 +62,12 @@ const props = defineProps<{
         </div>
       </div>
 
-      <div class="flex flex-col md:flex-row 2xl:justify-between gap-4">
-        <div class="flex flex-col md:flex-row xl:w-2/3 2xl:w-1/2 gap-4 w-full">
-          <SearchInput
-            :action="documents.index()"
-            name="subject"
-            :value="props.filters.subject"
-            :placeholder="$t('global.search_by_subject')"
-          />
-
-          <SearchInput
-            :action="documents.index()"
-            name="number"
-            :value="props.filters.number"
-            :placeholder="$t('global.search_by_number')"
-          />
-        </div>
-
-        <!-- Filters -->
-        <div class="w-full md:w-1/3 flex justify-end">
-          <div class="w-full xl:w-36">
-            <FilterByType />
-          </div>
-        </div>
+      <div class="w-full 2xl:w-1/2">
+        <SearchByDate
+          :fromDate="props.searches.fromDate"
+          :toDate="props.searches.toDate"
+          :typeFilter="props.typeFilter"
+        />
       </div>
     </div>
 
