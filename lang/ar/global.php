@@ -27,5 +27,5 @@ return [
     // Paginate
     'page :current' => 'صفحة :current',
     'of :last' => 'من :last',
-    '(:total) total_items' => '(:total) اجمالي الصفوف',
+    '(:total) total' => '(:total) اجمالي',
 ];

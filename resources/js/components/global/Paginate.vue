@@ -9,30 +9,32 @@ defineProps<{ meta: Meta }>();
 <template>
   <div
     v-if="meta.links.length > 3"
-    class="flex flex-col md:flex-row items-start md:items-center gap-4 justify-between mt-8"
+    class="flex flex-col xl:flex-row xl:items-center items-start gap-4 mt-8"
   >
-    <div class="text-sm">
+    <div class="w-full text-sm px-6 py-4">
       {{ $t("global.page :current", { current: String(meta.current_page) }) }}
       {{ $t("global.of :last", { last: String(meta.last_page) }) }} -
-      {{ $t("global.(:total) total_items", { total: String(meta.total) }) }}
+      {{ $t("global.(:total) total", { total: String(meta.total) }) }}
     </div>
 
-    <div>
-      <div class="flex items-center gap-1">
-        <Button
-          v-for="(link, index) in meta.links"
-          :key="index"
-          :disabled="!link.url"
-          :class="{ 'bg-accent': link.active }"
-          as-child
-          variant="ghost"
-          size="sm"
-        >
-          <Link :href="link.url || '#'">
-            <span v-html="link.label"></span>
-          </Link>
-        </Button>
-      </div>
+    <div
+      class="w-full flex items-center justify-between gap-1 px-6 *:hidden *:first:block *:last:block md:*:block"
+    >
+      <Button
+        v-for="(link, index) in meta.links"
+        :key="index"
+        :disabled="!link.url"
+        as-child
+        variant="ghost"
+        size="sm"
+        :class="{ 'bg-accent': link.active }"
+      >
+        <Link
+          :href="link.url || '#'"
+          v-html="link.label"
+          class="leading-8 text-sm"
+        ></Link>
+      </Button>
     </div>
   </div>
 </template>

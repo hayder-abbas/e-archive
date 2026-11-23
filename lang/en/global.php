@@ -27,5 +27,5 @@ return [
     // Paginate
     'page :current' => 'Page :current',
     'of :last' => 'of :last',
-    '(:total) total_items' => '(:total) total items',
+    '(:total) total' => '(:total) total',
 ];
