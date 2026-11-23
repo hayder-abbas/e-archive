@@ -25,8 +25,7 @@ class DocumentFactory extends Factory
             'subject' => fake()->word(),
             'type' => fake()->randomElement(['Incoming', 'Outgoing']),
             'security' => fake()->randomElement(['Normal', 'Secure']),
-            'belongs_to' => fake()->buildingNumber(),
-            'notes' => fake()->paragraph(2),
+            'notes' => fake()->paragraph(),
             'box_id' => Box::factory(),
             'entity_id' => Entity::factory(),
         ];

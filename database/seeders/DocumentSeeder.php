@@ -14,7 +14,7 @@ class DocumentSeeder extends Seeder
         Document::factory()
             ->for(Box::factory()->create())
             ->for(Entity::factory()->create())
-            ->count(100)
+            ->count(3000)
             ->create();
     }
 }
