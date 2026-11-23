@@ -20,6 +20,7 @@ const props = defineProps<{
 
 const component = ref(usePage().component);
 const selected = ref(props.typeFilter || "all");
+const formRef = ref<HTMLFormElement | null>(null);
 
 function submit() {
   switch (component.value) {
@@ -39,6 +40,7 @@ function submit() {
 
 <template>
   <Form
+    ref="formRef"
     :action="submit()"
     class="flex flex-col sm:flex-row gap-4 sm:gap-2 w-full"
   >
@@ -54,18 +56,6 @@ function submit() {
       </div>
     </div>
 
-    <!-- Filter -->
-    <div
-      v-if="component !== 'boxes/index'"
-      class="flex items-center px-4 py-1 w-full sm:w-40 lg:w-44 xl:w-64 border border-gray-200 rounded-md"
-    >
-      <select v-model="selected" name="typeFilter" class="w-full text-sm">
-        <option value="all">{{ $t("global.all") }}</option>
-        <option value="Incoming">{{ $t("document.Incoming") }}</option>
-        <option value="Outgoing">{{ $t("document.Outgoing") }}</option>
-      </select>
-    </div>
-
     <div class="w-full flex justify-end sm:w-fit">
       <Button
         type="submit"
@@ -75,6 +65,23 @@ function submit() {
         <Search />
         <span class="sm:hidden xl:block">{{ $t("global.search_btn") }}</span>
       </Button>
+    </div>
+
+    <!-- Filter -->
+    <div
+      v-if="component !== 'boxes/index'"
+      class="flex items-center px-4 py-1 w-full sm:w-40 lg:w-44 xl:w-64 border border-secondary dark:bg-primary-foreground rounded-md"
+    >
+      <select
+        v-model="selected"
+        @change="formRef?.submit()"
+        name="typeFilter"
+        class="w-full text-sm"
+      >
+        <option value="all">{{ $t("global.all") }}</option>
+        <option value="Incoming">{{ $t("document.Incoming") }}</option>
+        <option value="Outgoing">{{ $t("document.Outgoing") }}</option>
+      </select>
     </div>
   </Form>
 </template>
