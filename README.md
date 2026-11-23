@@ -27,7 +27,6 @@
 - [Running the tests](#running-the-tests)
 - [Handy Sail commands](#handy-sail-commands)
 - [Troubleshooting](#troubleshooting)
-- [Deploying to production](#deploying-to-production)
 - [Contributing](#contributing)
 - [License](#license)
 - [Acknowledgements](#acknowledgements)
@@ -88,7 +87,7 @@ Laravel controllers hand data to Vue pages through Inertia.js, so the app feels 
 
 | Layer       | Technology                    | Role in the project                                                                    |
 | ----------- | ----------------------------- | -------------------------------------------------------------------------------------- |
-| Back end    | Laravel 13 (PHP 8.3+)         | Routing, validation, authorization, file storage, PDF text extraction, database access |
+| Back end    | Laravel 13 (PHP 8.4+)         | Routing, validation, authorization, file storage, PDF text extraction, database access |
 | Front end   | Vue 3, Inertia.js, TypeScript | Pages and components, connected to Laravel without a separate API                      |
 | UI          | Tailwind CSS, shadcn-vue      | Styling and ready-made, accessible components                                          |
 | Database    | MariaDB                       | Boxes, documents, borrowing records, users, entities and audit logs                    |
@@ -115,13 +114,13 @@ Laravel controllers hand data to Vue pages through Inertia.js, so the app feels 
 
 - [Docker](https://docs.docker.com/get-docker/) (Recomended): Docker Desktop on macOS and Windows, or Docker Engine with the Compose plugin on Linux.
 - [Git](https://git-scm.com/downloads), or you can download the project as a ZIP file.
-- [PHP](https://www.php.net/downloads.php) >= 8.3
-- [Node](https://nodejs.org/en/download) >= 22
+- [PHP](https://www.php.net/downloads.php) >= 8.4
+- [Node](https://nodejs.org/en/download) >= 24
 - [Composer](https://getcomposer.org/download/)
 - [Mariadb](https://mariadb.org/) (or MySQL)
 - **Cup of coffee "Important"**
 
-PDF text extraction needs `poppler-utils`, `tesseract-ocr`, `tesseract-ocr-eng`, and `tesseract-ocr-ara`. They are already installed in the Sail Dockerfile, so Sail users need to do nothing.
+PDF text extraction needs `poppler-utils`, `tesseract-ocr`, `tesseract-ocr-eng`, `tesseract-ocr-ara` and `libtesseract-dev`. They are already installed in the Sail Dockerfile, so Sail users need to do nothing.
 
 By default the app uses these ports on your machine: **80** (web app), **5173** (Vite dev server), and **3306** (MariaDB). If one of them is already taken, see [Troubleshooting](#troubleshooting).
 
@@ -132,6 +131,7 @@ Clone the repository:
 ```bash
 git clone https://github.com/hayder-abbas/e-archive
 cd e-archive
+cp .env.example .env
 ```
 
 Prefer not to use Git? On the repository page choose **Code → Download ZIP**, extract it, and open a terminal inside the extracted folder.
@@ -160,16 +160,13 @@ DB_PASSWORD=password
 Run these commands from the project folder.
 
 ```bash
-composer setup:dev
-composer run dev
-```
-
-Install sail (If you want to use docker)
-
-```bash
+composer install
+php artisan key:generate
 php artisan sail:install
 ./vendor/bin/sail up -d
-composer run dev
+./vendor/bin/sail artisan migrate --seed
+./vendor/bin/sail npm i && npm run build
+./vendor/bin/sail composer run dev
 ```
 
 Open <http://localhost> in your browser. You should see the login page.
@@ -262,37 +259,6 @@ It is probably larger than the PHP upload limit. Raise `upload_max_filesize` and
 
 **Search does not find words that are inside a PDF**
 The scan may be too blurry, skewed, or low-resolution for OCR to read, or the text is in a language other than English or Arabic, and only the first two pages are indexed ([here](#good-to-know-about-search)). Re-scan at a higher quality (300 DPI is a good target). To add a language, install its package (for example tesseract-ocr-fra) in the Dockerfile and rebuild with ./vendor/bin/sail build --no-cache.
-
-## Deploying to production
-
-Sail is built for local development. For a live server, run the app with PHP-FPM behind Nginx or Apache (or with your own production container image) and follow this checklist:
-
-Run this command to set everything up automatically.
-
-```bash
-composer setup:prod
-```
-
-Or setup manually
-
-```bash
-cp .env.example .env
-```
-
-- Set `APP_ENV=production` and `APP_DEBUG=false` in `.env`.
-- Change the default sudo password and use strong database credentials.
-- Make sure PHP and your web server accept the PDF sizes you expect (`upload_max_filesize`, `post_max_size`, and `client_max_body_size` on Nginx).
-- Back up the database and the `storage/app/private/` directory regularly. Your archive lives in both.
-
-Typical deployment commands:
-
-```bash
-composer install --no-dev --optimize-autoloader
-php artisan migrate --force
-php artisan db:seed --class=UserSeeder --force
-npm ci && npm run build
-php artisan optimize
-```
 
 ## Contributing
 
