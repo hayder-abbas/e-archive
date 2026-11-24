@@ -18,7 +18,7 @@ defineProps<{ meta: Meta }>();
     </div>
 
     <div
-      class="w-full flex items-center justify-between gap-1 px-6 *:hidden *:first:block *:last:block md:*:block"
+      class="w-full sm:w-fit flex items-center justify-between gap-1 px-6 *:hidden *:first:block *:last:block md:*:block"
     >
       <Button
         v-for="(link, index) in meta.links"
