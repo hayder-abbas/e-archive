@@ -33,7 +33,7 @@ const { isCurrentOrParentUrl } = useCurrentUrl();
 </script>
 
 <template>
-  <div class="px-4 py-6">
+  <div class="px-4 py-6 min-h-dvh">
     <Heading
       :title="$t('settings.title')"
       :description="$t('settings.description')"
