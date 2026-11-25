@@ -29,7 +29,7 @@
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 - [License](#license)
-- [Acknowledgements](#acknowledgements)
+- [Database design](./docs/DATABASE.md)
 
 ## About the project
 
@@ -274,15 +274,3 @@ Found a bug or have an idea? Please open an issue.
 ## License
 
 Released under the [GPL License](LICENSE).
-
-## Acknowledgements
-
-E-Archive is built on these open-source projects:
-
-- [Laravel](https://laravel.com) and [Laravel Sail](https://laravel.com/docs/13.x/sail)
-- [Inertia.js](https://inertiajs.com)
-- [Vue.js](https://vuejs.org)
-- [Tailwind CSS](https://tailwindcss.com)
-- [shadcn-vue](https://www.shadcn-vue.com)
-- [MariaDB](https://mariadb.org)
-- [Pest](https://pestphp.com)
