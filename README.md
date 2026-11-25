@@ -273,4 +273,4 @@ Found a bug or have an idea? Please open an issue.
 
 ## License
 
-Released under the [GPL License](LICENSE).
+Released under the [MIT License](LICENSE).
