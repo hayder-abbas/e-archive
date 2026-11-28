@@ -24,7 +24,7 @@ const props = defineProps<{
   boxes: Boxes;
   entities: Entities;
   searches: Searches;
-  typeFilter: TypeFilter;
+  typeFilter: TypeFilter | null;
   can: Can;
 }>();
 </script>
@@ -66,7 +66,7 @@ const props = defineProps<{
         <SearchByDate
           :fromDate="props.searches.fromDate"
           :toDate="props.searches.toDate"
-          :typeFilter="props.typeFilter"
+          :typeFilter="props.typeFilter || 'all'"
         />
       </div>
     </div>

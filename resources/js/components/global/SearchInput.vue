@@ -6,7 +6,7 @@ import Input from "../ui/input/Input.vue";
 const props = defineProps<{
   action: RouteDefinition<"get">;
   name: string;
-  value: string | null;
+  value?: string | null;
   placeholder: string | null;
 }>();
 </script>
