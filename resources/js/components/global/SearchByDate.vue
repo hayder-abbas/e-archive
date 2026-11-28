@@ -12,14 +12,14 @@ import Button from "../ui/button/Button.vue";
 import boxes from "@/routes/boxes";
 
 const props = defineProps<{
-  fromDate: string | null;
-  toDate: string | null;
+  fromDate: string | null | undefined;
+  toDate: string | null | undefined;
   typeFilter?: TypeFilter;
   box?: Box;
 }>();
 
 const component = ref(usePage().component);
-const selected = ref(props.typeFilter || "all");
+const selected = ref(props.typeFilter);
 const formRef = ref<HTMLFormElement | null>(null);
 
 function submit() {

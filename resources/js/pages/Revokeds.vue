@@ -21,7 +21,7 @@ defineOptions({
 const props = defineProps<{
   revokeds: Documents;
   searches: Searches;
-  typeFilter: TypeFilter;
+  typeFilter: TypeFilter | null;
 }>();
 </script>
 
@@ -35,7 +35,7 @@ const props = defineProps<{
         <SearchByDate
           :fromDate="props.searches.fromDate"
           :toDate="props.searches.toDate"
-          :typeFilter="props.typeFilter"
+          :typeFilter="props.typeFilter || 'all'"
         />
       </div>
 
